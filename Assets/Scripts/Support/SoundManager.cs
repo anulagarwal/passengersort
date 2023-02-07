@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Lofelt.NiceVibrations;
 public class SoundManager : MonoBehaviour
 {
     [System.Serializable]
@@ -42,5 +42,6 @@ public class SoundManager : MonoBehaviour
     {
         source.clip = sounds.Find(x => x.type == type).sound;
         source.Play();
+        HapticPatterns.PlayPreset(HapticPatterns.PresetType.LightImpact);
     }
 }

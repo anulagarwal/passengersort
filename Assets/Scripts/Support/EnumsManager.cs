@@ -60,3 +60,32 @@ public enum TileState
     Wall,
     Cat
 }
+
+public enum CharacterColor
+{
+    Red,
+    Blue,
+    Green,
+    Yellow
+}
+
+public enum CharacterState
+{
+    Idle,
+    Moving,
+    Moved
+}
+
+public enum BusState
+{
+    Idle,
+    Moving
+}
+
+public enum BusPointType
+{
+    Empty,
+    Occupied,
+    Locked
+    
+}
