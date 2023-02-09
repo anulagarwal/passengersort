@@ -31,8 +31,7 @@ public class BusPoint : MonoBehaviour
         {
             if (CoinManager.Instance.SubtractCoins(cost, transform.position))
             {
-                Unlock();
-                UpdateState(BusPointType.Empty);
+                Invoke("Unlock", 2f);
             }
         }
     }
@@ -81,6 +80,8 @@ public class BusPoint : MonoBehaviour
         //Disable Box Collider
         locked.SetActive(false);
         BusManager.Instance.GetComponent<BusProvider>().SendEmptyBus(this);
+        UpdateState(BusPointType.Empty);
+
         //fly coins from ui - add to coinmanager only this functionality
     }
     public int GetCost()

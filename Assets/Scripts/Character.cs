@@ -32,8 +32,8 @@ public class Character : MonoBehaviour
     {
         if (state == CharacterState.Moving && agent.enabled)
         {
-            if (agent.remainingDistance <= agent.stoppingDistance/2)
-            {
+            if (agent.remainingDistance <= 0.7f)
+            { 
                 UpdateState(CharacterState.Idle);
                 b.CheckForPassengers();
             }
