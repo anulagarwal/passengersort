@@ -29,7 +29,7 @@ public class BusPoint : MonoBehaviour
     {
         if(type == BusPointType.Locked)
         {
-            if (CoinManager.Instance.SubtractCoins(cost))
+            if (CoinManager.Instance.SubtractCoins(cost, transform.position))
             {
                 Unlock();
                 UpdateState(BusPointType.Empty);

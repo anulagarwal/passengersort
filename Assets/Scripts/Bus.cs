@@ -31,6 +31,7 @@ public class Bus : MonoBehaviour
 
 
 
+
     #region Mono events
     // Start is called before the first frame update
     void Start()
@@ -40,6 +41,8 @@ public class Bus : MonoBehaviour
         {
 
         }
+
+        print(Camera.main.WorldToScreenPoint(transform.position));
     }
 
     // Update is called once per frame
@@ -167,6 +170,8 @@ public class Bus : MonoBehaviour
                 if (IsAllRowSimilar())
                 {
                     isComplete = true;
+                    CoinManager.Instance.AddCoins(50, transform.position);
+                    confetti.SetActive(true);                    
                     SendToTravel();                    
                 }
             }

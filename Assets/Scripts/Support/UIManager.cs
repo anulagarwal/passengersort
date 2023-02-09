@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using DG.Tweening;
+using System.Threading.Tasks;
 public class UIManager : MonoBehaviour
 {
     #region Properties
@@ -29,6 +31,9 @@ public class UIManager : MonoBehaviour
 
     [Header("Reward/Coins")]
     [SerializeField] List<Text> allCurrentCoins = null;
+    [SerializeField] Transform coinBarPos = null;
+    [SerializeField] List<Transform> coins = null;
+
 
     [Header("Post Level")]
     [SerializeField] Button multiplyReward;
@@ -174,6 +179,62 @@ public class UIManager : MonoBehaviour
 
     #endregion
 
+    #region Coin Pool
+
+    public async void SendPoolTo(bool add, Vector3 worldPos)
+    {
+        if (add)
+        {
+            foreach (Transform c in coins)
+            {
+                c.gameObject.SetActive(true);
+                c.transform.position = new Vector3(Camera.main.WorldToScreenPoint(worldPos).x + Random.Range(-50, 50), Camera.main.WorldToScreenPoint(worldPos).y + Random.Range(-50, 50));
+                c.transform.localScale = Vector3.one;
+                await Task.Delay(50);              
+            }
+        }
+
+        else
+        {
+            foreach (Transform c in coins)
+            {
+                c.gameObject.SetActive(true);
+                c.transform.position = new Vector3(coinBarPos.position.x + Random.Range(-50, 50), coinBarPos.position.y + Random.Range(-50, 50));
+                c.transform.localScale = Vector3.one;
+                await Task.Delay(50);
+
+            }
+        }
+
+        if (add)
+        {
+            foreach (Transform c in coins)
+            {
+                await Task.Delay(50);
+                c.transform.DOScale(Vector3.one * 0.5f, 0.5f);
+                c.transform.DOMove(coinBarPos.position, 1.5f).OnComplete(() => {
+                    c.gameObject.SetActive(false);
+                });
+            }
+        }
+
+        else
+        {
+            foreach (Transform c in coins)
+            {
+                
+                await Task.Delay(50);
+
+                c.transform.DOScale(Vector3.one * 0.75f, 0.5f);
+                c.transform.DOMove(Camera.main.WorldToScreenPoint(worldPos), 1f).OnComplete(() => {
+                    c.gameObject.SetActive(false);
+                });
+            }
+        }
+    }
+
+
+    #endregion
 
     #region Button Click events
 

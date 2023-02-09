@@ -36,6 +36,7 @@ public class DealBus : MonoBehaviour
 
    public void Deal()
     {
+        //Disable deal mechanic when no more space
         UnPackBus();
         for(int i = rows.Count-1; i>=0; i--)
         {

@@ -44,10 +44,6 @@ public class DealBusProvider : MonoBehaviour
         GameObject g = Instantiate(buses[currentBusIndex], waypoints[0].position, Quaternion.identity);
         await Task.Delay(500);
         g.GetComponent<DealBus>().PackBus();
-       g.GetComponent<DealBus>().SendToDeal(waypoints);
-        //Needs to have a separate waypoint system
-        //Bus will come and pause in middle of the road
-        //Passengers will unload rowwise & go to different buses
-        //Bus will then go to the end of the road and disappear
+        g.GetComponent<DealBus>().SendToDeal(waypoints);       
     }
 }

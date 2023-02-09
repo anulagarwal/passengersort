@@ -59,20 +59,23 @@ public class CoinManager : MonoBehaviour
     #endregion
 
     #region Coin Getter Setter
-    public void AddCoins(int v)
+    public void AddCoins(int v, Vector3 worldPos)
     {
         currentCoins += v;
         PlayerPrefs.SetInt("coins", currentCoins);
         UIManager.Instance.UpdateCurrentCoins(currentCoins);
+        UIManager.Instance.SendPoolTo(true, worldPos);
     }
 
-    public bool SubtractCoins(int v)
+   
+    public bool SubtractCoins(int v, Vector3 worldPos)
     {
         if (currentCoins - v > 0)
         {
             currentCoins -= v;
             PlayerPrefs.SetInt("coins", currentCoins);
             UIManager.Instance.UpdateCurrentCoins(currentCoins);
+            UIManager.Instance.SendPoolTo(false, worldPos);
 
             return true;
         }
