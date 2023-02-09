@@ -9,7 +9,14 @@ public class Row
     public CharacterColor color;
     public int maxCharacters;
     public Vector3 position;
+    public bool isToSpawn;
 
+
+
+    public void AddCharacter(Character c)
+    {
+        characters.Add(c);
+    }
 
     public void MoveCharactersTo(Vector3 pos, Transform b)
     {

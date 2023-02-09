@@ -76,7 +76,10 @@ public class Bus : MonoBehaviour
     }
     #endregion
 
+    public void Spawn()
+    {
 
+    }
 
     #region Effects
     public void OpenDoor()
@@ -222,16 +225,7 @@ public class Bus : MonoBehaviour
     public void SendToParkingLot(Vector3 pos, BusPoint bp)
     {
         isGoingToLot = true;
-
-        foreach (Row r in rows)
-        {
-            r.DisableAgents();
-        }
-        foreach (NavMeshObstacle o in walls)
-        {
-            o.enabled = false;
-        }
-
+        PackBus();
         List<Waypoint> w = new List<Waypoint>();
 
         Waypoint wp = bp.waypointStart.GetComponent<Waypoint>();
@@ -271,11 +265,6 @@ public class Bus : MonoBehaviour
         rows.Add(r);
         ResetRows();
 
-        if (IsAllRowSimilar())
-        {
-            //only check after last character goes in
-            Invoke("SendToTravel", 12f);
-        }
 
     }
 
@@ -298,6 +287,11 @@ public class Bus : MonoBehaviour
         {
             r.MoveCharactersTo(positions[i - 1].transform.GetChild((positions[i - 1].childCount-1) - rows.FindIndex(x=>x==r)).position, transform);
         }
+    }
+
+    public Vector3 GetRowPos(int maxRow, int index)
+    {
+        return positions[maxRow].transform.GetChild(maxRow - index).position;
     }
     #endregion
 

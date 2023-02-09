@@ -153,6 +153,10 @@ public class UIManager : MonoBehaviour
         GameManager.Instance.WinLevel();
     }
 
+    public void OnClickDeal()
+    {
+        DealBusProvider.Instance.DealBus();
+    }
     #endregion
 
 

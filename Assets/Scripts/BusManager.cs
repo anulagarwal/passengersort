@@ -13,7 +13,7 @@ public class BusManager : MonoBehaviour
     [Header("Component References")]
     [SerializeField] public Transform busEndPoint;
     [SerializeField] public Transform busStartPoint;
-    [SerializeField] List<Bus> buses;
+    [SerializeField] public List<Bus> buses;
     [SerializeField] List<BusPoint> busPoints;
 
 
@@ -81,6 +81,14 @@ public class BusManager : MonoBehaviour
 
     }
 
+    public List<Bus> GetBuses()
+    {
+        return buses;
+    }
+    public List<Bus> GetBusesNoMax()
+    {
+        return buses.FindAll(x=>x.rows.Count < maxRows);
+    }
 
     public void EnterBus(Bus b)
     {

@@ -10,11 +10,30 @@ public class CoinManager : MonoBehaviour
 
     [Header("Rewards")]
     [SerializeField] int levelReward;
+
+
+
+    public static CoinManager Instance = null;
+
+
+    private void Awake()
+    {
+        Application.targetFrameRate = 100;
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        Instance = this;
+    }
+
+
     // Start is called before the first frame update
     void Start()
     {
         startCoins = PlayerPrefs.GetInt("coins", startCoins);
         currentCoins = startCoins;
+        UIManager.Instance.UpdateCurrentCoins(currentCoins);
+
     }
 
     // Update is called once per frame

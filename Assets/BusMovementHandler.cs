@@ -75,8 +75,9 @@ public class BusMovementHandler : MonoBehaviour
             else if(wp.isEnd && !isGoingToLot)
             {
                 BusManager.Instance.RemoveBus(GetComponent<Bus>());
-                Destroy(gameObject);
+                CoinManager.Instance.AddCoins(50);
                 BusManager.Instance.GetComponent<BusProvider>().SendBusTo(transform.position);
+                Destroy(gameObject);
 
                 //Give coins
             }
