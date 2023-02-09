@@ -43,6 +43,7 @@ public class DealBusProvider : MonoBehaviour
 
         GameObject g = Instantiate(buses[currentBusIndex], waypoints[0].position, Quaternion.identity);
         await Task.Delay(500);
+
         g.GetComponent<DealBus>().PackBus();
         g.GetComponent<DealBus>().SendToDeal(waypoints);       
     }

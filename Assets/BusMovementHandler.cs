@@ -97,12 +97,12 @@ public class BusMovementHandler : MonoBehaviour
             v = new Vector3(0, -90, 0);
         }
 
-        if (b.transform.position.y > transform.position.y)
+        if (b.transform.position.z > transform.position.z)
         {
             v = new Vector3(0, 0, 0);
         }
 
-        if (b.transform.position.y < transform.position.y)
+        if (b.transform.position.z < transform.position.z)
         {
             v = new Vector3(0, 180, 0);
         }

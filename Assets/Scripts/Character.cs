@@ -10,7 +10,7 @@ public class Character : MonoBehaviour
     [SerializeField] NavMeshAgent agent;
     [SerializeField] public CharacterState state;
 
-    [SerializeField] bool isMoving;
+    [SerializeField] public bool isMoving;
     [SerializeField] bool moved;
 
     [Header("Component References")]
@@ -33,7 +33,8 @@ public class Character : MonoBehaviour
         if (state == CharacterState.Moving && agent.enabled)
         {
             if (agent.remainingDistance <= 0.7f)
-            { 
+            {
+                isMoving = false;
                 UpdateState(CharacterState.Idle);
                 b.CheckForPassengers();
             }
@@ -45,6 +46,7 @@ public class Character : MonoBehaviour
         transform.SetParent(bus);
         b = bus.GetComponent<Bus>();
         UpdateState(CharacterState.Moving);
+        isMoving = true;
     }
 
     public void DisableAgent()

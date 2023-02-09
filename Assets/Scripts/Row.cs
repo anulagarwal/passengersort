@@ -54,7 +54,7 @@ public class Row
 
         foreach(Character c in characters)
         {
-            if(c.state == CharacterState.Idle)
+            if(c.isMoving)
             {
                 stop = true;
             }

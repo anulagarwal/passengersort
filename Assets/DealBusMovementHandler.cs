@@ -32,12 +32,12 @@ public class DealBusMovementHandler : MonoBehaviour
             v = new Vector3(0, -90, 0);
         }
 
-        if (wp.transform.position.y > transform.position.y)
+        if (wp.transform.position.z > transform.position.z)
         {
             v = new Vector3(0, 0, 0);
         }
 
-        if (wp.transform.position.y < transform.position.y)
+        if (wp.transform.position.z < transform.position.z)
         {
             v = new Vector3(0, 180, 0);
         }

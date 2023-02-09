@@ -66,10 +66,12 @@ public class BusPoint : MonoBehaviour
 
             case BusPointType.Empty:
                 GetComponent<BoxCollider>().enabled = false;
-
+                locked.SetActive(false);
                 break;
 
             case BusPointType.Occupied:
+                locked.SetActive(false);
+                GetComponent<BoxCollider>().enabled = false;
 
                 break;
         }

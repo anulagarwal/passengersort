@@ -23,7 +23,7 @@ public class DealBus : MonoBehaviour
     #region Effects
     public void OpenDoor()
     {
-        door.transform.DOLocalRotate(new Vector3(0, 90f, 0), 0.5f, RotateMode.Fast);
+        door.transform.DOLocalRotate(new Vector3(0, 0, 120), 0.5f, RotateMode.Fast);
     }
     public void CloseDoor()
     {
@@ -99,6 +99,7 @@ public class DealBus : MonoBehaviour
         {
             o.enabled = true;
         }
+        OpenDoor();
     }     
     #endregion
 
