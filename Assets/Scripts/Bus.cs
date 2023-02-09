@@ -61,7 +61,7 @@ public class Bus : MonoBehaviour
         if (BusManager.Instance.selectedBus == null)
          {
              BusManager.Instance.SelectBus(this);
-
+            
          }
          else if (BusManager.Instance.selectedBus != null && BusManager.Instance.enteredBus == null && BusManager.Instance.selectedBus != this)
          {
@@ -87,11 +87,14 @@ public class Bus : MonoBehaviour
     #region Effects
     public void OpenDoor()
     {
-        door.transform.DOLocalRotate(new Vector3(0, 90f, 0), 0.5f, RotateMode.Fast);
+        door.transform.DOLocalRotate(new Vector3(0, 0, 120f), 0.5f, RotateMode.Fast);
+        door.gameObject.isStatic = true;
     }
     public void CloseDoor()
     {
         door.transform.DOLocalRotate(new Vector3(0, 0f, 0), 0.5f, RotateMode.Fast);
+        door.gameObject.isStatic = false;
+
     }
 
     #endregion

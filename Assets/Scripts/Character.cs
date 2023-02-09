@@ -22,7 +22,7 @@ public class Character : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
+        //agent = GetComponent<NavMeshAgent>();
         UpdateState(CharacterState.Idle);
 
     }
@@ -32,7 +32,7 @@ public class Character : MonoBehaviour
     {
         if (state == CharacterState.Moving && agent.enabled)
         {
-            if (agent.remainingDistance < 0.6f)
+            if (agent.remainingDistance <= agent.stoppingDistance/2)
             {
                 UpdateState(CharacterState.Idle);
                 b.CheckForPassengers();
