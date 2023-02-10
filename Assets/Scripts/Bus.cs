@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-
+using System.Threading.Tasks;
 using DG.Tweening;
 public class Bus : MonoBehaviour
 {
@@ -27,6 +27,8 @@ public class Bus : MonoBehaviour
     [SerializeField] GameObject confetti;
     [SerializeField]  NavMeshAgent busAgent;
     [SerializeField] List<NavMeshObstacle> walls;
+    [SerializeField] SkinnedMeshRenderer bus;
+
 
 
 
@@ -42,7 +44,6 @@ public class Bus : MonoBehaviour
 
         }
 
-        print(Camera.main.WorldToScreenPoint(transform.position));
     }
 
     // Update is called once per frame
@@ -110,8 +111,9 @@ public class Bus : MonoBehaviour
                 if(b.rows[b.rows.Count - 1].color == rows[rows.Count - 1].color)
                 {
                     CharacterColor c = rows[rows.Count - 1].color;
-                    rows[rows.Count - 1].MoveCharactersTo(b.GetTopRowPos(), b.transform);
                     b.AddRow(rows[rows.Count - 1]);
+
+                    rows[rows.Count - 1].MoveCharactersTo(b.GetTopRowPos(), b.transform);
                     rows.RemoveAt(rows.Count - 1);
                     ResetRows();
 
@@ -119,14 +121,14 @@ public class Bus : MonoBehaviour
                     {
                         MoveRowTo(b);
                     }
-
                 }
             }
             else if(b.rows.Count < BusManager.Instance.maxRows)
             {
                 CharacterColor c = rows[rows.Count - 1].color;
-                rows[rows.Count - 1].MoveCharactersTo(b.GetTopRowPos(), b.transform);
                 b.AddRow(rows[rows.Count - 1]);
+
+                rows[rows.Count - 1].MoveCharactersTo(b.GetTopRowPos(), b.transform);
                 rows.RemoveAt(rows.Count - 1);
                 ResetRows();
 
@@ -134,7 +136,6 @@ public class Bus : MonoBehaviour
                 {
                     MoveRowTo(b);
                 }
-
             }
 
             //BusManager.Instance.CheckForWin();
@@ -160,7 +161,7 @@ public class Bus : MonoBehaviour
 
     }
 
-    public void CheckForPassengers()
+    public async void CheckForPassengers()
     {
         if (!isComplete)
         {
@@ -169,7 +170,7 @@ public class Bus : MonoBehaviour
             {
                 //BusManager.Instance.ResetAllDoors();
                 CloseDoor();
-
+                await Task.Delay(2000);
                 if (IsAllRowSimilar())
                 {
                     isComplete = true;
@@ -272,8 +273,11 @@ public class Bus : MonoBehaviour
     {
         rows.Add(r);
         ResetRows();
+    }
 
-
+    public void UpdateBusWall(float f)
+    {
+        bus.SetBlendShapeWeight(0, f);
     }
 
     public Vector3 GetTopRowPos()
@@ -300,6 +304,17 @@ public class Bus : MonoBehaviour
     public Vector3 GetRowPos(int maxRow, int index)
     {
         return positions[maxRow].transform.GetChild(maxRow - index).position;
+    }
+
+    public List<Vector3> GetRowsPos()
+    {
+        List<Vector3> v = new List<Vector3>();
+        foreach(Transform t in positions[rows.Count - 1].transform.GetComponentsInChildren<Transform>())
+        {
+            v.Add(t.position);
+        }
+
+        return v;
     }
     #endregion
 

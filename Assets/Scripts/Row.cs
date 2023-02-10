@@ -22,7 +22,17 @@ public class Row
     {
         foreach(Character c in characters)
         {
-            c.MoveTo(pos, b);
+            int i = characters.FindIndex(x => x == c);
+            Vector3 v = pos;
+            if (i <= characters.Count / 2)
+            {
+                v = new Vector3(pos.x - BusManager.Instance.xOffsetCharacter, pos.y, pos.z);
+            }
+            else
+            {
+                v = new Vector3(pos.x + BusManager.Instance.xOffsetCharacter, pos.y, pos.z);
+            }
+            c.MoveTo(v, b);
         }
     }
 
@@ -54,7 +64,7 @@ public class Row
 
         foreach(Character c in characters)
         {
-            if(c.isMoving)
+            if(c.state == CharacterState.Idle)
             {
                 stop = true;
             }

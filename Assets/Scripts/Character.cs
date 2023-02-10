@@ -32,9 +32,15 @@ public class Character : MonoBehaviour
     {
         if (state == CharacterState.Moving && agent.enabled)
         {
-            if (agent.remainingDistance <= 0.7f)
+            if (agent.remainingDistance <= BusManager.Instance.minStopDistance && !isMoving)
             {
-                isMoving = false;
+                //isMoving = false;
+               // UpdateState(CharacterState.Idle);
+              //  b.CheckForPassengers();
+            }
+
+            if(b.GetRowsPos().Find(x=> Vector3.Distance(x, agent.transform.position) < BusManager.Instance.minStopDistance) != null && !isMoving)
+            {
                 UpdateState(CharacterState.Idle);
                 b.CheckForPassengers();
             }
@@ -63,4 +69,21 @@ public class Character : MonoBehaviour
     {
         state = cs;
     }
+    public void EnterBus(Bus bu)
+    {
+       // b = bu;
+        isMoving = false;
+    }
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Bus")
+        {
+            if (other.gameObject.GetComponent<EnterTrigger>().b == b)
+            {
+              //  isMoving = false;
+            }
+        }
+    }
+
+
 }

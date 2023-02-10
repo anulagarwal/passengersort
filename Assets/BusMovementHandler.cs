@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-
+using System.Threading.Tasks;
 public class BusMovementHandler : MonoBehaviour
 {
     [Header("Attributes")]
@@ -31,7 +31,7 @@ public class BusMovementHandler : MonoBehaviour
         
     }
 
-   public void MoveToWaypoint()
+   public async void MoveToWaypoint()
     {
         wp = wps[index];
         Vector3 v = Vector3.zero;
@@ -56,6 +56,7 @@ public class BusMovementHandler : MonoBehaviour
         }
 
         transform.DORotate(v, 0.5f);
+        await Task.Delay(1000);
         transform.DOMove(wps[index].transform.position, speed).SetSpeedBased(true).OnComplete(()=> {
            
             if ((!wp.isEnd && !isGoingToLot))

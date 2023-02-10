@@ -42,8 +42,9 @@ public class DealBus : MonoBehaviour
         {
             //Send each row to buses from bus manager
             Bus b = BusManager.Instance.GetBusesNoMax()[GetIndex(i, BusManager.Instance.buses.FindAll(x => x.rows.Count < BusManager.Instance.maxRows).Count)];
-            rows[rows.Count - 1].MoveCharactersTo(b.GetTopRowPos(), b.transform);
             b.AddRow(rows[rows.Count - 1]);
+
+            rows[rows.Count - 1].MoveCharactersTo(b.GetTopRowPos(), b.transform);
             rows.RemoveAt(rows.Count - 1);
             ResetRows();
         }

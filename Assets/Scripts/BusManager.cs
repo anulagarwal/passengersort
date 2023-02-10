@@ -6,6 +6,13 @@ public class BusManager : MonoBehaviour
 {
     [Header("Attributes")]
     [SerializeField] public int maxRows = 5;
+    [SerializeField] public int maxCharacterPerRow = 10;
+    [SerializeField] public float xOffsetCharacter = 0.2f;
+    [SerializeField] public float yOffsetCharacter = 0.2f;
+    [SerializeField] public float minStopDistance = 0.4f;
+
+
+
     public Bus selectedBus;
     public Bus enteredBus;
 

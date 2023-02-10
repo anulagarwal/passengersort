@@ -62,6 +62,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: C4-Blue
       objectReference: {fileID: 0}
+    - target: {fileID: 1536516637793333285, guid: f8e83a8d46aed431fb1bd1bf897e8779, type: 3}
+      propertyPath: m_TagString
+      value: Character
+      objectReference: {fileID: 0}
     - target: {fileID: 3886083725004894951, guid: f8e83a8d46aed431fb1bd1bf897e8779, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -116,7 +120,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7140516482911665661, guid: f8e83a8d46aed431fb1bd1bf897e8779, type: 3}
       propertyPath: m_Radius
-      value: 0.17
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 7140516482911665661, guid: f8e83a8d46aed431fb1bd1bf897e8779, type: 3}
       propertyPath: m_BaseOffset
@@ -129,6 +133,14 @@ PrefabInstance:
     - target: {fileID: 7140516482911665661, guid: f8e83a8d46aed431fb1bd1bf897e8779, type: 3}
       propertyPath: m_StoppingDistance
       value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7140516482911665662, guid: f8e83a8d46aed431fb1bd1bf897e8779, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7140516482911665662, guid: f8e83a8d46aed431fb1bd1bf897e8779, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
