@@ -15,6 +15,9 @@ public class Bus : MonoBehaviour
     [SerializeField] public bool isGoingToLot;
     [SerializeField] public Vector3 rotation;
     [SerializeField] public BusPoint busPoint;
+    [SerializeField] public int characters;
+    [SerializeField] public BusType bustype;
+
 
 
 
@@ -62,13 +65,19 @@ public class Bus : MonoBehaviour
         if (BusManager.Instance.selectedBus == null)
          {
              BusManager.Instance.SelectBus(this);
-            
+            rowsCount = rows.Count;
+            HighlightTopRow();
          }
-         else if (BusManager.Instance.selectedBus != null && BusManager.Instance.enteredBus == null && BusManager.Instance.selectedBus != this)
+        else if(BusManager.Instance.selectedBus == this)
+        {
+            BusManager.Instance.ResetSelections();
+            CloseDoor();
+        }
+        else if (BusManager.Instance.selectedBus != null && BusManager.Instance.enteredBus == null && BusManager.Instance.selectedBus != this)
          {
              BusManager.Instance.EnterBus(this);
-             BusManager.Instance.selectedBus.MoveRowTo(this);
-             BusManager.Instance.ResetSelections();
+             BusManager.Instance.selectedBus.MoveRowTo(this);           
+            BusManager.Instance.ResetSelections();
          } 
        // SendToTravel();
       
@@ -85,17 +94,57 @@ public class Bus : MonoBehaviour
 
     }
 
+
     #region Effects
+    int rowsCount = 0;
+    public void HighlightTopRow()
+    {
+        rowsCount--;
+        if (rows.Count > 0)
+        {
+            rows[rowsCount].HighlightCharacters();
+            if (rowsCount > 0)
+            {
+                if (rows[rowsCount].color == rows[rowsCount - 1].color)
+                {
+                    HighlightTopRow();
+                }
+            }
+        }
+        rowsCount = rows.Count;
+        if (bustype == BusType.Bus)
+        {
+            busPoint.GetComponent<BusIndicator>().EnableBar(true);
+        }
+
+    }
+
+
+    public void DehighlightTopRows()
+    {
+        foreach(Row r in rows)
+        {
+            r.DehighlightCharacters();
+        }
+
+       // GetComponent<BusIndicator>().EnableBar(false);
+    }
+
     public void OpenDoor()
     {
-        door.transform.DOLocalRotate(new Vector3(0, 0, 120f), 0.5f, RotateMode.Fast);
-        door.gameObject.isStatic = true;
+        if (bustype == BusType.Bus)
+        {
+            door.transform.DOLocalRotate(new Vector3(0, 0, 120f), 0.5f, RotateMode.Fast);
+            door.gameObject.isStatic = true;
+        }
     }
     public void CloseDoor()
     {
-        door.transform.DOLocalRotate(new Vector3(0, 0f, 0), 0.5f, RotateMode.Fast);
-        door.gameObject.isStatic = false;
-
+        if (bustype == BusType.Bus)
+        {
+            door.transform.DOLocalRotate(new Vector3(0, 0f, 0), 0.5f, RotateMode.Fast);
+            door.gameObject.isStatic = false;
+        }
     }
 
     #endregion
@@ -106,7 +155,7 @@ public class Bus : MonoBehaviour
     {
         if (rows.Count > 0)
         {
-            if (b.rows.Count > 0 && b.rows.Count<BusManager.Instance.maxRows)
+            if (b.rows.Count > 0 && b.rows.Count<BusManager.Instance.GetMaxRows(b.bustype))
             {
                 if(b.rows[b.rows.Count - 1].color == rows[rows.Count - 1].color)
                 {
@@ -117,13 +166,13 @@ public class Bus : MonoBehaviour
                     rows.RemoveAt(rows.Count - 1);
                     ResetRows();
 
-                    if (rows.Count > 0 && rows[rows.Count - 1].color == c && b.rows.Count < BusManager.Instance.maxRows)
+                    if (rows.Count > 0 && rows[rows.Count - 1].color == c && b.rows.Count < BusManager.Instance.GetMaxRows(b.bustype))
                     {
                         MoveRowTo(b);
                     }
                 }
             }
-            else if(b.rows.Count < BusManager.Instance.maxRows)
+            else if(b.rows.Count < BusManager.Instance.GetMaxRows(b.bustype))
             {
                 CharacterColor c = rows[rows.Count - 1].color;
                 b.AddRow(rows[rows.Count - 1]);
@@ -132,12 +181,15 @@ public class Bus : MonoBehaviour
                 rows.RemoveAt(rows.Count - 1);
                 ResetRows();
 
-                if (rows.Count > 0 && rows[rows.Count - 1].color == c && b.rows.Count < BusManager.Instance.maxRows)
+                if (rows.Count > 0 && rows[rows.Count - 1].color == c && b.rows.Count < BusManager.Instance.GetMaxRows(b.bustype))
                 {
                     MoveRowTo(b);
                 }
             }
-
+            if (bustype == BusType.Bus)
+            {
+                busPoint.GetComponent<BusIndicator>().ColorBars(this);
+            }
             //BusManager.Instance.CheckForWin();
         }
     }
@@ -170,6 +222,8 @@ public class Bus : MonoBehaviour
             {
                 //BusManager.Instance.ResetAllDoors();
                 CloseDoor();
+                BusManager.Instance.oldBus.CloseDoor();
+                //BusManager.Instance.ResetAllDoors();
                 await Task.Delay(2000);
                 if (IsAllRowSimilar())
                 {
@@ -273,13 +327,42 @@ public class Bus : MonoBehaviour
     {
         rows.Add(r);
         ResetRows();
+        rowsCount = rows.Count;
+        DehighlightTopRows();
+        if (bustype == BusType.Bus)
+        {
+            busPoint.GetComponent<BusIndicator>().ColorBars(this);
+        }
+
+        foreach(Row x in rows)
+        {
+            x.UpdateCharacterRadius(PassengerManager.Instance.radius[rows.Count - 1]);
+        }
     }
 
-    public void UpdateBusWall(float f)
+    public void UpdateBusWall()
     {
-        bus.SetBlendShapeWeight(0, f);
+        if (characters > (BusManager.Instance.maxRows * BusManager.Instance.maxCharacterPerRow) / 2)
+        {
+            float f = ((float)characters - (float)((BusManager.Instance.maxRows * BusManager.Instance.maxCharacterPerRow) / 2)) / (float)(BusManager.Instance.maxRows * BusManager.Instance.maxCharacterPerRow);
+            bus.SetBlendShapeWeight(0, f * 100);
+        }
+        else
+        {
+            bus.SetBlendShapeWeight(0, 0);
+        }
+    }
+    public void AddCharacter()
+    {
+        characters++;
+        UpdateBusWall();
     }
 
+    public void RemoveCharacter()
+    {
+        characters--;
+        UpdateBusWall();
+    }
     public Vector3 GetTopRowPos()
     {
         if (rows.Count > 0)
@@ -289,6 +372,18 @@ public class Bus : MonoBehaviour
         else
         {
             return positions[0].transform.GetChild(0).position;
+        }
+    }
+
+    public Transform GetTopRow()
+    {
+        if (rows.Count > 0)
+        {
+            return positions[rows.Count - 1].transform.GetChild(rows.Count - 1);
+        }
+        else
+        {
+            return positions[0].transform.GetChild(0);
         }
     }
 
@@ -309,10 +404,13 @@ public class Bus : MonoBehaviour
     public List<Vector3> GetRowsPos()
     {
         List<Vector3> v = new List<Vector3>();
-        foreach(Transform t in positions[rows.Count - 1].transform.GetComponentsInChildren<Transform>())
-        {
-            v.Add(t.position);
-        }
+        
+            foreach (Transform t in positions[rows.Count - 1].transform.GetComponentsInChildren<Transform>())
+            {
+                v.Add(t.position);
+            }
+        
+        
 
         return v;
     }
@@ -325,7 +423,7 @@ public class Bus : MonoBehaviour
     {
         bool similar = false;
 
-        if (rows.Count == 3)
+        if (rows.Count == BusManager.Instance.maxRows)
         {
             foreach(Row r in rows)
             {

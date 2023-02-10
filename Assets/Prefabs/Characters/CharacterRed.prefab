@@ -51,6 +51,7 @@ MonoBehaviour:
   isMoving: 0
   moved: 0
   b: {fileID: 0}
+  mesh: {fileID: 5651165078928674719}
 --- !u!136 &2037017835553328115
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -129,6 +130,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[1]
       value: 
       objectReference: {fileID: 2100000, guid: 49e608f17cf45f44490bd0d1a2ef9888, type: 2}
+    - target: {fileID: 4045922310719373894, guid: f8e83a8d46aed431fb1bd1bf897e8779, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: bb5a1a23aa2a11e458bbb7d3cf24879d, type: 2}
     - target: {fileID: 7140516482911665661, guid: f8e83a8d46aed431fb1bd1bf897e8779, type: 3}
       propertyPath: m_Speed
       value: 5
@@ -172,5 +177,10 @@ NavMeshAgent:
 --- !u!4 &4874263532087328574 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3886083725004894951, guid: f8e83a8d46aed431fb1bd1bf897e8779, type: 3}
+  m_PrefabInstance: {fileID: 8523898290853596633}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &5651165078928674719 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 4045922310719373894, guid: f8e83a8d46aed431fb1bd1bf897e8779, type: 3}
   m_PrefabInstance: {fileID: 8523898290853596633}
   m_PrefabAsset: {fileID: 0}

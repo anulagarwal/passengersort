@@ -56,7 +56,8 @@ public class BusMovementHandler : MonoBehaviour
         }
 
         transform.DORotate(v, 0.5f);
-        await Task.Delay(1000);
+        if (v != Vector3.zero) 
+        await Task.Delay(500);
         transform.DOMove(wps[index].transform.position, speed).SetSpeedBased(true).OnComplete(()=> {
            
             if ((!wp.isEnd && !isGoingToLot))

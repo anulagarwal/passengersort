@@ -26,17 +26,46 @@ public class Row
             Vector3 v = pos;
             if (i <= characters.Count / 2)
             {
-                v = new Vector3(pos.x - BusManager.Instance.xOffsetCharacter, pos.y, pos.z);
+                  v = new Vector3(pos.x - BusManager.Instance.xOffsetCharacter, pos.y, pos.z);
+                //;
+               // v = new Vector3(b.GetComponent<Bus>().GetTopRow().TransformPoint(pos).x - BusManager.Instance.xOffsetCharacter, pos.y, pos.z);
+
             }
             else
             {
                 v = new Vector3(pos.x + BusManager.Instance.xOffsetCharacter, pos.y, pos.z);
+              //  v = new Vector3(b.GetComponent<Bus>().GetTopRow().TransformPoint(pos).x + BusManager.Instance.xOffsetCharacter, pos.y, pos.z);
+
             }
             c.MoveTo(v, b);
         }
     }
 
+    public void HighlightCharacters()
+    {
+        foreach(Character c in characters)
+        {
+            c.UpdateBodyMat(PassengerManager.Instance.GetHighlightBody(color));
+            c.UpdateSkinMat(PassengerManager.Instance.GetHighlightSkin(color));
+        }
+    }
 
+    public void DehighlightCharacters()
+    {
+        foreach (Character c in characters)
+        {
+            c.UpdateBodyMat(PassengerManager.Instance.GetOriginalBody(color));
+            c.UpdateSkinMat(PassengerManager.Instance.GetOriginalSkin(color));
+        }
+    }
+
+    public void UpdateCharacterRadius(float f)
+    {
+        foreach (Character c in characters)
+        {
+            c.UpdateRadius(f);
+        }
+    }
    public void UpdateCharacterBuses(Bus b)
     {
         foreach (Character c in characters)

@@ -15,6 +15,8 @@ public class Character : MonoBehaviour
 
     [Header("Component References")]
     [SerializeField] public Bus b;
+    [SerializeField] public MeshRenderer mesh;
+    Material[] materials;
 
 
 
@@ -24,7 +26,27 @@ public class Character : MonoBehaviour
     {
         //agent = GetComponent<NavMeshAgent>();
         UpdateState(CharacterState.Idle);
+       
 
+    }
+
+    public void UpdateBodyMat(Material m)
+    {
+        materials = mesh.materials;
+        materials[1] = m;
+        mesh.materials = materials;
+    }
+
+    public void UpdateSkinMat(Material m)
+    {
+        materials = mesh.materials;
+        materials[2] = m;
+        mesh.materials = materials;
+    }
+
+    public void UpdateRadius(float f)
+    {
+        agent.radius = f;
     }
 
 
@@ -39,10 +61,21 @@ public class Character : MonoBehaviour
               //  b.CheckForPassengers();
             }
 
-            if(b.GetRowsPos().Find(x=> Vector3.Distance(x, agent.transform.position) < BusManager.Instance.minStopDistance) != null && !isMoving)
+            if (b.bustype == BusType.Bus)
             {
-                UpdateState(CharacterState.Idle);
-                b.CheckForPassengers();
+                if (b.GetRowsPos().Find(x => Vector3.Distance(x, agent.transform.position) < BusManager.Instance.minStopDistance) != null && !isMoving)
+                {
+                    UpdateState(CharacterState.Idle);
+                    b.CheckForPassengers();
+                    
+                }
+            }
+            else
+            {
+                if (b.GetRowsPos().Find(x => Vector3.Distance(x, agent.transform.position) < BusManager.Instance.minStopDistance) != null && !isMoving)
+                {
+                    UpdateState(CharacterState.Idle);
+                }
             }
         }
     }

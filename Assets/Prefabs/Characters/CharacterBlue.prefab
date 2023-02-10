@@ -50,6 +50,7 @@ MonoBehaviour:
   isMoving: 0
   moved: 0
   b: {fileID: 0}
+  mesh: {fileID: 5651165078928674719}
 --- !u!1001 &8523898290853596633
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -153,5 +154,10 @@ NavMeshAgent:
 --- !u!4 &4874263532087328574 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3886083725004894951, guid: f8e83a8d46aed431fb1bd1bf897e8779, type: 3}
+  m_PrefabInstance: {fileID: 8523898290853596633}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &5651165078928674719 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 4045922310719373894, guid: f8e83a8d46aed431fb1bd1bf897e8779, type: 3}
   m_PrefabInstance: {fileID: 8523898290853596633}
   m_PrefabAsset: {fileID: 0}

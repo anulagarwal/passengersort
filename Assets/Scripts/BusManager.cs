@@ -6,6 +6,8 @@ public class BusManager : MonoBehaviour
 {
     [Header("Attributes")]
     [SerializeField] public int maxRows = 5;
+    [SerializeField] public int maxRowsPerFreeSpot = 1;
+
     [SerializeField] public int maxCharacterPerRow = 10;
     [SerializeField] public float xOffsetCharacter = 0.2f;
     [SerializeField] public float yOffsetCharacter = 0.2f;
@@ -14,6 +16,8 @@ public class BusManager : MonoBehaviour
 
 
     public Bus selectedBus;
+    public Bus oldBus;
+
     public Bus enteredBus;
 
 
@@ -84,8 +88,9 @@ public class BusManager : MonoBehaviour
         ResetAllDoors();
 
         selectedBus = b;
+        oldBus = b;
         b.OpenDoor();
-
+       
     }
 
     public List<Bus> GetBuses()
@@ -94,18 +99,44 @@ public class BusManager : MonoBehaviour
     }
     public List<Bus> GetBusesNoMax()
     {
-        return buses.FindAll(x=>x.rows.Count < maxRows);
+        return buses.FindAll(x=>x.rows.Count < GetMaxRows(x.bustype));
     }
 
     public void EnterBus(Bus b)
     {
         enteredBus = b;
         b.OpenDoor();
-    }
 
+
+    }
+    public int GetMaxRows(BusType bt)
+    {
+        int i = 0;
+        switch (bt)
+        {
+            case BusType.Bus:
+
+                i = maxRows;
+                break;
+            case BusType.Spot:
+                i =  maxRowsPerFreeSpot;
+                break;
+
+        }
+        return i;
+    }
     public void ResetSelections()
     {
+        
         selectedBus = null;
+        foreach(Bus b in buses)
+        {
+            if (b.rows.Count > 0)
+            {
+               b.DehighlightTopRows();
+            }
+        }
+       
         enteredBus = null;
     }
 

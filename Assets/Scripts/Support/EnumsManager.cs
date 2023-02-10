@@ -82,6 +82,13 @@ public enum BusState
     Moving
 }
 
+public enum BusType
+{
+    Bus,
+    Spot
+}
+
+
 public enum BusPointType
 {
     Empty,

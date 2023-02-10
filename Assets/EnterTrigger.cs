@@ -13,6 +13,11 @@ public class EnterTrigger : MonoBehaviour
             if (other.gameObject.GetComponentInParent<Character>().b == b)
             {
                 other.gameObject.GetComponentInParent<Character>().EnterBus(b);
+                b.AddCharacter();
+            }
+            else
+            {
+                b.RemoveCharacter();
             }
         }
     }

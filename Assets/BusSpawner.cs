@@ -32,6 +32,7 @@ public class BusSpawner : MonoBehaviour
                 {
                     GameObject g = Instantiate(PassengerManager.Instance.GetPassenger(r.color), GetComponent<Bus>().GetRowPos(rows.Count - 1, rows.IndexOf(r)) + new Vector3(Random.Range(-0.01f, 0.01f), 0, Random.Range(-0.01f, 0.01f)), Quaternion.identity);
                     r.AddCharacter(g.GetComponent<Character>());
+                    GetComponent<Bus>().AddCharacter();
                     g.transform.SetParent(transform);
                 }
                 GetComponent<Bus>().AddRow(r);

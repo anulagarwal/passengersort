@@ -139,6 +139,7 @@ MonoBehaviour:
   isMoving: 0
   moved: 0
   b: {fileID: 0}
+  mesh: {fileID: 0}
 --- !u!1 &296344574586498428
 GameObject:
   m_ObjectHideFlags: 0
@@ -345,6 +346,7 @@ MonoBehaviour:
   isMoving: 0
   moved: 0
   b: {fileID: 0}
+  mesh: {fileID: 0}
 --- !u!1 &296344574778347755
 GameObject:
   m_ObjectHideFlags: 0
@@ -484,6 +486,7 @@ MonoBehaviour:
   isMoving: 0
   moved: 0
   b: {fileID: 0}
+  mesh: {fileID: 0}
 --- !u!1 &296344574831278915
 GameObject:
   m_ObjectHideFlags: 0
@@ -623,6 +626,7 @@ MonoBehaviour:
   isMoving: 0
   moved: 0
   b: {fileID: 0}
+  mesh: {fileID: 0}
 --- !u!1 &296344574874668374
 GameObject:
   m_ObjectHideFlags: 0
@@ -663,7 +667,7 @@ Transform:
   - {fileID: 296344576540222915}
   - {fileID: 8820402221586463678}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &296344574874668360
 MonoBehaviour:
@@ -689,6 +693,8 @@ MonoBehaviour:
   isGoingToLot: 0
   rotation: {x: 0, y: 0, z: 0}
   busPoint: {fileID: 0}
+  characters: 0
+  bustype: 0
   state: 0
   door: {fileID: 3453158342291077105}
   confetti: {fileID: 2934575854465274813}
@@ -699,6 +705,7 @@ MonoBehaviour:
   - {fileID: 296344576267195087}
   - {fileID: 296344575194553185}
   - {fileID: 2633867303669287623}
+  bus: {fileID: 3756669671726595468}
 --- !u!65 &296344574874668375
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1275,6 +1282,7 @@ MonoBehaviour:
   isMoving: 0
   moved: 0
   b: {fileID: 0}
+  mesh: {fileID: 0}
 --- !u!1 &296344575179240948
 GameObject:
   m_ObjectHideFlags: 0
@@ -1414,6 +1422,7 @@ MonoBehaviour:
   isMoving: 0
   moved: 0
   b: {fileID: 0}
+  mesh: {fileID: 0}
 --- !u!1 &296344575194553199
 GameObject:
   m_ObjectHideFlags: 0
@@ -1878,6 +1887,7 @@ MonoBehaviour:
   isMoving: 0
   moved: 0
   b: {fileID: 0}
+  mesh: {fileID: 0}
 --- !u!1 &296344575617107256
 GameObject:
   m_ObjectHideFlags: 0
@@ -2048,6 +2058,7 @@ MonoBehaviour:
   isMoving: 0
   moved: 0
   b: {fileID: 0}
+  mesh: {fileID: 0}
 --- !u!1 &296344575672333194
 GameObject:
   m_ObjectHideFlags: 0
@@ -2472,6 +2483,7 @@ MonoBehaviour:
   isMoving: 0
   moved: 0
   b: {fileID: 0}
+  mesh: {fileID: 0}
 --- !u!1 &296344576150995972
 GameObject:
   m_ObjectHideFlags: 0
@@ -2611,6 +2623,7 @@ MonoBehaviour:
   isMoving: 0
   moved: 0
   b: {fileID: 0}
+  mesh: {fileID: 0}
 --- !u!1 &296344576171731924
 GameObject:
   m_ObjectHideFlags: 0
@@ -2750,6 +2763,7 @@ MonoBehaviour:
   isMoving: 0
   moved: 0
   b: {fileID: 0}
+  mesh: {fileID: 0}
 --- !u!1 &296344576178639705
 GameObject:
   m_ObjectHideFlags: 0
@@ -3034,6 +3048,7 @@ MonoBehaviour:
   isMoving: 0
   moved: 0
   b: {fileID: 0}
+  mesh: {fileID: 0}
 --- !u!1 &296344576356599788
 GameObject:
   m_ObjectHideFlags: 0
@@ -3173,6 +3188,7 @@ MonoBehaviour:
   isMoving: 0
   moved: 0
   b: {fileID: 0}
+  mesh: {fileID: 0}
 --- !u!1 &296344576366854326
 GameObject:
   m_ObjectHideFlags: 0
@@ -3343,6 +3359,7 @@ MonoBehaviour:
   isMoving: 0
   moved: 0
   b: {fileID: 0}
+  mesh: {fileID: 0}
 --- !u!1 &296344576463895232
 GameObject:
   m_ObjectHideFlags: 0
@@ -3638,6 +3655,11 @@ PrefabInstance:
 --- !u!4 &3453158342291077105 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4434548369071580722, guid: 5ddaab0006f574c3893eea17fbe7a191, type: 3}
+  m_PrefabInstance: {fileID: 1325952785163948483}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &3756669671726595468 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2757579705549597775, guid: 5ddaab0006f574c3893eea17fbe7a191, type: 3}
   m_PrefabInstance: {fileID: 1325952785163948483}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &8820402221586463678 stripped

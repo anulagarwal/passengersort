@@ -329,6 +329,7 @@ MonoBehaviour:
   isMoving: 0
   moved: 0
   b: {fileID: 0}
+  mesh: {fileID: 0}
 --- !u!1 &4825864488569692748
 GameObject:
   m_ObjectHideFlags: 0
@@ -499,6 +500,7 @@ MonoBehaviour:
   isMoving: 0
   moved: 0
   b: {fileID: 0}
+  mesh: {fileID: 0}
 --- !u!1 &4825864488586082179
 GameObject:
   m_ObjectHideFlags: 0
@@ -731,6 +733,7 @@ MonoBehaviour:
   isMoving: 0
   moved: 0
   b: {fileID: 0}
+  mesh: {fileID: 0}
 --- !u!1 &4825864488765442521
 GameObject:
   m_ObjectHideFlags: 0
@@ -1048,6 +1051,7 @@ MonoBehaviour:
   isMoving: 0
   moved: 0
   b: {fileID: 0}
+  mesh: {fileID: 0}
 --- !u!1 &4825864489100632944
 GameObject:
   m_ObjectHideFlags: 0
@@ -1187,6 +1191,7 @@ MonoBehaviour:
   isMoving: 0
   moved: 0
   b: {fileID: 0}
+  mesh: {fileID: 0}
 --- !u!1 &4825864489156440922
 GameObject:
   m_ObjectHideFlags: 0
@@ -1326,6 +1331,7 @@ MonoBehaviour:
   isMoving: 0
   moved: 0
   b: {fileID: 0}
+  mesh: {fileID: 0}
 --- !u!1 &4825864489166317506
 GameObject:
   m_ObjectHideFlags: 0
@@ -1496,6 +1502,7 @@ MonoBehaviour:
   isMoving: 0
   moved: 0
   b: {fileID: 0}
+  mesh: {fileID: 0}
 --- !u!1 &4825864489240576834
 GameObject:
   m_ObjectHideFlags: 0
@@ -1635,6 +1642,7 @@ MonoBehaviour:
   isMoving: 0
   moved: 0
   b: {fileID: 0}
+  mesh: {fileID: 0}
 --- !u!1 &4825864489256665782
 GameObject:
   m_ObjectHideFlags: 0
@@ -1857,6 +1865,7 @@ MonoBehaviour:
   isMoving: 0
   moved: 0
   b: {fileID: 0}
+  mesh: {fileID: 0}
 --- !u!1 &4825864489530354643
 GameObject:
   m_ObjectHideFlags: 0
@@ -2064,6 +2073,7 @@ MonoBehaviour:
   isMoving: 0
   moved: 0
   b: {fileID: 0}
+  mesh: {fileID: 0}
 --- !u!1 &4825864489707265574
 GameObject:
   m_ObjectHideFlags: 0
@@ -2203,6 +2213,7 @@ MonoBehaviour:
   isMoving: 0
   moved: 0
   b: {fileID: 0}
+  mesh: {fileID: 0}
 --- !u!1 &4825864489840618018
 GameObject:
   m_ObjectHideFlags: 0
@@ -2270,8 +2281,10 @@ MonoBehaviour:
   isGoingToLot: 0
   rotation: {x: 0, y: 0, z: 0}
   busPoint: {fileID: 0}
+  characters: 0
+  bustype: 0
   state: 0
-  door: {fileID: 7568348420947333253}
+  door: {fileID: 5868576063251947907}
   confetti: {fileID: 7952667326087476425}
   busAgent: {fileID: 4825864489840618046}
   walls:
@@ -2280,6 +2293,7 @@ MonoBehaviour:
   - {fileID: 4825864488984966587}
   - {fileID: 4825864490057612309}
   - {fileID: 7091297661447482803}
+  bus: {fileID: 8270410830426987256}
 --- !u!65 &4825864489840618019
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2539,6 +2553,7 @@ MonoBehaviour:
   isMoving: 0
   moved: 0
   b: {fileID: 0}
+  mesh: {fileID: 0}
 --- !u!1 &4825864489942767121
 GameObject:
   m_ObjectHideFlags: 0
@@ -3035,6 +3050,7 @@ MonoBehaviour:
   isMoving: 0
   moved: 0
   b: {fileID: 0}
+  mesh: {fileID: 0}
 --- !u!1 &4825864490094118330
 GameObject:
   m_ObjectHideFlags: 0
@@ -3174,6 +3190,7 @@ MonoBehaviour:
   isMoving: 0
   moved: 0
   b: {fileID: 0}
+  mesh: {fileID: 0}
 --- !u!1 &4825864490102851146
 GameObject:
   m_ObjectHideFlags: 0
@@ -3854,9 +3871,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7498183449985493629, guid: 5ddaab0006f574c3893eea17fbe7a191, type: 3}
   m_PrefabInstance: {fileID: 6089573635662083767}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &7568348420947333253 stripped
+--- !u!4 &5868576063251947907 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4434548369071580722, guid: 5ddaab0006f574c3893eea17fbe7a191, type: 3}
+  m_CorrespondingSourceObject: {fileID: 428928432551155508, guid: 5ddaab0006f574c3893eea17fbe7a191, type: 3}
+  m_PrefabInstance: {fileID: 6089573635662083767}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &8270410830426987256 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2757579705549597775, guid: 5ddaab0006f574c3893eea17fbe7a191, type: 3}
   m_PrefabInstance: {fileID: 6089573635662083767}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7041901341152687126
