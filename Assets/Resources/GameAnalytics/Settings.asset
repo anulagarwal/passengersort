@@ -25,25 +25,33 @@ MonoBehaviour:
   UserMessagesSubmitted: 0
   UserMessagesFailed: 0
   CustomArea: 
-  gameKey: []
-  secretKey: []
-  Build: []
-  SelectedPlatformOrganization: []
-  SelectedPlatformStudio: []
-  SelectedPlatformGame: []
-  SelectedPlatformGameID: 
-  SelectedOrganization: 
-  SelectedStudio: 
-  SelectedGame: 
-  NewVersion: 
-  Changes: 
+  gameKey:
+  - 6eaf46c39aeac013016413f21c4f741b
+  secretKey:
+  - 8aa8342ea036f6c44a1ac85112f5a57810baf531
+  Build:
+  - 0.1
+  SelectedPlatformOrganization:
+  - 
+  SelectedPlatformStudio:
+  - 
+  SelectedPlatformGame:
+  - 
+  SelectedPlatformGameID: ffffffff
+  SelectedOrganization: 00000000
+  SelectedStudio: 00000000
+  SelectedGame: 00000000
+  NewVersion: 7.3.24
+  Changes: '7.3.24
+
+    - fixed fps script for when pausing game'
   SignUpOpen: 1
-  StudioName: 
-  GameName: 
+  StudioName: Momo Games
+  GameName: Passengers Sort 3D
   OrganizationName: 
   OrganizationIdentifier: 
   EmailGA: 
-  IntroScreen: 1
+  IntroScreen: 0
   InfoLogEditor: 1
   InfoLogBuild: 1
   VerboseLogBuild: 0
@@ -56,8 +64,8 @@ MonoBehaviour:
   ResourceItemTypes: []
   ResourceCurrencies: []
   LastCreatedGamePlatform: 0
-  Platforms: 
-  CurrentInspectorState: 0
+  Platforms: 0b000000
+  CurrentInspectorState: 1
   ClosedHints: 
   DisplayHints: 0
   DisplayHintsScrollState: {x: 0, y: 0}
@@ -84,7 +92,7 @@ MonoBehaviour:
   IncludeGooglePlay: 1
   FpsCriticalThreshold: 20
   FpsCirticalSubmitInterval: 1
-  PlatformFoldOut: 
+  PlatformFoldOut: "\x01"
   CustomDimensions01FoldOut: 0
   CustomDimensions02FoldOut: 0
   CustomDimensions03FoldOut: 0

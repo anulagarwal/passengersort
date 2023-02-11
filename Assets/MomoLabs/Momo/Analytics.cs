@@ -1,15 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using GameAnalyticsSDK;
-using DevToDev.Analytics;
-
+//using GameAnalyticsSDK;
 
 namespace Momo
 {
     
     public class Analytics : MonoBehaviour
     {
+        
         [SerializeField] int appSessionCount;
         [SerializeField] int dayNumber;
         [SerializeField] int level;
@@ -50,8 +49,12 @@ namespace Momo
 
             appSessionCount = PlayerPrefs.GetInt("appSession", 0);
             level = PlayerPrefs.GetInt("level", 1);
-          
-            GameAnalytics.NewDesignEvent("session", appSessionCount);
+
+            MaxSdk.SetSdkKey("TMz8cpx6TOmmFb5Krb8TvSP3p1yx_iTxJeBg0OwWbTrb5iT6RPm0vAzF5dcp6ARaCGl0TEZyMb4UQQASIewAQW");
+            MaxSdk.SetUserId(SystemInfo.deviceUniqueIdentifier);
+            MaxSdk.SetVerboseLogging(true);
+            MaxSdk.InitializeSdk();
+            //  GameAnalytics.NewDesignEvent("session", appSessionCount);
 
 
             dayNumber = PlayerPrefs.GetInt("dayNumber", 0);
@@ -70,7 +73,7 @@ namespace Momo
         private void OnApplicationPause(bool pause)
         {
             isPaused = true;
-            GameAnalytics.NewDesignEvent("sessionEnd", level);
+          //  GameAnalytics.NewDesignEvent("sessionEnd", level);
 
             //Track session End with level number
         }
@@ -81,7 +84,7 @@ namespace Momo
             {
                 appSessionCount += 1;
                 PlayerPrefs.SetInt("appSession", appSessionCount);
-                GameAnalytics.NewDesignEvent("session", appSessionCount);
+           //     GameAnalytics.NewDesignEvent("session", appSessionCount);
                 isPaused = false;
 
                 //Track session Start with level number
@@ -95,18 +98,18 @@ namespace Momo
 
         public void StartLevel(int levelNumber)
         {
-            TinySauce.OnGameStarted(levelNumber + "");
+         //   TinySauce.OnGameStarted(levelNumber + "");
             level = levelNumber;
         }
 
         public void WinLevel()
         {
-            TinySauce.OnGameFinished(true,0);
+        //    TinySauce.OnGameFinished(true,0);
         }
 
         public void LoseLevel()
         {
-            TinySauce.OnGameFinished(false, 0);           
+         //   TinySauce.OnGameFinished(false, 0);           
         }
 
         public void TrackSession(SessionData sd)
@@ -115,13 +118,8 @@ namespace Momo
             s.Add("sessionNumber", sd.sessionNumber);
             s.Add("sessionLength", sd.sessionLength);
             s.Add("sessionLevel", sd.lastLevel);
-            TinySauce.TrackCustomEvent("session", s);
+        //    TinySauce.TrackCustomEvent("session", s);
 
-            var parameters = new DTDCustomEventParameters();
-            parameters.Add(key: "sessionNumber", value: sd.sessionNumber);
-            parameters.Add(key: "sessionLength", value: sd.sessionLength);
-            parameters.Add(key: "sessionLevel", value: sd.lastLevel);
-            DTDAnalytics.CustomEvent(eventName: "session", parameters: parameters);
 
         }
 
@@ -131,13 +129,9 @@ namespace Momo
             l.Add("levelNumber", ld.levelNumber);
             l.Add("moves", ld.numberOfMoves);
             l.Add("time", ld.timeSpent);
-            TinySauce.TrackCustomEvent("level", l) ;
+         //   TinySauce.TrackCustomEvent("level", l) ;
 
-            var parameters = new DTDCustomEventParameters();
-            parameters.Add(key: "levelNumber", value: ld.levelNumber);
-            parameters.Add(key: "moves", value: ld.numberOfMoves);
-            parameters.Add(key: "time", value: ld.timeSpent);
-            DTDAnalytics.CustomEvent(eventName: "level", parameters: parameters);
+          
         }
 
         public void TrackDay(DayData dd)
@@ -145,14 +139,11 @@ namespace Momo
             Dictionary<string, object> d = new Dictionary<string, object>();
             d.Add("dayNumber", dd.DayNumber);
             d.Add("numberOfSessions", dd.numberOfSessions);
-            TinySauce.TrackCustomEvent("level", d);
+           // TinySauce.TrackCustomEvent("level", d);
 
-            var parameters = new DTDCustomEventParameters();
-            parameters.Add(key: "dayNumber", value: dd.DayNumber);
-            parameters.Add(key: "numberOfSessions", value: dd.numberOfSessions);
-            DTDAnalytics.CustomEvent(eventName: "day", parameters: parameters);
+         
 
-            TinySauce.TrackCustomEvent("level", d);
+         //   TinySauce.TrackCustomEvent("level", d);
         }
         #endregion
         //Register daily logins
