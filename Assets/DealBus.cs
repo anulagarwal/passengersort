@@ -47,6 +47,8 @@ public class DealBus : MonoBehaviour
             rows[rows.Count - 1].MoveCharactersTo(b.GetTopRowPos(), b.transform);
             rows.RemoveAt(rows.Count - 1);
             ResetRows();
+            b.ResetRows();
+
         }
         Invoke("SendBack", 5f);
     }

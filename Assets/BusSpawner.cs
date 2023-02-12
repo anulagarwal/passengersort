@@ -44,8 +44,21 @@ public class BusSpawner : MonoBehaviour
 
         else
         {
-            foreach (Row r in rows)
+            //Get buses with less than max rows
+            List<Bus> busesNoMax = BusManager.Instance.GetBusesNoMax();
+            rows.Clear();
+            foreach (Bus b in busesNoMax)
             {
+                Row r = new Row();
+                rows.Add(r);
+                if (b.rows.Count > 0)
+                {
+                    r.SetRow(PassengerManager.Instance.GetAlternateColorBasedOnLevel(b.rows[b.rows.Count - 1].color));
+                }
+                else if(b.rows.Count == 0)
+                {
+                    r.SetRow(PassengerManager.Instance.GetRandomColorBasedOnLevel());
+                }
                 for (int i = 0; i < BusManager.Instance.maxCharacterPerRow; i++)
                 {
                     GameObject g = Instantiate(PassengerManager.Instance.GetPassenger(r.color), GetComponent<DealBus>().GetRowPos(rows.Count - 1, rows.IndexOf(r)) + new Vector3(Random.Range(-0.015f, 0.015f), 0, Random.Range(-0.015f, 0.015f)), Quaternion.identity);
@@ -55,6 +68,18 @@ public class BusSpawner : MonoBehaviour
                 }
                 GetComponent<DealBus>().AddRow(r);
             }
+
+           /* foreach (Row r in rows)
+            {
+                for (int i = 0; i < BusManager.Instance.maxCharacterPerRow; i++)
+                {
+                    GameObject g = Instantiate(PassengerManager.Instance.GetPassenger(r.color), GetComponent<DealBus>().GetRowPos(rows.Count - 1, rows.IndexOf(r)) + new Vector3(Random.Range(-0.015f, 0.015f), 0, Random.Range(-0.015f, 0.015f)), Quaternion.identity);
+
+                    r.AddCharacter(g.GetComponent<Character>());
+                    g.transform.SetParent(transform);
+                }
+                GetComponent<DealBus>().AddRow(r);
+            }*/
 
             //GetComponent<Bus>().rows = rows;
             GetComponent<DealBus>().ResetRows();

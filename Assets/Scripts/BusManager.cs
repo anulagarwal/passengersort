@@ -12,9 +12,7 @@ public class BusManager : MonoBehaviour
     [SerializeField] public float xOffsetCharacter = 0.2f;
     [SerializeField] public float yOffsetCharacter = 0.2f;
     [SerializeField] public float minStopDistance = 0.4f;
-
-
-
+    [SerializeField] public int level = 0;
     public Bus selectedBus;
     public Bus oldBus;
 
@@ -24,6 +22,8 @@ public class BusManager : MonoBehaviour
     [Header("Component References")]
     [SerializeField] public Transform busEndPoint;
     [SerializeField] public Transform busStartPoint;
+    [SerializeField] public Transform busSpawnStartPoint;
+
     [SerializeField] public List<Bus> buses;
     [SerializeField] List<BusPoint> busPoints;
 
@@ -99,7 +99,13 @@ public class BusManager : MonoBehaviour
     }
     public List<Bus> GetBusesNoMax()
     {
-        return buses.FindAll(x=>x.rows.Count < GetMaxRows(x.bustype));
+        List<Bus> b =  buses.FindAll(x=>x.rows.Count < GetMaxRows(x.bustype));
+        if (b.Count > 5)
+        {
+            b.RemoveRange(maxRows, b.Count - maxRows);
+        }
+
+        return b;
     }
 
     public void EnterBus(Bus b)

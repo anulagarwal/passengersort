@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class Row 
 {
-    public List<Character> characters;
+    public List<Character> characters = new List<Character>();
     public CharacterColor color;
     public int maxCharacters;
     public Vector3 position;
@@ -17,7 +17,11 @@ public class Row
     {
         characters.Add(c);
     }
-
+    public void SetRow(CharacterColor c)
+    {
+        color = c;
+        maxCharacters = BusManager.Instance.maxCharacterPerRow;
+    }
     public void MoveCharactersTo(Vector3 pos, Transform b)
     {
         foreach(Character c in characters)
@@ -26,15 +30,19 @@ public class Row
             Vector3 v = pos;
             if (i <= characters.Count / 2)
             {
-                  v = new Vector3(pos.x - BusManager.Instance.xOffsetCharacter, pos.y, pos.z);
+                //  v = new Vector3(pos.x - BusManager.Instance.xOffsetCharacter, pos.y, pos.z);
+                v = new Vector3(pos.x, pos.y, pos.z);
+
                 //;
-               // v = new Vector3(b.GetComponent<Bus>().GetTopRow().TransformPoint(pos).x - BusManager.Instance.xOffsetCharacter, pos.y, pos.z);
+                // v = new Vector3(b.GetComponent<Bus>().GetTopRow().TransformPoint(pos).x - BusManager.Instance.xOffsetCharacter, pos.y, pos.z);
 
             }
             else
             {
-                v = new Vector3(pos.x + BusManager.Instance.xOffsetCharacter, pos.y, pos.z);
-              //  v = new Vector3(b.GetComponent<Bus>().GetTopRow().TransformPoint(pos).x + BusManager.Instance.xOffsetCharacter, pos.y, pos.z);
+                //  v = new Vector3(pos.x + BusManager.Instance.xOffsetCharacter, pos.y, pos.z);
+                v = new Vector3(pos.x, pos.y, pos.z);
+
+                //  v = new Vector3(b.GetComponent<Bus>().GetTopRow().TransformPoint(pos).x + BusManager.Instance.xOffsetCharacter, pos.y, pos.z);
 
             }
             c.MoveTo(v, b);

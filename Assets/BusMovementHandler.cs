@@ -35,27 +35,35 @@ public class BusMovementHandler : MonoBehaviour
     {
         wp = wps[index];
         Vector3 v = Vector3.zero;
-        if(wp.transform.position.x > transform.position.x)
-        {
-            v = new Vector3(0, 90, 0);
-        }
 
-        if(wp.transform.position.x < transform.position.x)
-        {
-            v = new Vector3(0, -90, 0);
-        }
+       
 
-        if (wp.transform.position.y > transform.position.y)
-        {
-            v = new Vector3(0, 0, 0);
-        }
+            if (wp.transform.position.x - transform.position.x > 0.5f)
+            {
+                v = new Vector3(0, 90, 0);
+            }
 
-        if (wp.transform.position.y < transform.position.y)
-        {
-            v = new Vector3(0, 180, 0);
-        }
+            if (wp.transform.position.x - transform.position.x < -0.5f)
+            {
+                v = new Vector3(0, -90, 0);
+            }
 
+            if (wp.transform.position.z - transform.position.z > 0.5f)
+            {
+                v = new Vector3(0, 0, 0);
+            }
+
+            if (wp.transform.position.z - transform.position.z < -0.5f)
+            {
+                v = new Vector3(0, 180, 0);
+                print(wp.transform.position + " // " + transform.position.z);
+            }
+        
+
+        if(v!= transform.rotation.eulerAngles)
         transform.DORotate(v, 0.5f);
+
+
         if (v != Vector3.zero) 
         await Task.Delay(500);
         transform.DOMove(wps[index].transform.position, speed).SetSpeedBased(true).OnComplete(()=> {
@@ -108,12 +116,12 @@ public class BusMovementHandler : MonoBehaviour
         {
             v = new Vector3(0, 180, 0);
         }
-        transform.DORotate(v, 0.5f);
+        transform.DORotate(b.rotation, 0.5f);
+
 
         transform.DOMove(b.transform.position, speed).SetSpeedBased(true).OnComplete(() => {
 
             GetComponent<Bus>().UnPackBus();
-            transform.DORotate(b.rotation, 0.5f);
         });
     }
 

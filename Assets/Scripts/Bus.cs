@@ -165,7 +165,7 @@ public class Bus : MonoBehaviour
                     rows[rows.Count - 1].MoveCharactersTo(b.GetTopRowPos(), b.transform);
                     rows.RemoveAt(rows.Count - 1);
                     ResetRows();
-
+                    b.ResetRows();
                     if (rows.Count > 0 && rows[rows.Count - 1].color == c && b.rows.Count < BusManager.Instance.GetMaxRows(b.bustype))
                     {
                         MoveRowTo(b);
@@ -222,6 +222,7 @@ public class Bus : MonoBehaviour
             {
                 //BusManager.Instance.ResetAllDoors();
                 CloseDoor();
+                if(BusManager.Instance.oldBus!=null)
                 BusManager.Instance.oldBus.CloseDoor();
                 //BusManager.Instance.ResetAllDoors();
                 await Task.Delay(2000);
@@ -229,7 +230,7 @@ public class Bus : MonoBehaviour
                 {
                     isComplete = true;
                     CoinManager.Instance.AddCoins(50, transform.position);
-                    confetti.SetActive(true);                    
+                    busPoint.CompleteBus();                  
                     SendToTravel();                    
                 }
             }
@@ -329,14 +330,14 @@ public class Bus : MonoBehaviour
         ResetRows();
         rowsCount = rows.Count;
         DehighlightTopRows();
-        if (bustype == BusType.Bus)
+        if (bustype == BusType.Bus && busPoint!=null)
         {
             busPoint.GetComponent<BusIndicator>().ColorBars(this);
         }
 
         foreach(Row x in rows)
         {
-            x.UpdateCharacterRadius(PassengerManager.Instance.radius[rows.Count - 1]);
+            //x.UpdateCharacterRadius(PassengerManager.Instance.radius[rows.Count - 1]);
         }
     }
 

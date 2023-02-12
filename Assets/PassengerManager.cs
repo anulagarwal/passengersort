@@ -73,4 +73,85 @@ public class PassengerManager : MonoBehaviour
     {
         return passengers.Find(x => x.color == col).col;
     }
+
+    public CharacterColor GetAlternateColorBasedOnLevel( CharacterColor col)
+    {
+        int level = BusManager.Instance.level;
+        float f = Random.Range(0, 100);
+
+        CharacterColor c = CharacterColor.Red;
+        if (f < 20)
+        {
+            c = col;
+        }
+        else
+        {
+            if (level < 1)
+            {
+                if (col == CharacterColor.Blue)
+                {
+                    c = CharacterColor.Red;
+                }
+                if (col == CharacterColor.Red)
+                {
+                    c = CharacterColor.Blue;
+                }
+            }
+            else if (level >= 1)
+            {
+                if (col == CharacterColor.Blue)
+                {
+                    c = CharacterColor.Red;
+                }
+                if (col == CharacterColor.Red)
+                {
+                    c = CharacterColor.Yellow;
+                }
+                if (col == CharacterColor.Yellow)
+                {
+                    c = CharacterColor.Blue;
+                }
+            }
+        }
+
+        return c;
+    }
+
+    public CharacterColor GetRandomColorBasedOnLevel()
+    {
+        int level = BusManager.Instance.level;
+        CharacterColor c = CharacterColor.Red;
+        int random = 0;
+        if (level < 1)
+        {
+            random = Random.Range(0, 2);
+
+            if (random == 0)
+            {
+                c = CharacterColor.Red;
+            }
+            if (random == 1)
+            {
+                c = CharacterColor.Blue;
+            }
+        }
+        else if (level >= 1)
+        {
+            random = Random.Range(0, 3);
+            if (random == 0)
+            {
+                c = CharacterColor.Red;
+            }
+            if (random == 1)
+            {
+                c = CharacterColor.Blue;
+            }
+            if (random == 2)
+            {
+                c = CharacterColor.Yellow;
+            }
+        }
+
+        return c;
+    }
 }

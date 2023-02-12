@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using TMPro; 
@@ -18,6 +16,8 @@ public class BusPoint : MonoBehaviour
     [SerializeField] public Transform lockImg;
     [SerializeField] public GameObject locked;
     [SerializeField] public TextMeshPro lockText;
+    [SerializeField] public GameObject confetti;
+
 
 
     private void Start()
@@ -82,6 +82,7 @@ public class BusPoint : MonoBehaviour
         //Disable Box Collider
         locked.SetActive(false);
         BusManager.Instance.GetComponent<BusProvider>().SendEmptyBus(this);
+        BusManager.Instance.level++;
         UpdateState(BusPointType.Empty);
 
         //fly coins from ui - add to coinmanager only this functionality
@@ -90,4 +91,16 @@ public class BusPoint : MonoBehaviour
     {
         return cost;
     }
+
+    public void CompleteBus()
+    {
+        confetti.SetActive(true);
+        Invoke("DisableConfetti",2.5f);
+    }
+
+    public void DisableConfetti()
+    {
+        confetti.SetActive(false);
+    }
+
 }
