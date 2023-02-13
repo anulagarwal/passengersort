@@ -53,9 +53,14 @@ public class GameManager : MonoBehaviour
         levelStartTime = Time.time;
     }
 
-    public void AddMove(int v)
+    public void AddMove(int v, MoveType m)
     {
+        if (PlayerPrefs.GetInt("tutorial", 0) == 0 && GetComponent<TutorialManager>()!=null)
+        {
+            GetComponent<TutorialManager>().PlayStep(m);
+        }
         numberOfMoves += v;
+
     }
 
     public void WinLevel()

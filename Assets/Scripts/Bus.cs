@@ -76,7 +76,9 @@ public class Bus : MonoBehaviour
         else if (BusManager.Instance.selectedBus != null && BusManager.Instance.enteredBus == null && BusManager.Instance.selectedBus != this)
          {
              BusManager.Instance.EnterBus(this);
-             BusManager.Instance.selectedBus.MoveRowTo(this);           
+             BusManager.Instance.selectedBus.MoveRowTo(this);
+                GameManager.Instance.AddMove(1, MoveType.Move);
+
             BusManager.Instance.ResetSelections();
          } 
        // SendToTravel();
@@ -166,6 +168,7 @@ public class Bus : MonoBehaviour
                     rows.RemoveAt(rows.Count - 1);
                     ResetRows();
                     b.ResetRows();
+
                     if (rows.Count > 0 && rows[rows.Count - 1].color == c && b.rows.Count < BusManager.Instance.GetMaxRows(b.bustype))
                     {
                         MoveRowTo(b);

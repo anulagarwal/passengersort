@@ -83,8 +83,10 @@ public class BusPoint : MonoBehaviour
         locked.SetActive(false);
         BusManager.Instance.GetComponent<BusProvider>().SendEmptyBus(this);
         BusManager.Instance.level++;
-        UpdateState(BusPointType.Empty);
+        GameManager.Instance.AddMove(1, MoveType.Unlock);
 
+        UpdateState(BusPointType.Empty);
+        CompleteBus();
         //fly coins from ui - add to coinmanager only this functionality
     }
     public int GetCost()

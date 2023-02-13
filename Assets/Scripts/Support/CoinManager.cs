@@ -85,7 +85,21 @@ public class CoinManager : MonoBehaviour
         }
 
     }
+    public bool SubtractCoins(int v)
+    {
+        if (currentCoins - v > 0)
+        {
+            currentCoins -= v;
+            PlayerPrefs.SetInt("coins", currentCoins);
+            UIManager.Instance.UpdateCurrentCoins(currentCoins);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
 
+    }
     #endregion
 
 }

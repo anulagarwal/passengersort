@@ -27,10 +27,13 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Text winLevelText = null;
     [SerializeField] private Text loseLevelText = null;
     [SerializeField] private Text debugText = null;
+    [SerializeField] private Transform deal = null;
+
 
 
     [Header("Settings")]
     [SerializeField] private GameObject settingsBox;
+    [SerializeField] private GameObject settingsButton;
 
     [SerializeField] private Sprite enabledVibration;
     [SerializeField] private Sprite disabledVibration;
@@ -41,9 +44,12 @@ public class UIManager : MonoBehaviour
 
 
     [Header("Reward/Coins")]
+    [SerializeField] GameObject coinParent = null;
     [SerializeField] List<Text> allCurrentCoins = null;
     [SerializeField] Transform coinBarPos = null;
     [SerializeField] List<Transform> coins = null;
+    [SerializeField] Transform mask = null;
+
 
 
     [Header("Post Level")]
@@ -159,7 +165,25 @@ public class UIManager : MonoBehaviour
     {
         levelReward.text ="+"+ v + "";
     }
+    public void UpdateMaskPosition(Vector3 worldPos)
+    {
+        mask.position = Camera.main.WorldToScreenPoint(worldPos);
+    }
 
+    public void ActiveMask(bool act)
+    {
+        mask.gameObject.SetActive(act);
+        if (act)
+        {
+            coinParent.SetActive(false);
+            settingsButton.SetActive(false);
+        }
+        else
+        {           
+                coinParent.SetActive(true);
+            settingsButton.SetActive(true);            
+        }
+    }
     #region Give Rewards
 
     #endregion
@@ -178,7 +202,7 @@ public class UIManager : MonoBehaviour
 
     public void OnClickMove()
     {
-        GameManager.Instance.AddMove(1);
+        //GameManager.Instance.AddMove(1);
     }
 
     public void OnClickWin()
@@ -186,9 +210,31 @@ public class UIManager : MonoBehaviour
         GameManager.Instance.WinLevel();
     }
 
-    public void OnClickDeal()
+    public async void OnClickDeal()
     {
-        DealBusProvider.Instance.DealBus();
+        if (CoinManager.Instance.SubtractCoins(100))
+        {
+            DealBusProvider.Instance.DealBus();
+
+            foreach (Transform c in coins)
+            {
+                c.gameObject.SetActive(true);
+                c.transform.position = new Vector3(coinBarPos.position.x + Random.Range(-50, 50), coinBarPos.position.y + Random.Range(-50, 50));
+                c.transform.localScale = Vector3.one;
+                await Task.Delay(50);
+
+            }
+            foreach (Transform c in coins)
+            {
+
+                await Task.Delay(50);
+
+                c.transform.DOScale(Vector3.one * 0.75f, 0.5f);
+                c.transform.DOMove(deal.position, 1f).OnComplete(() => {
+                    c.gameObject.SetActive(false);
+                });
+            }
+        }
     }
 
     public void OnClickSFXButton()

@@ -60,7 +60,13 @@ public enum TileState
     Wall,
     Cat
 }
-
+public enum MoveType
+{
+    Select,
+    Move,
+    Deal,
+    Unlock
+}
 public enum CharacterColor
 {
     Red,

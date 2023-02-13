@@ -89,6 +89,7 @@ public class BusManager : MonoBehaviour
 
         selectedBus = b;
         oldBus = b;
+        GameManager.Instance.AddMove(1, MoveType.Select);
         b.OpenDoor();
        
     }
