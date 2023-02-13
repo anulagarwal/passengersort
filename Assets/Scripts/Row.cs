@@ -10,7 +10,7 @@ public class Row
     public int maxCharacters;
     public Vector3 position;
     public bool isToSpawn;
-
+    public Bus bus;
 
 
     public void AddCharacter(Character c)
@@ -22,6 +22,10 @@ public class Row
         color = c;
         maxCharacters = BusManager.Instance.maxCharacterPerRow;
     }
+    public void AddBus(Bus b)
+    {
+        bus = b;
+    }
     public void MoveCharactersTo(Vector3 pos, Transform b)
     {
         foreach(Character c in characters)
@@ -31,16 +35,16 @@ public class Row
             if (i <= characters.Count / 2)
             {
                 //  v = new Vector3(pos.x - BusManager.Instance.xOffsetCharacter, pos.y, pos.z);
-                v = new Vector3(pos.x, pos.y, pos.z);
-
+                  v = new Vector3(pos.x, pos.y, pos.z);
+               // v = b.GetComponent<Bus>().GetTopwRowCharacterPos(characters.FindIndex(x => x == c), this);
                 //;
                 // v = new Vector3(b.GetComponent<Bus>().GetTopRow().TransformPoint(pos).x - BusManager.Instance.xOffsetCharacter, pos.y, pos.z);
-
             }
             else
             {
                 //  v = new Vector3(pos.x + BusManager.Instance.xOffsetCharacter, pos.y, pos.z);
-                v = new Vector3(pos.x, pos.y, pos.z);
+                  v = new Vector3(pos.x, pos.y, pos.z);
+               // v = b.GetComponent<Bus>().GetTopwRowCharacterPos(characters.FindIndex(x => x == c), this);
 
                 //  v = new Vector3(b.GetComponent<Bus>().GetTopRow().TransformPoint(pos).x + BusManager.Instance.xOffsetCharacter, pos.y, pos.z);
 

@@ -4573,6 +4573,42 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 814465808}
     m_Modifications:
+    - target: {fileID: 652904120, guid: c75d6dc7a5ed745d487f217cc836309c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 652904122, guid: c75d6dc7a5ed745d487f217cc836309c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4.17
+      objectReference: {fileID: 0}
+    - target: {fileID: 652904122, guid: c75d6dc7a5ed745d487f217cc836309c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.44
+      objectReference: {fileID: 0}
+    - target: {fileID: 652904122, guid: c75d6dc7a5ed745d487f217cc836309c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.5016988
+      objectReference: {fileID: 0}
+    - target: {fileID: 652904122, guid: c75d6dc7a5ed745d487f217cc836309c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.5016988
+      objectReference: {fileID: 0}
+    - target: {fileID: 652904122, guid: c75d6dc7a5ed745d487f217cc836309c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.49829546
+      objectReference: {fileID: 0}
+    - target: {fileID: 652904122, guid: c75d6dc7a5ed745d487f217cc836309c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.49829546
+      objectReference: {fileID: 0}
+    - target: {fileID: 652904122, guid: c75d6dc7a5ed745d487f217cc836309c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 652904122, guid: c75d6dc7a5ed745d487f217cc836309c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -0.39
+      objectReference: {fileID: 0}
     - target: {fileID: 1139779897263711214, guid: c75d6dc7a5ed745d487f217cc836309c, type: 3}
       propertyPath: type
       value: 1
@@ -5760,7 +5796,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxRows: 4
   maxRowsPerFreeSpot: 1
-  maxCharacterPerRow: 12
+  maxCharacterPerRow: 10
   xOffsetCharacter: 0.7
   yOffsetCharacter: 0.2
   minStopDistance: 0.01
@@ -5816,6 +5852,7 @@ MonoBehaviour:
   busSpeed: 0
   currentBusIndex: 0
   buses: []
+  spawnPos: {fileID: 0}
 --- !u!114 &1606546181
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6664,7 +6701,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1139779897263711217, guid: c75d6dc7a5ed745d487f217cc836309c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.37
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1139779897263711217, guid: c75d6dc7a5ed745d487f217cc836309c, type: 3}
       propertyPath: m_LocalPosition.y

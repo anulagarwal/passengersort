@@ -261,6 +261,7 @@ public class Bus : MonoBehaviour
         {
             o.enabled = true;
         }
+        busPoint.GetComponent<BusIndicator>().ColorBars(this);
     }
     
     public void SendToTravel()
@@ -327,12 +328,13 @@ public class Bus : MonoBehaviour
     public void AddRow(Row r)
     {
         rows.Add(r);
+     //   r.AddBus(this);
         ResetRows();
         rowsCount = rows.Count;
         DehighlightTopRows();
         if (bustype == BusType.Bus && busPoint!=null)
         {
-            busPoint.GetComponent<BusIndicator>().ColorBars(this);
+            busPoint.GetComponent<BusIndicator>().ColorBars(this);            
         }
 
         foreach(Row x in rows)
@@ -373,6 +375,25 @@ public class Bus : MonoBehaviour
         else
         {
             return positions[0].transform.GetChild(0).position;
+        }
+    }
+
+    public Vector3 GetTopwRowCharacterPos(int val, Row r)
+    {
+        if (bustype == BusType.Bus)
+        {
+            if (rows.Count > 0)
+            {
+                return positions[rows.Count - 1].transform.GetChild(rows.Count - 1 - rows.FindIndex(x => x == r)).GetChild(Mathf.FloorToInt((float)val / (float)2)).position;
+            }
+            else
+            {
+                return positions[0].transform.GetChild(0).position;
+            }
+        }
+        else
+        {
+            return positions[rows.Count - 1].transform.GetChild(rows.Count - 1 - rows.FindIndex(x => x == r)).position;
         }
     }
 

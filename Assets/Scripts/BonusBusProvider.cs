@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
+
 
 public class BonusBusProvider : MonoBehaviour
 {
@@ -10,6 +12,8 @@ public class BonusBusProvider : MonoBehaviour
 
     [Header("Component References")]
     [SerializeField] List<GameObject> buses;
+    [SerializeField] Transform spawnPos;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,10 +26,22 @@ public class BonusBusProvider : MonoBehaviour
         
     }
 
-    public void SendBus()
+    public int GetBusIndex(int index)
     {
-        //Bus will come and pause in middle of the road
-        //It will wait for certain seconds and then go to the end of the road
-        //Based on number of passengers it will give additional coins
+
+        if (index >= buses.Count)
+        {
+            index = 0;
+        }
+        return index;
+    }
+
+    public async void SendBonusBus()
+    {
+        GameObject g = Instantiate(buses[GetBusIndex(currentBusIndex)], spawnPos.position, Quaternion.identity);
+        await Task.Delay(500);
+       // g.GetComponent<Bus>().SendToParkingLot(spawnPos, BusManager.Instance.GetBusPoint());
+        BusManager.Instance.AddBus(g.GetComponent<Bus>());
+        currentBusIndex++;
     }
 }

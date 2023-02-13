@@ -1,9 +1,9 @@
 {
-    "m_SelectedDeviceId": "6762a815",
+    "m_SelectedDeviceId": "192.168.1.111:5555",
     "m_SelectedPackage": {
-        "deviceId": "6762a815",
-        "name": "com.momo.passenger",
-        "processId": 12851,
+        "deviceId": "",
+        "name": "",
+        "processId": 0,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -24,6 +24,36 @@
             "deviceId": "6762a815",
             "name": "com.momo.passenger",
             "processId": 12851,
+            "exited": false
+        },
+        {
+            "deviceId": "192.168.1.111:5555",
+            "name": "com.teslacoilsw.launcher",
+            "processId": 4620,
+            "exited": false
+        },
+        {
+            "deviceId": "192.168.1.111:5555",
+            "name": "com.momo.passenger",
+            "processId": 19799,
+            "exited": true
+        },
+        {
+            "deviceId": "192.168.1.111:5555",
+            "name": "com.google.android.apps.docs",
+            "processId": 26512,
+            "exited": true
+        },
+        {
+            "deviceId": "192.168.1.111:5555",
+            "name": "com.google.android.packageinstaller",
+            "processId": 16481,
+            "exited": false
+        },
+        {
+            "deviceId": "192.168.1.111:5555",
+            "name": "com.google.android.apps.docs",
+            "processId": 21102,
             "exited": false
         }
     ],

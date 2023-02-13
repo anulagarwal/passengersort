@@ -4,7 +4,13 @@ using UnityEngine;
 using DG.Tweening;
 public class BusIndicator : MonoBehaviour
 {
-    
+
+    [Header("Attributes")]
+    [SerializeField] float delayTime;
+    [SerializeField] float startTime;
+
+
+
     [Header("Component References")]
     [SerializeField] List<SpriteRenderer> bars;
     [SerializeField] GameObject barParent;
@@ -12,13 +18,19 @@ public class BusIndicator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        EnableBar(true);
+        //EnableBar(true);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (barParent.activeSelf)
+        {
+            if(startTime + delayTime < Time.time)
+            {
+                DisableBar();
+            }
+        }
     }
 
 
@@ -41,7 +53,9 @@ public class BusIndicator : MonoBehaviour
                 bars[i].color = Color.white;
             }
         }
-        Invoke("DisableBar", 8f);
+        barParent.SetActive(true);
+
+        startTime = Time.time;
     }
 
     public void EnableBar(bool active)
