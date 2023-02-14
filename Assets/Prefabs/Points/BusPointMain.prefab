@@ -742,13 +742,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   occupiedBy: {fileID: 0}
   type: 2
-  cost: 55
+  cost: 999
   rotation: {x: 0, y: 0, z: 0}
   waypointStart: {fileID: 0}
   lockImg: {fileID: 0}
   locked: {fileID: 1139779896911945056}
   lockText: {fileID: 1139779898128124770}
   confetti: {fileID: 1099310338458712370}
+  lockedColor: {r: 0, g: 0, b: 0, a: 0}
+  lockedExpensiveColor: {r: 0, g: 0, b: 0, a: 0}
+  spriteBase: {fileID: 1139779898721864149}
+  buttonBase: {fileID: 3264826715094921025}
 --- !u!114 &7531001126495004089
 MonoBehaviour:
   m_ObjectHideFlags: 0

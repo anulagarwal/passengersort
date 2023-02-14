@@ -94,6 +94,13 @@ public class BusManager : MonoBehaviour
        
     }
 
+    public void UpdateBusPoints()
+    {
+        foreach(BusPoint bp in busPoints)
+        {
+            bp.CheckForExpensive();
+        }
+    }
     public List<Bus> GetBuses()
     {
         return buses;

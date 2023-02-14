@@ -48,8 +48,13 @@ public class UIManager : MonoBehaviour
     [SerializeField] List<Text> allCurrentCoins = null;
     [SerializeField] Transform coinBarPos = null;
     [SerializeField] List<Transform> coins = null;
-    [SerializeField] Transform mask = null;
 
+
+    [Header("Tutorial")]
+
+    [SerializeField] Transform mask = null;
+    [SerializeField] Text tutorialText = null;
+    [SerializeField] GameObject tutorialParent = null;
 
 
     [Header("Post Level")]
@@ -170,6 +175,11 @@ public class UIManager : MonoBehaviour
         mask.position = Camera.main.WorldToScreenPoint(worldPos);
     }
 
+    public void UpdateTutorialText(string s)
+    {
+        tutorialText.text = s;
+    }
+
     public void ActiveMask(bool act)
     {
         mask.gameObject.SetActive(act);
@@ -177,11 +187,14 @@ public class UIManager : MonoBehaviour
         {
             coinParent.SetActive(false);
             settingsButton.SetActive(false);
+            tutorialParent.SetActive(true);
         }
         else
         {           
                 coinParent.SetActive(true);
-            settingsButton.SetActive(true);            
+            settingsButton.SetActive(true);
+            tutorialParent.SetActive(false);
+
         }
     }
     #region Give Rewards

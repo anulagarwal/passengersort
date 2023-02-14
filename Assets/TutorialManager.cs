@@ -11,6 +11,8 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] bool isOver = false;
     [SerializeField] List<MoveType> moves;
     [SerializeField] List<float> interval;
+    [SerializeField] List<string> texts;
+
 
     [Header("Component References")]
     [SerializeField] Animator anim;
@@ -28,7 +30,7 @@ public class TutorialManager : MonoBehaviour
         }
         else{
             UIManager.Instance.ActiveMask(true);
-            
+            UpdateText(currentIndex);
         }
     }
 
@@ -47,7 +49,10 @@ public class TutorialManager : MonoBehaviour
             Invoke("NextStep", interval[currentIndex-1]);
         }
     }
-
+    public void UpdateText(int index)
+    {
+        UIManager.Instance.UpdateTutorialText(texts[index-2]);
+    }
     public void NextStep()
     {
         if (!isOver)
@@ -60,6 +65,7 @@ public class TutorialManager : MonoBehaviour
             {
                 finger.gameObject.SetActive(true);
                 currentIndex++;
+                UpdateText(currentIndex);
 
                 anim.Play(stepBaseName + (currentIndex-1));
             }
@@ -75,6 +81,7 @@ public class TutorialManager : MonoBehaviour
     {
         isOver = true;
         UIManager.Instance.ActiveMask(false);
+
         PlayerPrefs.SetInt("tutorial", 1);
         anim.StopPlayback();
         anim.gameObject.SetActive(false);

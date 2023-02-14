@@ -17,6 +17,14 @@ public class BusPoint : MonoBehaviour
     [SerializeField] public GameObject locked;
     [SerializeField] public TextMeshPro lockText;
     [SerializeField] public GameObject confetti;
+    [SerializeField] public Color lockedColor;
+    [SerializeField] public Color lockedExpensiveColor;
+    [SerializeField] public SpriteRenderer spriteBase;
+    [SerializeField] public SpriteRenderer buttonBase;
+
+
+
+
 
 
 
@@ -62,6 +70,7 @@ public class BusPoint : MonoBehaviour
             case BusPointType.Locked:
                 GetComponent<BoxCollider>().enabled = true;
                 lockText.text = "" + cost;
+                CheckForExpensive();
                 break;
 
             case BusPointType.Empty:
@@ -75,6 +84,29 @@ public class BusPoint : MonoBehaviour
 
                 break;
         }
+    }
+
+    public void CheckForExpensive()
+    {
+        if (CoinManager.Instance.CheckForCoins(cost))
+        {
+            ColorIn();
+        }
+        else
+        {
+            GreyOut();
+        }
+    }
+    public void GreyOut()
+    {
+        spriteBase.color = new Color(spriteBase.color.r, spriteBase.color.g, spriteBase.color.b, spriteBase.color.a / 2);
+        buttonBase.color = new Color(buttonBase.color.r, buttonBase.color.g, buttonBase.color.b, buttonBase.color.a / 2);
+    }
+
+    public void ColorIn()
+    {
+        spriteBase.color = new Color(spriteBase.color.r, spriteBase.color.g, spriteBase.color.b, 255);
+        buttonBase.color = new Color(buttonBase.color.r, buttonBase.color.g, buttonBase.color.b, 255);
     }
 
     public void Unlock()

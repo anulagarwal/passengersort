@@ -56,6 +56,18 @@ public class CoinManager : MonoBehaviour
         UIManager.Instance.UpdateLevelReward(levelReward);
     }
 
+    public bool CheckForCoins(int v)
+    {
+        if (v >= currentCoins)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
     #endregion
 
     #region Coin Getter Setter
@@ -65,9 +77,11 @@ public class CoinManager : MonoBehaviour
         PlayerPrefs.SetInt("coins", currentCoins);
         UIManager.Instance.UpdateCurrentCoins(currentCoins);
         UIManager.Instance.SendPoolTo(true, worldPos);
+        BusManager.Instance.UpdateBusPoints();
+
     }
 
-   
+
     public bool SubtractCoins(int v, Vector3 worldPos)
     {
         if (currentCoins - v > 0)
@@ -76,7 +90,7 @@ public class CoinManager : MonoBehaviour
             PlayerPrefs.SetInt("coins", currentCoins);
             UIManager.Instance.UpdateCurrentCoins(currentCoins);
             UIManager.Instance.SendPoolTo(false, worldPos);
-
+            BusManager.Instance.UpdateBusPoints();
             return true;
         }
         else
@@ -92,6 +106,8 @@ public class CoinManager : MonoBehaviour
             currentCoins -= v;
             PlayerPrefs.SetInt("coins", currentCoins);
             UIManager.Instance.UpdateCurrentCoins(currentCoins);
+            BusManager.Instance.UpdateBusPoints();
+
             return true;
         }
         else
