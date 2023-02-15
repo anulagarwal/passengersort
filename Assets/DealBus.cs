@@ -131,12 +131,30 @@ public class DealBus : MonoBehaviour
         int i = rows.Count;
         foreach (Row r in rows)
         {
-            r.MoveCharactersTo(positions[i - 1].transform.GetChild((positions[i - 1].childCount - 1) - rows.FindIndex(x => x == r)).position, transform);
+            r.MoveDealCharactersTo(positions[i - 1].transform.GetChild((positions[i - 1].childCount - 1) - rows.FindIndex(x => x == r)).position, transform);
         }
     }
+    public Vector3 GetTopwRowCharacterPos(int val, Row r)
+    {
 
+        if (val >= 10)
+        {
+            val = val % 10;
+        }
+        
+            if (rows.Count > 0)
+            {
+                return positions[rows.Count - 1].transform.GetChild(rows.Count - 1 - rows.FindIndex(x => x == r)).GetChild(Mathf.FloorToInt((float)val / (float)2)).position;
+            }
+            else
+            {
+                return positions[0].transform.GetChild(0).position;
+            }
+      
+    }
     public Vector3 GetRowPos(int maxRow, int index)
     {
+        print(positions[maxRow].transform.GetChild(maxRow - index).name);
         return positions[maxRow].transform.GetChild(maxRow - index).position;
     }
     #endregion

@@ -284,8 +284,9 @@ public class Bus : MonoBehaviour
             wp = wp.nextPoint.GetComponent<Waypoint>();
             w.Add(wp);
         }
-       // GetComponent<BusMovementHandler>().UpdateWayPoints(w, busPoint);
-       // GetComponent<BusMovementHandler>().MoveToWaypoint();
+        // GetComponent<BusMovementHandler>().UpdateWayPoints(w, busPoint);
+        // GetComponent<BusMovementHandler>().MoveToWaypoint();
+        GetComponent<BusMovementHandler>().isGoingToLot = false;
         GetComponent<BusMovementHandler>().MoveToTarget(w[w.Count - 1].transform.position);
         busPoint.Reset();
 
@@ -341,15 +342,6 @@ public class Bus : MonoBehaviour
         ResetRows();
         rowsCount = rows.Count;
         DehighlightTopRows();
-        if (bustype == BusType.Bus && busPoint!=null)
-        {
-            //busPoint.GetComponent<BusIndicator>().ColorBars(this);            
-        }
-
-        foreach(Row x in rows)
-        {
-            //x.UpdateCharacterRadius(PassengerManager.Instance.radius[rows.Count - 1]);
-        }
     }
 
     public void UpdateBusWall()
@@ -420,7 +412,7 @@ public class Bus : MonoBehaviour
       
         if (val >= 10)
         {
-            val -= 10;
+            val = val % 10;
         }
         if (bustype == BusType.Bus)
         {

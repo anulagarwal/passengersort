@@ -170,6 +170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsDealBus: 1
+  IsSpawnBus: 0
   rows:
   - characters: []
     color: 0
@@ -761,6 +762,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 296344574874668361}
     m_Modifications:
+    - target: {fileID: 3235217159173548566, guid: 6a42a655d68e1498a8bd84f0743bdf98, type: 3}
+      propertyPath: m_Name
+      value: 4gg
+      objectReference: {fileID: 0}
     - target: {fileID: 3235217159268814690, guid: 6a42a655d68e1498a8bd84f0743bdf98, type: 3}
       propertyPath: m_Name
       value: Positions (1)
@@ -808,6 +813,22 @@ PrefabInstance:
     - target: {fileID: 3235217159268814691, guid: 6a42a655d68e1498a8bd84f0743bdf98, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3235217159621285531, guid: 6a42a655d68e1498a8bd84f0743bdf98, type: 3}
+      propertyPath: m_Name
+      value: 2gg
+      objectReference: {fileID: 0}
+    - target: {fileID: 3235217160023961496, guid: 6a42a655d68e1498a8bd84f0743bdf98, type: 3}
+      propertyPath: m_Name
+      value: 1gg
+      objectReference: {fileID: 0}
+    - target: {fileID: 3235217160358890511, guid: 6a42a655d68e1498a8bd84f0743bdf98, type: 3}
+      propertyPath: m_Name
+      value: 4G
+      objectReference: {fileID: 0}
+    - target: {fileID: 3235217160558248796, guid: 6a42a655d68e1498a8bd84f0743bdf98, type: 3}
+      propertyPath: m_Name
+      value: 3gg
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []

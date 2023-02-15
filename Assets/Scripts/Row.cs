@@ -53,6 +53,25 @@ public class Row
         }
     }
 
+    public void MoveDealCharactersTo(Vector3 pos, Transform b)
+    {
+        foreach (Character c in characters)
+        {
+            int i = characters.FindIndex(x => x == c);
+            Vector3 v = pos;
+            if (i <= characters.Count / 2)
+            {
+                //  v = new Vector3(pos.x - BusManager.Instance.xOffsetCharacter, pos.y, pos.z);
+                //  v = new Vector3(pos.x, pos.y, pos.z);
+                v = b.GetComponent<DealBus>().GetTopwRowCharacterPos(characters.FindIndex(x => x == c), this);
+                //;
+                // v = new Vector3(b.GetComponent<Bus>().GetTopRow().TransformPoint(pos).x - BusManager.Instance.xOffsetCharacter, pos.y, pos.z);
+            }
+          
+            c.MoveTo(v, b);
+        }
+    }
+
     public void HighlightCharacters()
     {
         foreach(Character c in characters)

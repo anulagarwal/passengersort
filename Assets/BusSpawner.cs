@@ -40,15 +40,15 @@ public class BusSpawner : MonoBehaviour
             }
             GetComponent<Bus>().AddRow(r);
 
-            foreach (Row ro in GetComponent<Bus>().rows)
+            
+        }
+        foreach (Row ro in GetComponent<Bus>().rows)
+        {
+            foreach (Character c in ro.characters)
             {
-                foreach (Character c in ro.characters)
-                {
-                    GetComponent<Bus>().AddCharacter(c);
-                }
+                GetComponent<Bus>().AddCharacter(c);
             }
         }
-
         //GetComponent<Bus>().rows = rows;
         GetComponent<Bus>().ResetRows();
     }
@@ -64,23 +64,18 @@ public class BusSpawner : MonoBehaviour
                 for (int i = 0; i < BusManager.Instance.maxCharacterPerRow; i++)
                 {
                     GameObject g = Instantiate(PassengerManager.Instance.GetPassenger(r.color), GetComponent<Bus>().GetRowPos(rows.Count - 1, rows.IndexOf(r)) + new Vector3(Random.Range(-0.01f, 0.01f), 0, Random.Range(-0.01f, 0.01f)), Quaternion.identity);
-                    r.AddCharacter(g.GetComponent<Character>());
-                   
+                    r.AddCharacter(g.GetComponent<Character>());                   
                     g.transform.SetParent(transform);
                 }
                 GetComponent<Bus>().AddRow(r);
-
-                foreach(Row ro in GetComponent<Bus>().rows)
-                {
-                    foreach (Character c in ro.characters)
-                    {
-                        GetComponent<Bus>().AddCharacter(c);
-                    }
-                }
-               
-
             }
-
+            foreach (Row ro in GetComponent<Bus>().rows)
+            {
+                foreach (Character c in ro.characters)
+                {
+                    GetComponent<Bus>().AddCharacter(c);
+                }
+            }
             //GetComponent<Bus>().rows = rows;
             GetComponent<Bus>().ResetRows();
         }
@@ -92,8 +87,8 @@ public class BusSpawner : MonoBehaviour
             rows.Clear();
             foreach (Bus b in busesNoMax)
             {
+               
                 Row r = new Row();
-                rows.Add(r);
                 if (b.rows.Count > 0)
                 {
                     r.SetRow(PassengerManager.Instance.GetAlternateColorBasedOnLevel(b.rows[b.rows.Count - 1].color));
@@ -102,31 +97,23 @@ public class BusSpawner : MonoBehaviour
                 {
                     r.SetRow(PassengerManager.Instance.GetRandomColorBasedOnLevel());
                 }
-                for (int i = 0; i < BusManager.Instance.maxCharacterPerRow; i++)
-                {
-                    GameObject g = Instantiate(PassengerManager.Instance.GetPassenger(r.color), GetComponent<DealBus>().GetRowPos(rows.Count - 1, rows.IndexOf(r)) + new Vector3(Random.Range(-0.015f, 0.015f), 0, Random.Range(-0.015f, 0.015f)), Quaternion.identity);
-
-                    r.AddCharacter(g.GetComponent<Character>());
-                    g.transform.SetParent(transform);
-                }
+                rows.Add(r);
                 GetComponent<DealBus>().AddRow(r);
+                if (rows.Count >= 4)
+                {
+                    break;
+                }
             }
 
-           /* foreach (Row r in rows)
+            foreach (Row r in rows)
             {
                 for (int i = 0; i < BusManager.Instance.maxCharacterPerRow; i++)
                 {
-                    GameObject g = Instantiate(PassengerManager.Instance.GetPassenger(r.color), GetComponent<DealBus>().GetRowPos(rows.Count - 1, rows.IndexOf(r)) + new Vector3(Random.Range(-0.015f, 0.015f), 0, Random.Range(-0.015f, 0.015f)), Quaternion.identity);
-
+                    GameObject g = Instantiate(PassengerManager.Instance.GetPassenger(r.color), GetComponent<DealBus>().GetRowPos(rows.Count - 1, rows.IndexOf(r)) + new Vector3(Random.Range(-0.01f, 0.01f), 0, Random.Range(-0.01f, 0.01f)), Quaternion.identity);
                     r.AddCharacter(g.GetComponent<Character>());
                     g.transform.SetParent(transform);
                 }
-                GetComponent<DealBus>().AddRow(r);
-            }*/
-
-            //GetComponent<Bus>().rows = rows;
-            GetComponent<DealBus>().ResetRows();
-
+            }
         }
         Destroy(this);
     }

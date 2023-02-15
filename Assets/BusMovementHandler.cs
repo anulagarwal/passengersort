@@ -10,7 +10,7 @@ public class BusMovementHandler : MonoBehaviour
     [Header("Attributes")]
     [SerializeField] float speed;
     [SerializeField] int index = 0;
-    [SerializeField] bool isGoingToLot = false;
+    [SerializeField] public bool isGoingToLot = false;
 
 
 
@@ -147,12 +147,14 @@ public class BusMovementHandler : MonoBehaviour
         {
             v = new Vector3(0, 180, 0);
         }
-        transform.DORotate(b.rotation, 0.5f);
 
 
         transform.DOMove(b.transform.position, speed).SetSpeedBased(true).OnComplete(() => {
+            transform.DORotate(b.rotation, 0.5f).OnComplete(()=>
+            {
+                GetComponent<Bus>().UnPackBus();
+            });
 
-            GetComponent<Bus>().UnPackBus();
         });
     }
 
