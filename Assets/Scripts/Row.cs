@@ -35,16 +35,16 @@ public class Row
             if (i <= characters.Count / 2)
             {
                 //  v = new Vector3(pos.x - BusManager.Instance.xOffsetCharacter, pos.y, pos.z);
-                  v = new Vector3(pos.x, pos.y, pos.z);
-               // v = b.GetComponent<Bus>().GetTopwRowCharacterPos(characters.FindIndex(x => x == c), this);
+                //  v = new Vector3(pos.x, pos.y, pos.z);
+               v = b.GetComponent<Bus>().GetTopwRowCharacterPos(characters.FindIndex(x => x == c), this);
                 //;
                 // v = new Vector3(b.GetComponent<Bus>().GetTopRow().TransformPoint(pos).x - BusManager.Instance.xOffsetCharacter, pos.y, pos.z);
             }
             else
             {
                 //  v = new Vector3(pos.x + BusManager.Instance.xOffsetCharacter, pos.y, pos.z);
-                  v = new Vector3(pos.x, pos.y, pos.z);
-               // v = b.GetComponent<Bus>().GetTopwRowCharacterPos(characters.FindIndex(x => x == c), this);
+                //  v = new Vector3(pos.x, pos.y, pos.z);
+                v = b.GetComponent<Bus>().GetTopwRowCharacterPos(characters.FindIndex(x => x == c), this);
 
                 //  v = new Vector3(b.GetComponent<Bus>().GetTopRow().TransformPoint(pos).x + BusManager.Instance.xOffsetCharacter, pos.y, pos.z);
 

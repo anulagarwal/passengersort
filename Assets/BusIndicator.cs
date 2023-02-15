@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 using DG.Tweening;
 public class BusIndicator : MonoBehaviour
 {
@@ -14,6 +16,8 @@ public class BusIndicator : MonoBehaviour
     [Header("Component References")]
     [SerializeField] List<SpriteRenderer> bars;
     [SerializeField] GameObject barParent;
+    [SerializeField] List<Image> barFills;
+
 
     // Start is called before the first frame update
     void Start()
@@ -38,23 +42,69 @@ public class BusIndicator : MonoBehaviour
     {
 
         int x = 5 - b.rows.Count;
-        if (b.rows.Count > 0)
-        {
-            for (int i = 0; i < b.rows.Count; i++)
-            {
-                bars[i].color = PassengerManager.Instance.GetColor(b.rows[i].color);
-            }
-        }
+         if (b.rows.Count > 0)
+         {
+             for (int i = 0; i < b.rows.Count; i++)
+             {
+                barFills[i].color = PassengerManager.Instance.GetColor(b.rows[i].color);
+                float f = ((float)b.charactersList.Count - ((float)(i)* BusManager.Instance.maxCharacterPerRow))/(float)BusManager.Instance.maxCharacterPerRow;
+                if (f > 0.9f)
+                {
+                    f = 1;
+                }
+                barFills[i].DOFillAmount(f, 0.5f);
+             }
 
+         }
         if (x > 0)
         {
-            for (int i = b.rows.Count; i < 5; i++)
+            for (int i = Mathf.CeilToInt((float)b.charactersList.Count / (float)BusManager.Instance.maxCharacterPerRow); i < 5; i++)
             {
-                bars[i].color = Color.white;
+                barFills[i].color = Color.white;
             }
         }
-        barParent.SetActive(true);
+        if (b.charactersList.Count > 0)
+        {
+            for (int i = 0; i <= Mathf.FloorToInt(b.charactersList.Count / BusManager.Instance.maxCharacterPerRow); i++)
+            {
+               // barFills[i].color = PassengerManager.Instance.GetColor(b.rows[i].color);
+                float f = ((float)b.charactersList.Count - ((float)(i) * BusManager.Instance.maxCharacterPerRow)) / (float)BusManager.Instance.maxCharacterPerRow;
+                if (f<0.15f)
+                {
+                    f = 0;
+                }
+                barFills[i].DOFillAmount(f, 0.5f);
+            }
+        }
 
+         
+
+        
+       
+
+        
+           /* print(Mathf.FloorToInt(b.charactersList.Count / BusManager.Instance.maxCharacterPerRow));
+            for(int i = 0; i< Mathf.FloorToInt(b.charactersList.Count / BusManager.Instance.maxCharacterPerRow); i++)
+            {
+                barFills[i].color = PassengerManager.Instance.GetColor(b.rows[i].color);
+                float f = ((float)b.charactersList.Count / (float)BusManager.Instance.maxCharacterPerRow);
+                barFills[i].DOFillAmount(f, 0.5f);
+            }
+            if (b.charactersList.Count % BusManager.Instance.maxCharacterPerRow > 0) 
+            {
+                barFills[Mathf.FloorToInt(b.charactersList.Count / BusManager.Instance.maxCharacterPerRow)].color = PassengerManager.Instance.GetColor(b.rows[Mathf.FloorToInt(b.charactersList.Count / BusManager.Instance.maxCharacterPerRow) - 1].color);
+                float f = ((float)b.charactersList.Count % (float)BusManager.Instance.maxCharacterPerRow) / (float)BusManager.Instance.maxCharacterPerRow;
+                if (f > 0.9f)
+                {
+                    barFills[Mathf.FloorToInt(b.charactersList.Count / BusManager.Instance.maxCharacterPerRow)].DOFillAmount(1, 0.5f);
+                }
+                else
+                {
+                    barFills[Mathf.FloorToInt(b.charactersList.Count / BusManager.Instance.maxCharacterPerRow)].DOFillAmount(f, 0.5f);
+                }
+            }
+        */
+        barParent.SetActive(true);
         startTime = Time.time;
     }
 

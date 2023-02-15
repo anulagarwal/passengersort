@@ -6,13 +6,18 @@ public class BusSpawner : MonoBehaviour
 {
     [Header("Attributes")]
     [SerializeField] public bool IsDealBus;
+    [SerializeField] public bool IsSpawnBus;
+
 
     [Header("Component References")]
     [SerializeField] public List<Row> rows;
     // Start is called before the first frame update
     void Start()
     {
-        Spawn();
+        if (!IsSpawnBus)
+        {
+            Spawn();
+        }
     }
 
     // Update is called once per frame
@@ -21,21 +26,59 @@ public class BusSpawner : MonoBehaviour
         
     }
 
+   public void Spawn(BusPoint bp)
+    {
+        GetComponent<Bus>().busPoint = bp;
+
+        foreach (Row r in rows)
+        {
+            for (int i = 0; i < BusManager.Instance.maxCharacterPerRow; i++)
+            {
+                GameObject g = Instantiate(PassengerManager.Instance.GetPassenger(r.color), GetComponent<Bus>().GetRowPos(rows.Count - 1, rows.IndexOf(r)) + new Vector3(Random.Range(-0.01f, 0.01f), 0, Random.Range(-0.01f, 0.01f)), Quaternion.identity);
+                r.AddCharacter(g.GetComponent<Character>());
+                g.transform.SetParent(transform);
+            }
+            GetComponent<Bus>().AddRow(r);
+
+            foreach (Row ro in GetComponent<Bus>().rows)
+            {
+                foreach (Character c in ro.characters)
+                {
+                    GetComponent<Bus>().AddCharacter(c);
+                }
+            }
+        }
+
+        //GetComponent<Bus>().rows = rows;
+        GetComponent<Bus>().ResetRows();
+    }
+
 
     void Spawn()
     {
         if (!IsDealBus)
         {
+            List<GameObject> addedChar = new List<GameObject>();
             foreach (Row r in rows)
             {
                 for (int i = 0; i < BusManager.Instance.maxCharacterPerRow; i++)
                 {
                     GameObject g = Instantiate(PassengerManager.Instance.GetPassenger(r.color), GetComponent<Bus>().GetRowPos(rows.Count - 1, rows.IndexOf(r)) + new Vector3(Random.Range(-0.01f, 0.01f), 0, Random.Range(-0.01f, 0.01f)), Quaternion.identity);
                     r.AddCharacter(g.GetComponent<Character>());
-                    GetComponent<Bus>().AddCharacter();
+                   
                     g.transform.SetParent(transform);
                 }
                 GetComponent<Bus>().AddRow(r);
+
+                foreach(Row ro in GetComponent<Bus>().rows)
+                {
+                    foreach (Character c in ro.characters)
+                    {
+                        GetComponent<Bus>().AddCharacter(c);
+                    }
+                }
+               
+
             }
 
             //GetComponent<Bus>().rows = rows;

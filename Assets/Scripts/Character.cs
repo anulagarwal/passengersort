@@ -67,7 +67,6 @@ public class Character : MonoBehaviour
                 {
                     UpdateState(CharacterState.Idle);
                     b.CheckForPassengers();
-                    
                 }
             }
             else
@@ -104,19 +103,8 @@ public class Character : MonoBehaviour
     }
     public void EnterBus(Bus bu)
     {
-       // b = bu;
+        b = bu;
         isMoving = false;
-    }
-    public void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "Bus")
-        {
-            if (other.gameObject.GetComponent<EnterTrigger>().b == b)
-            {
-              //  isMoving = false;
-            }
-        }
-    }
-
+    }   
 
 }

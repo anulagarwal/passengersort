@@ -12,6 +12,8 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] List<MoveType> moves;
     [SerializeField] List<float> interval;
     [SerializeField] List<string> texts;
+    [SerializeField] bool tutorial;
+
 
 
     [Header("Component References")]
@@ -21,7 +23,8 @@ public class TutorialManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (PlayerPrefs.GetInt("tutorial", 0) == 1)
+        
+        if (PlayerPrefs.GetInt("tutorial", 0) == 1 || !tutorial)
         {
             UIManager.Instance.ActiveMask(false);
 

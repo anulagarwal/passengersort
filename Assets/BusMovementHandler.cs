@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+
 using DG.Tweening;
 using System.Threading.Tasks;
 public class BusMovementHandler : MonoBehaviour
@@ -17,6 +19,8 @@ public class BusMovementHandler : MonoBehaviour
     [SerializeField] Waypoint wp;
     [SerializeField] List<Waypoint> wps;
     [SerializeField] BusPoint b;
+    [SerializeField] NavMeshAgent n;
+
 
 
     // Start is called before the first frame update
@@ -28,9 +32,37 @@ public class BusMovementHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-    }
+        if(n.enabled && !isGoingToLot)
+        {
+            if (n.remainingDistance <= 0.7f)
+            {
+                n.enabled = false;
+                BusManager.Instance.RemoveBus(GetComponent<Bus>());
+                BusManager.Instance.GetComponent<BusProvider>().SendBusTo(transform.position);
+                Destroy(gameObject);
+            }
+        }
 
+        if(n.enabled && isGoingToLot)
+        {
+            if (n.remainingDistance <= 0.3f)
+            {
+                n.Stop();
+                MoveToBusPoint();
+                n.enabled = false;
+            }
+        }
+    }
+    public void MoveToTarget(Vector3 p)
+    {
+        n.enabled = true;
+        n.SetDestination(p);
+    }
+    public void UpdateBusPoint(BusPoint bp)
+    {
+        isGoingToLot = true;
+        b = bp;
+    }
    public async void MoveToWaypoint()
     {
         wp = wps[index];
@@ -56,7 +88,6 @@ public class BusMovementHandler : MonoBehaviour
             if (wp.transform.position.z - transform.position.z < -0.5f)
             {
                 v = new Vector3(0, 180, 0);
-                print(wp.transform.position + " // " + transform.position.z);
             }
         
 

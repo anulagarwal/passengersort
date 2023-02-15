@@ -30,6 +30,8 @@ public class Bus : MonoBehaviour
     [SerializeField] GameObject confetti;
     [SerializeField]  NavMeshAgent busAgent;
     [SerializeField] List<NavMeshObstacle> walls;
+    [SerializeField] public List<Character> charactersList;
+
     [SerializeField] SkinnedMeshRenderer bus;
 
 
@@ -191,7 +193,7 @@ public class Bus : MonoBehaviour
             }
             if (bustype == BusType.Bus)
             {
-                busPoint.GetComponent<BusIndicator>().ColorBars(this);
+                //busPoint.GetComponent<BusIndicator>().ColorBars(this);
             }
             //BusManager.Instance.CheckForWin();
         }
@@ -199,6 +201,7 @@ public class Bus : MonoBehaviour
     public bool CheckAllPassengersIn()
     {
         bool stop = false;
+
         foreach (Row r in rows)
         {
             //If all characters in
@@ -229,7 +232,7 @@ public class Bus : MonoBehaviour
                 BusManager.Instance.oldBus.CloseDoor();
                 //BusManager.Instance.ResetAllDoors();
                 await Task.Delay(2000);
-                if (IsAllRowSimilar())
+                if (IsAllRowSimilar() && charactersList.Count == BusManager.Instance.maxCharacterPerRow * BusManager.Instance.maxRows)
                 {
                     isComplete = true;
                     CoinManager.Instance.AddCoins(50, transform.position);
@@ -281,8 +284,9 @@ public class Bus : MonoBehaviour
             wp = wp.nextPoint.GetComponent<Waypoint>();
             w.Add(wp);
         }
-        GetComponent<BusMovementHandler>().UpdateWayPoints(w, busPoint);
-        GetComponent<BusMovementHandler>().MoveToWaypoint();
+       // GetComponent<BusMovementHandler>().UpdateWayPoints(w, busPoint);
+       // GetComponent<BusMovementHandler>().MoveToWaypoint();
+        GetComponent<BusMovementHandler>().MoveToTarget(w[w.Count - 1].transform.position);
         busPoint.Reset();
 
         UpdateState(BusState.Moving);
@@ -308,8 +312,10 @@ public class Bus : MonoBehaviour
         //  busAgent.SetDestination(bp.transform.position);
 
         GetComponent<BusMovementHandler>().UpdateWayPoints(w, bp);
-        GetComponent<BusMovementHandler>().ReverseList();
-        GetComponent<BusMovementHandler>().MoveToWaypoint();
+        //  GetComponent<BusMovementHandler>().ReverseList();
+        //  GetComponent<BusMovementHandler>().MoveToWaypoint();
+        GetComponent<BusMovementHandler>().UpdateBusPoint(bp);
+        GetComponent<BusMovementHandler>().MoveToTarget(bp.transform.position);
         UpdateState(BusState.Moving);
         isGoingToLot = true;
         rotation = bp.rotation;
@@ -337,7 +343,7 @@ public class Bus : MonoBehaviour
         DehighlightTopRows();
         if (bustype == BusType.Bus && busPoint!=null)
         {
-            busPoint.GetComponent<BusIndicator>().ColorBars(this);            
+            //busPoint.GetComponent<BusIndicator>().ColorBars(this);            
         }
 
         foreach(Row x in rows)
@@ -348,9 +354,9 @@ public class Bus : MonoBehaviour
 
     public void UpdateBusWall()
     {
-        if (characters > (BusManager.Instance.maxRows * BusManager.Instance.maxCharacterPerRow) / 2)
+        if (charactersList.Count > (BusManager.Instance.maxRows * BusManager.Instance.maxCharacterPerRow) / 2)
         {
-            float f = ((float)characters - (float)((BusManager.Instance.maxRows * BusManager.Instance.maxCharacterPerRow) / 2)) / (float)(BusManager.Instance.maxRows * BusManager.Instance.maxCharacterPerRow);
+            float f = ((float)charactersList.Count - (float)((BusManager.Instance.maxRows * BusManager.Instance.maxCharacterPerRow) / 2)) / (float)(BusManager.Instance.maxRows * BusManager.Instance.maxCharacterPerRow);
             bus.SetBlendShapeWeight(0, f * 100);
         }
         else
@@ -358,16 +364,44 @@ public class Bus : MonoBehaviour
             bus.SetBlendShapeWeight(0, 0);
         }
     }
-    public void AddCharacter()
+    public void AddCharacter(Character c)
     {
-        characters++;
-        UpdateBusWall();
+        bool isInBus = false;
+        foreach (Row r in rows)
+        {
+            if (r.characters.Find(x => x == c) != null)
+            {
+                isInBus = true;
+            }
+        }
+
+        if (isInBus && charactersList.Find(x=>x==c) == null)
+        {
+            charactersList.Add(c);
+            characters++;
+            UpdateBusWall();
+            busPoint.GetComponent<BusIndicator>().ColorBars(this);
+        }
     }
 
-    public void RemoveCharacter()
+    public void RemoveCharacter(Character c)
     {
-        characters--;
-        UpdateBusWall();
+        bool isInBus = false;
+        foreach(Row r in rows)
+        {
+            if (r.characters.Find(x => x == c)!=null)
+            {
+                isInBus = true;
+            }
+        }
+
+        if (!isInBus && charactersList.Find(x => x == c) != null)
+        {
+            charactersList.Remove(c);
+            characters--;
+            UpdateBusWall();
+            busPoint.GetComponent<BusIndicator>().ColorBars(this);
+        }
     }
     public Vector3 GetTopRowPos()
     {
@@ -383,6 +417,11 @@ public class Bus : MonoBehaviour
 
     public Vector3 GetTopwRowCharacterPos(int val, Row r)
     {
+      
+        if (val >= 10)
+        {
+            val -= 10;
+        }
         if (bustype == BusType.Bus)
         {
             if (rows.Count > 0)

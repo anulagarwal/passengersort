@@ -13,11 +13,26 @@ public class EnterTrigger : MonoBehaviour
             if (other.gameObject.GetComponentInParent<Character>().b == b)
             {
                 other.gameObject.GetComponentInParent<Character>().EnterBus(b);
-                b.AddCharacter();
+                b.AddCharacter(other.gameObject.GetComponentInParent<Character>());
             }
             else
             {
-                b.RemoveCharacter();
+                b.RemoveCharacter(other.gameObject.GetComponentInParent<Character>());
+            }
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Character")
+        {
+            if (other.gameObject.GetComponentInParent<Character>().b == b)
+            {
+                other.gameObject.GetComponentInParent<Character>().EnterBus(b);
+                b.AddCharacter(other.gameObject.GetComponentInParent<Character>());
+            }
+            else
+            {
+                b.RemoveCharacter(other.gameObject.GetComponentInParent<Character>());
             }
         }
     }
