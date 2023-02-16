@@ -1936,7 +1936,7 @@ GameObject:
   - component: {fileID: 1635539620}
   - component: {fileID: 3352439738977548017}
   m_Layer: 0
-  m_Name: Bus_Main (1)
+  m_Name: Bus_Main (1) 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2027,11 +2027,11 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4825864489840618018}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
-  m_Radius: 2
+  m_Radius: 1.7
   m_Speed: 8
-  m_Acceleration: 3
+  m_Acceleration: 50
   avoidancePriority: 50
   m_AngularSpeed: 400
   m_StoppingDistance: 0.5
@@ -2086,7 +2086,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsDealBus: 0
-  IsSpawnBus: 0
+  IsSpawnBus: 1
   rows:
   - characters: []
     color: 0
@@ -2095,7 +2095,13 @@ MonoBehaviour:
     isToSpawn: 0
     bus: {fileID: 0}
   - characters: []
-    color: 1
+    color: 0
+    maxCharacters: 8
+    position: {x: 0, y: 0, z: 0}
+    isToSpawn: 0
+    bus: {fileID: 0}
+  - characters: []
+    color: 2
     maxCharacters: 8
     position: {x: 0, y: 0, z: 0}
     isToSpawn: 0

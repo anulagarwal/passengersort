@@ -45,7 +45,7 @@ public class BusMovementHandler : MonoBehaviour
 
         if(n.enabled && isGoingToLot)
         {
-            if (n.remainingDistance <= 0.3f)
+            if (n.remainingDistance <= 0.5f)
             {
                 n.Stop();
                 MoveToBusPoint();
@@ -152,6 +152,7 @@ public class BusMovementHandler : MonoBehaviour
         transform.DOMove(b.transform.position, speed).SetSpeedBased(true).OnComplete(() => {
             transform.DORotate(b.rotation, 0.5f).OnComplete(()=>
             {
+                GetComponent<Bus>().state = BusState.Idle;
                 GetComponent<Bus>().UnPackBus();
             });
 

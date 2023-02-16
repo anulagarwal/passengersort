@@ -94,7 +94,15 @@ public class PassengerManager : MonoBehaviour
                 }
                 if (col == CharacterColor.Red)
                 {
+                    c = CharacterColor.Green;
+                }
+                if(col == CharacterColor.Yellow)
+                {
                     c = CharacterColor.Blue;
+                }
+                if (col == CharacterColor.Green)
+                {
+                    c = CharacterColor.Yellow;
                 }
             }
             else if (level >= 1)
@@ -108,6 +116,10 @@ public class PassengerManager : MonoBehaviour
                     c = CharacterColor.Yellow;
                 }
                 if (col == CharacterColor.Yellow)
+                {
+                    c = CharacterColor.Green;
+                }
+                if (col == CharacterColor.Green)
                 {
                     c = CharacterColor.Blue;
                 }

@@ -65,6 +65,7 @@ public class Character : MonoBehaviour
             {
                 if (b.GetRowsPos().Find(x => Vector3.Distance(x, agent.transform.position) < BusManager.Instance.minStopDistance) != null && !isMoving)
                 {
+                    UpdateAgent(5, 20);
                     UpdateState(CharacterState.Idle);
                     b.CheckForPassengers();
                 }
@@ -73,6 +74,7 @@ public class Character : MonoBehaviour
             {
                 if (b.GetRowsPos().Find(x => Vector3.Distance(x, agent.transform.position) < BusManager.Instance.minStopDistance) != null && !isMoving)
                 {
+                    UpdateAgent(5, 20);
                     UpdateState(CharacterState.Idle);
                 }
             }
@@ -80,6 +82,7 @@ public class Character : MonoBehaviour
     }
     public void MoveTo(Vector3 pos, Transform bus)
     {
+
         agent.SetDestination(pos);
         transform.SetParent(bus);
         b = bus.GetComponent<Bus>();
@@ -87,6 +90,11 @@ public class Character : MonoBehaviour
         isMoving = true;
     }
 
+    public void UpdateAgent(float speed, float acc)
+    {
+        agent.acceleration = acc;
+        agent.speed = speed;
+    }
     public void DisableAgent()
     {
         agent.enabled = false;

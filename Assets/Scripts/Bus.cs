@@ -84,31 +84,35 @@ public class Bus : MonoBehaviour
     #region Mouse events
     public void OnMouseUp()
     {
-        if (BusManager.Instance.selectedBus == null)
-         {
-             BusManager.Instance.SelectBus(this);
-            rowsCount = rows.Count;
-            HighlightTopRow();
-         }
-        else if(BusManager.Instance.selectedBus == this)
+        if (state != BusState.Moving)
         {
-            BusManager.Instance.ResetSelections();
-            CloseDoor();
-        }
-        else if (BusManager.Instance.selectedBus != null && BusManager.Instance.enteredBus == null && BusManager.Instance.selectedBus != this)
-         {
-             BusManager.Instance.EnterBus(this);
-             BusManager.Instance.selectedBus.MoveRowTo(this);
+            if (BusManager.Instance.selectedBus == null)
+            {
+                BusManager.Instance.SelectBus(this);
+                rowsCount = rows.Count;
+                HighlightTopRow();
+            }
+            else if (BusManager.Instance.selectedBus == this)
+            {
+                BusManager.Instance.ResetSelections();
+                CloseDoor();
+            }
+            else if (BusManager.Instance.selectedBus != null && BusManager.Instance.enteredBus == null && BusManager.Instance.selectedBus != this)
+            {
+                BusManager.Instance.EnterBus(this);
+                BusManager.Instance.selectedBus.MoveRowTo(this);
                 GameManager.Instance.AddMove(1, MoveType.Move);
 
-            BusManager.Instance.ResetSelections();
-         } 
+                BusManager.Instance.ResetSelections();
+            }
+        }
        // SendToTravel();
       
     }
 
     public void OnMouseDown()
     {
+        
         SoundManager.Instance.Play(Sound.Pop);
     }
     #endregion
@@ -288,10 +292,16 @@ public class Bus : MonoBehaviour
         {
             o.enabled = true;
         }
-
+      
         busPoint.GetComponent<BusIndicator>().ColorBars(this);
     }
-    
+    public void UpdateCharacterSpeed(float speed, float acc)
+    {
+        foreach (Character c in charactersList)
+        {
+            c.UpdateAgent(speed, acc);
+        }
+    }
     public void SendToTravel()
     {
         isGoingToLot = false;
@@ -320,6 +330,8 @@ public class Bus : MonoBehaviour
     public void SendToParkingLot(Vector3 pos, BusPoint bp)
     {
         isGoingToLot = true;
+        busPoint = bp;
+
         PackBus();
         List<Waypoint> w = new List<Waypoint>();
 
@@ -343,7 +355,6 @@ public class Bus : MonoBehaviour
         isGoingToLot = true;
         rotation = bp.rotation;
         bp.Occupy(this);
-        busPoint = bp;
 
     }
 

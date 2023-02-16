@@ -7,6 +7,10 @@ public class BusManager : MonoBehaviour
     [Header("Attributes")]
     [SerializeField] public int maxRows = 5;
     [SerializeField] public int maxRowsPerFreeSpot = 1;
+    [SerializeField] public int characterSpeedHigh = 16;
+    [SerializeField] public int characterAccelerationHigh = 65;
+
+
 
     [SerializeField] public int maxCharacterPerRow = 10;
     [SerializeField] public float xOffsetCharacter = 0.2f;
@@ -86,7 +90,7 @@ public class BusManager : MonoBehaviour
     public void SelectBus(Bus b)
     {
         ResetAllDoors();
-
+        b.UpdateCharacterSpeed(BusManager.Instance.characterSpeedHigh, BusManager.Instance.characterAccelerationHigh);
         selectedBus = b;
         oldBus = b;
         GameManager.Instance.AddMove(1, MoveType.Select);
@@ -119,6 +123,8 @@ public class BusManager : MonoBehaviour
     public void EnterBus(Bus b)
     {
         enteredBus = b;
+        b.UpdateCharacterSpeed(BusManager.Instance.characterSpeedHigh, BusManager.Instance.characterAccelerationHigh);
+
         b.OpenDoor();
 
 
@@ -141,7 +147,9 @@ public class BusManager : MonoBehaviour
     }
     public void ResetSelections()
     {
-        
+      //  selectedBus.UpdateCharacterSpeed(5, 20);
+      //  enteredBus.UpdateCharacterSpeed(5, 20);
+
         selectedBus = null;
         foreach(Bus b in buses)
         {

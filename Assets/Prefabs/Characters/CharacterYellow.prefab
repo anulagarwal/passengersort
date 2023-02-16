@@ -63,6 +63,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: C4-Blue
       objectReference: {fileID: 0}
+    - target: {fileID: 1536516637793333285, guid: f8e83a8d46aed431fb1bd1bf897e8779, type: 3}
+      propertyPath: m_TagString
+      value: Character
+      objectReference: {fileID: 0}
     - target: {fileID: 3886083725004894951, guid: f8e83a8d46aed431fb1bd1bf897e8779, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -113,7 +117,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: bd31a4db89c24a0479606ddbb3de00a0, type: 2}
     - target: {fileID: 7140516482911665661, guid: f8e83a8d46aed431fb1bd1bf897e8779, type: 3}
       propertyPath: m_Speed
-      value: 20
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7140516482911665661, guid: f8e83a8d46aed431fb1bd1bf897e8779, type: 3}
       propertyPath: m_Height
@@ -129,7 +133,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7140516482911665661, guid: f8e83a8d46aed431fb1bd1bf897e8779, type: 3}
       propertyPath: m_Acceleration
-      value: 75
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7140516482911665661, guid: f8e83a8d46aed431fb1bd1bf897e8779, type: 3}
       propertyPath: m_AngularSpeed
@@ -138,6 +142,14 @@ PrefabInstance:
     - target: {fileID: 7140516482911665661, guid: f8e83a8d46aed431fb1bd1bf897e8779, type: 3}
       propertyPath: m_StoppingDistance
       value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 7140516482911665662, guid: f8e83a8d46aed431fb1bd1bf897e8779, type: 3}
+      propertyPath: m_Radius
+      value: 0.14
+      objectReference: {fileID: 0}
+    - target: {fileID: 7140516482911665662, guid: f8e83a8d46aed431fb1bd1bf897e8779, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []

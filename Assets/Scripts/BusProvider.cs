@@ -12,7 +12,6 @@ public class BusProvider : MonoBehaviour
 
     [Header("Component References")]
     [SerializeField] List<GameObject> buses;
-    [SerializeField] GameObject emptyBus;
     [SerializeField] List<GameObject> unlockBuses;
 
     [SerializeField] public Transform busStartPoint;

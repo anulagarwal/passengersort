@@ -102,6 +102,13 @@ public class DealBus : MonoBehaviour
         {
             o.enabled = true;
         }
+        foreach (Row r in rows)
+        {
+            foreach (Character c in r.characters)
+            {
+                c.UpdateAgent(BusManager.Instance.characterSpeedHigh, BusManager.Instance.characterAccelerationHigh);
+            }
+        }
         OpenDoor();
     }     
     #endregion
