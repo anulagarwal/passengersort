@@ -42,6 +42,12 @@ public class BonusBusProvider : MonoBehaviour
         await Task.Delay(500);
        // g.GetComponent<Bus>().SendToParkingLot(spawnPos, BusManager.Instance.GetBusPoint());
         BusManager.Instance.AddBus(g.GetComponent<Bus>());
+        Momo.Analytics.Instance.TrackBonusBusNew(currentBusIndex);
         currentBusIndex++;
+    }
+
+    public void BonusBusComplete()
+    {
+        Momo.Analytics.Instance.TrackBonusBusComplete(currentBusIndex-1);
     }
 }

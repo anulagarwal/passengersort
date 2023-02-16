@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using Google.Play.Review;
+using Google.Play.Review;
 
 public class ReviewManagerGame : MonoBehaviour
 {
     public void RequestReview()
     {
-        /* // StartCoroutine(AndroidReview());
+         // StartCoroutine(AndroidReview());
          var reviewManager = new ReviewManager();
 
          // start preloading the review prompt in the background
@@ -21,12 +21,13 @@ public class ReviewManagerGame : MonoBehaviour
                  // display the review prompt
                  var playReviewInfo = playReviewInfoAsync.GetResult();
                  reviewManager.LaunchReviewFlow(playReviewInfo);
+                 PlayerPrefs.SetInt("review", 1);
              }
              else
              {
                  // handle error when loading review prompt
              }
          };
-     }*/
+     }
     }
-}
+

@@ -23,11 +23,6 @@ public class BusPoint : MonoBehaviour
     [SerializeField] public SpriteRenderer buttonBase;
 
 
-
-
-
-
-
     private void Start()
     {
         UpdateState(type);

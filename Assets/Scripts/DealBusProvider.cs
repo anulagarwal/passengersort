@@ -40,11 +40,14 @@ public class DealBusProvider : MonoBehaviour
 
     public async void DealBus()
     {
-        GameManager.Instance.AddMove(1, MoveType.Deal);
+       
         GameObject g = Instantiate(buses[currentBusIndex], waypoints[0].position, Quaternion.identity);
         await Task.Delay(500);
 
         g.GetComponent<DealBus>().PackBus();
-        g.GetComponent<DealBus>().SendToDeal(waypoints);       
+        g.GetComponent<DealBus>().SendToDeal(waypoints);
+        GameManager.Instance.AddMove(1, MoveType.Deal);
+        Momo.Analytics.Instance.TrackDeal(currentBusIndex);
+        currentBusIndex++;
     }
 }

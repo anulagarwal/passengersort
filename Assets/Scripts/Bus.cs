@@ -267,7 +267,6 @@ public class Bus : MonoBehaviour
     #region Bus movement
     public void PackBus()
     {
-        print("a");
         foreach (Row r in rows)
         {
             r.DisableAgents();
@@ -276,6 +275,7 @@ public class Bus : MonoBehaviour
         {
             o.enabled = false;
         }
+        busPoint.GetComponent<BusIndicator>().DisableBar();
     }
 
     public void UnPackBus()
@@ -288,6 +288,7 @@ public class Bus : MonoBehaviour
         {
             o.enabled = true;
         }
+
         busPoint.GetComponent<BusIndicator>().ColorBars(this);
     }
     

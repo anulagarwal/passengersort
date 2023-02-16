@@ -154,7 +154,6 @@ public class DealBus : MonoBehaviour
     }
     public Vector3 GetRowPos(int maxRow, int index)
     {
-        print(positions[maxRow].transform.GetChild(maxRow - index).name);
         return positions[maxRow].transform.GetChild(maxRow - index).position;
     }
     #endregion

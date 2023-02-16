@@ -44,7 +44,13 @@ public class BusProvider : MonoBehaviour
         await Task.Delay(500);
         g.GetComponent<Bus>().SendToParkingLot(pos, BusManager.Instance.GetBusPoint());
         BusManager.Instance.AddBus(g.GetComponent<Bus>());
+        Momo.Analytics.Instance.TrackBusComplete(currentBusIndex);
         currentBusIndex++;
+
+        if (currentBusIndex % 10 == 0)
+        {
+            GameManager.Instance.RequestReview();
+        }
     }
 
 
@@ -61,11 +67,12 @@ public class BusProvider : MonoBehaviour
 
     public async void SendEmptyBus(BusPoint bp)
     {
-        GameObject g = Instantiate(unlockBuses[currentUnlockIndex], BusManager.Instance.busStartPoint.position, Quaternion.identity);print("as");
+        GameObject g = Instantiate(unlockBuses[currentUnlockIndex], BusManager.Instance.busStartPoint.position, Quaternion.identity);
         g.GetComponent<BusSpawner>().Spawn(BusManager.Instance.GetBusPoint());
         await Task.Delay(500);
         g.GetComponent<Bus>().SendToParkingLot(bp.transform.position, bp);
         BusManager.Instance.AddBus(g.GetComponent<Bus>());
+        Momo.Analytics.Instance.TrackUnlockSpace(currentUnlockIndex);
         currentUnlockIndex++;
 
     }

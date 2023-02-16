@@ -112,6 +112,32 @@ namespace Momo
          //   TinySauce.OnGameFinished(false, 0);           
         }
 
+        public void TrackBusComplete(int id)
+        {
+
+
+
+        }
+
+        public void TrackBonusBusNew(int id)
+        {
+
+        }
+
+        public void TrackBonusBusComplete(int id)
+        {
+
+        }
+
+        public void TrackUnlockSpace(int id)
+        {
+
+        }
+
+        public void TrackDeal(int id)
+        {
+
+        }
         public void TrackSession(SessionData sd)
         {
             Dictionary<string, object> s = new Dictionary<string, object>();

@@ -108,6 +108,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void RequestReview()
+    {
+        if (PlayerPrefs.GetInt("review", 0) == 0)
+        {
+            GetComponent<ReviewManagerGame>().RequestReview();
+        }
+    }
     #region Scene Management
 
 
