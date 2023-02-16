@@ -55,7 +55,7 @@ public class BusMovementHandler : MonoBehaviour
     }
     public void MoveToTarget(Vector3 p)
     {
-        n.enabled = true;
+        n.enabled =true;
         n.SetDestination(p);
     }
     public void UpdateBusPoint(BusPoint bp)

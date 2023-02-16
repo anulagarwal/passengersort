@@ -26,10 +26,23 @@ public class Bus : MonoBehaviour
 
 
     [Header("Component References")]
-    [SerializeField] Transform door;
     [SerializeField] GameObject confetti;
     [SerializeField]  NavMeshAgent busAgent;
     [SerializeField] List<NavMeshObstacle> walls;
+
+    [Header("Bus Wall & Door expand")]
+    [SerializeField] Transform wallLeft;
+    [SerializeField] Transform wallRight;
+    [SerializeField] Vector3 origPosLeft;
+    [SerializeField] Vector3 origPosRight;
+
+
+    [SerializeField] Transform targetLeftWall;
+    [SerializeField] Transform targetRightWall;
+
+
+    [SerializeField] Transform door;
+
     [SerializeField] public List<Character> charactersList;
 
     [SerializeField] SkinnedMeshRenderer bus;
@@ -40,9 +53,16 @@ public class Bus : MonoBehaviour
 
 
     #region Mono events
+
+    private void Awake()
+    {
+//        origPosRight = targetRightWall.position;
+//        origPosLeft = targetLeftWall.position;
+    }
     // Start is called before the first frame update
     void Start()
     {
+
         busAgent = GetComponent<NavMeshAgent>();
         foreach(Row r in rows)
         {
@@ -146,7 +166,7 @@ public class Bus : MonoBehaviour
     {
         if (bustype == BusType.Bus)
         {
-            door.transform.DOLocalRotate(new Vector3(0, 0f, 0), 0.5f, RotateMode.Fast);
+            door.transform.DOLocalRotate(new Vector3(0,0, 0), 0.5f, RotateMode.Fast);
             door.gameObject.isStatic = false;
         }
     }
@@ -247,6 +267,7 @@ public class Bus : MonoBehaviour
     #region Bus movement
     public void PackBus()
     {
+        print("a");
         foreach (Row r in rows)
         {
             r.DisableAgents();
@@ -346,13 +367,17 @@ public class Bus : MonoBehaviour
 
     public void UpdateBusWall()
     {
-        if (charactersList.Count > (BusManager.Instance.maxRows * BusManager.Instance.maxCharacterPerRow) / 2)
+        if (charactersList.Count > ((BusManager.Instance.maxRows * BusManager.Instance.maxCharacterPerRow) / 2))
         {
             float f = ((float)charactersList.Count - (float)((BusManager.Instance.maxRows * BusManager.Instance.maxCharacterPerRow) / 2)) / (float)(BusManager.Instance.maxRows * BusManager.Instance.maxCharacterPerRow);
-            bus.SetBlendShapeWeight(0, f * 100);
+            bus.SetBlendShapeWeight(0, f * 250);
+           // wallLeft.position = Vector3.Lerp(origPosLeft, targetLeftWall.position, f * 250);
+           // wallRight.position = Vector3.Lerp(origPosLeft, targetLeftWall.position,  f * 250);
         }
         else
         {
+        //    wallRight.DOMove(origPosRight, 0.2f);
+        //    wallLeft.DOMove(origPosLeft, 0.2f);
             bus.SetBlendShapeWeight(0, 0);
         }
     }

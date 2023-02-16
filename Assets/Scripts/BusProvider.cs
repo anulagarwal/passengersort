@@ -39,6 +39,7 @@ public class BusProvider : MonoBehaviour
         //Spawn a bus and send it to target location
         //After bus reaches target location, it will be activated
         GameObject g = Instantiate(buses[GetBusIndex(currentBusIndex)], BusManager.Instance.busSpawnStartPoint.position, Quaternion.identity);
+        
         g.GetComponent<BusSpawner>().Spawn(BusManager.Instance.GetBusPoint());
         await Task.Delay(500);
         g.GetComponent<Bus>().SendToParkingLot(pos, BusManager.Instance.GetBusPoint());
@@ -60,7 +61,8 @@ public class BusProvider : MonoBehaviour
 
     public async void SendEmptyBus(BusPoint bp)
     {
-        GameObject g = Instantiate(unlockBuses[currentUnlockIndex], BusManager.Instance.busStartPoint.position, Quaternion.identity);
+        GameObject g = Instantiate(unlockBuses[currentUnlockIndex], BusManager.Instance.busStartPoint.position, Quaternion.identity);print("as");
+        g.GetComponent<BusSpawner>().Spawn(BusManager.Instance.GetBusPoint());
         await Task.Delay(500);
         g.GetComponent<Bus>().SendToParkingLot(bp.transform.position, bp);
         BusManager.Instance.AddBus(g.GetComponent<Bus>());

@@ -255,7 +255,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1503554831477353599, guid: 6bcd4e1c68c8643d88ffb0300e780b27, type: 3}
+  - {fileID: 2100000, guid: 9f99a59eeb31b4087a1f3566776ce5c8, type: 2}
   - {fileID: 8556262120643298411, guid: 6bcd4e1c68c8643d88ffb0300e780b27, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -1368,7 +1368,7 @@ Transform:
   - {fileID: 428928432551155508}
   - {fileID: 959946127771257722}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &8298245805713273745
 GameObject:
@@ -1599,7 +1599,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1503554831477353599, guid: 6bcd4e1c68c8643d88ffb0300e780b27, type: 3}
+  - {fileID: 2100000, guid: 9f99a59eeb31b4087a1f3566776ce5c8, type: 2}
   - {fileID: -8387415443376073318, guid: 6bcd4e1c68c8643d88ffb0300e780b27, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0

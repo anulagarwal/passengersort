@@ -10,14 +10,17 @@ public class EnterTrigger : MonoBehaviour
     {
         if (other.gameObject.tag == "Character")
         {
-            if (other.gameObject.GetComponentInParent<Character>().b == b)
+            if (b != null)
             {
-                other.gameObject.GetComponentInParent<Character>().EnterBus(b);
-                b.AddCharacter(other.gameObject.GetComponentInParent<Character>());
-            }
-            else
-            {
-                b.RemoveCharacter(other.gameObject.GetComponentInParent<Character>());
+                if (other.gameObject.GetComponentInParent<Character>().b == b)
+                {
+                    other.gameObject.GetComponentInParent<Character>().EnterBus(b);
+                    b.AddCharacter(other.gameObject.GetComponentInParent<Character>());
+                }
+                else
+                {
+                    b.RemoveCharacter(other.gameObject.GetComponentInParent<Character>());
+                }
             }
         }
     }
@@ -25,14 +28,17 @@ public class EnterTrigger : MonoBehaviour
     {
         if (other.gameObject.tag == "Character")
         {
-            if (other.gameObject.GetComponentInParent<Character>().b == b)
+            if (b != null)
             {
-                other.gameObject.GetComponentInParent<Character>().EnterBus(b);
-                b.AddCharacter(other.gameObject.GetComponentInParent<Character>());
-            }
-            else
-            {
-                b.RemoveCharacter(other.gameObject.GetComponentInParent<Character>());
+                if (other.gameObject.GetComponentInParent<Character>().b == b)
+                {
+                    other.gameObject.GetComponentInParent<Character>().EnterBus(b);
+                    b.AddCharacter(other.gameObject.GetComponentInParent<Character>());
+                }
+                else
+                {
+                    b.RemoveCharacter(other.gameObject.GetComponentInParent<Character>());
+                }
             }
         }
     }

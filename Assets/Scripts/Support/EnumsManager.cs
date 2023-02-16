@@ -99,6 +99,10 @@ public enum BusPointType
 {
     Empty,
     Occupied,
-    Locked
-    
+    Locked    
+}
+
+public enum PowerupType
+{
+    Deal
 }

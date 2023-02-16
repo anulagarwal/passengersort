@@ -1588,7 +1588,6 @@ MonoBehaviour:
   characters: 0
   bustype: 0
   state: 0
-  door: {fileID: 1788397348424058639}
   confetti: {fileID: 2881595623703024197}
   busAgent: {fileID: 817435290253659314}
   walls:
@@ -1597,6 +1596,13 @@ MonoBehaviour:
   - {fileID: 817435289968562999}
   - {fileID: 817435291041208985}
   - {fileID: 3155244987282459455}
+  wallLeft: {fileID: 0}
+  wallRight: {fileID: 0}
+  origPosLeft: {x: 0, y: 0, z: 0}
+  origPosRight: {x: 0, y: 0, z: 0}
+  targetLeftWall: {fileID: 0}
+  targetRightWall: {fileID: 0}
+  door: {fileID: 1788397348424058639}
   charactersList: []
   bus: {fileID: 4280268936299936884}
 --- !u!65 &817435290253659311
@@ -1607,7 +1613,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 817435290253659310}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 2.4382048, y: 0.60457325, z: 4.678688}

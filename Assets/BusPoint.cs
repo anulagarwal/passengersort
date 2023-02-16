@@ -113,13 +113,13 @@ public class BusPoint : MonoBehaviour
     {
         //Disable Box Collider
         locked.SetActive(false);
+        UpdateState(BusPointType.Empty);
+
         BusManager.Instance.GetComponent<BusProvider>().SendEmptyBus(this);
         BusManager.Instance.level++;
         GameManager.Instance.AddMove(1, MoveType.Unlock);
 
-        UpdateState(BusPointType.Empty);
         CompleteBus();
-        //fly coins from ui - add to coinmanager only this functionality
     }
     public int GetCost()
     {

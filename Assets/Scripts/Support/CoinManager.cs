@@ -32,7 +32,7 @@ public class CoinManager : MonoBehaviour
     {
         startCoins = PlayerPrefs.GetInt("coins", startCoins);
         currentCoins = startCoins;
-        UIManager.Instance.UpdateCurrentCoins(currentCoins);
+        UpdateEconomyElements();
 
     }
 
@@ -88,9 +88,8 @@ public class CoinManager : MonoBehaviour
         {
             currentCoins -= v;
             PlayerPrefs.SetInt("coins", currentCoins);
-            UIManager.Instance.UpdateCurrentCoins(currentCoins);
             UIManager.Instance.SendPoolTo(false, worldPos);
-            BusManager.Instance.UpdateBusPoints();
+            UpdateEconomyElements();
             return true;
         }
         else
@@ -105,9 +104,7 @@ public class CoinManager : MonoBehaviour
         {
             currentCoins -= v;
             PlayerPrefs.SetInt("coins", currentCoins);
-            UIManager.Instance.UpdateCurrentCoins(currentCoins);
-            BusManager.Instance.UpdateBusPoints();
-
+            UpdateEconomyElements();
             return true;
         }
         else
@@ -115,6 +112,21 @@ public class CoinManager : MonoBehaviour
             return false;
         }
 
+    }
+
+
+    public void UpdateEconomyElements()
+    {
+        UIManager.Instance.UpdateCurrentCoins(currentCoins);
+        BusManager.Instance.UpdateBusPoints();
+        if (currentCoins >= PowerupManager.Instance.GetPowerupCost(PowerupType.Deal))
+        {
+            UIManager.Instance.UpdatePowerupButton(true, PowerupManager.Instance.GetPowerupCost(PowerupType.Deal));
+        }
+        else
+        {
+            UIManager.Instance.UpdatePowerupButton(false, PowerupManager.Instance.GetPowerupCost(PowerupType.Deal));
+        }
     }
     #endregion
 

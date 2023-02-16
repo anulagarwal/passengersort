@@ -29,6 +29,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Text debugText = null;
     [SerializeField] private Transform deal = null;
 
+    [Header("Deal")]
+    [SerializeField] private Button dealButton;
+    [SerializeField] private Image dealImage;
+    [SerializeField] private Text dealCost;
+
 
 
     [Header("Settings")]
@@ -223,9 +228,24 @@ public class UIManager : MonoBehaviour
         GameManager.Instance.WinLevel();
     }
 
+    public void UpdatePowerupButton(bool interactable, int cost)
+    {
+        dealButton.interactable = interactable;
+        dealCost.text = cost + "";
+        Color c = dealImage.color;
+
+        if (!interactable)
+        {
+            dealImage.color = new Color(c.r, c.g, c.b, c.a/2);
+        }
+        else
+        {
+            dealImage.color = new Color(c.r, c.g, c.b, 255);
+        }
+    }
     public async void OnClickDeal()
     {
-        if (CoinManager.Instance.SubtractCoins(100))
+        if (CoinManager.Instance.SubtractCoins(PowerupManager.Instance.GetPowerupCost(PowerupType.Deal)))
         {
             DealBusProvider.Instance.DealBus();
 
