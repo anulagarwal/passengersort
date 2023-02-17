@@ -11,6 +11,8 @@ public class Character : MonoBehaviour
     [SerializeField] public CharacterState state;
 
     [SerializeField] public bool isMoving;
+    [SerializeField] public float remainDistance;
+
     [SerializeField] bool moved;
 
     [Header("Component References")]
@@ -52,6 +54,7 @@ public class Character : MonoBehaviour
 
     private void Update()
     {
+       
         if (state == CharacterState.Moving && agent.enabled)
         {
             if (agent.remainingDistance <= BusManager.Instance.minStopDistance && !isMoving)
@@ -63,10 +66,13 @@ public class Character : MonoBehaviour
 
             if (b.bustype == BusType.Bus)
             {
-                if (b.GetRowsPos().Find(x => Vector3.Distance(x, agent.transform.position) < BusManager.Instance.minStopDistance) != null && !isMoving)
+                if (agent.remainingDistance< BusManager.Instance.minStopDistance && !isMoving)
                 {
-                    UpdateAgent(5, 20);
                     UpdateState(CharacterState.Idle);
+                    BusManager.Instance.RemoveCharacterFromBuses(this, b);
+                    b.AddCharacter(this);
+                   // agent.isStopped = true;
+                    UpdateAgent(5, 25);
                     b.CheckForPassengers();
                 }
             }
@@ -74,8 +80,8 @@ public class Character : MonoBehaviour
             {
                 if (b.GetRowsPos().Find(x => Vector3.Distance(x, agent.transform.position) < BusManager.Instance.minStopDistance) != null && !isMoving)
                 {
-                    UpdateAgent(5, 20);
                     UpdateState(CharacterState.Idle);
+                    BusManager.Instance.RemoveCharacterFromBuses(this, b);
                 }
             }
         }

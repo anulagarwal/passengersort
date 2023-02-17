@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 [System.Serializable]
 public class PassengerObjects
@@ -11,6 +13,8 @@ public class PassengerObjects
     public Material bodyOriginal;
     public Material bodyHighlight;
     public Material skinHighlight;
+    public Sprite icon;
+
     public Color col;
 
 }
@@ -72,6 +76,11 @@ public class PassengerManager : MonoBehaviour
     public Color GetColor(CharacterColor col)
     {
         return passengers.Find(x => x.color == col).col;
+    }
+
+    public Sprite GetIcon(CharacterColor col)
+    {
+        return passengers.Find(x => x.color == col).icon;
     }
 
     public CharacterColor GetAlternateColorBasedOnLevel( CharacterColor col)

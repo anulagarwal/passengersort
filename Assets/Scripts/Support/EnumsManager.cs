@@ -60,6 +60,12 @@ public enum TileState
     Wall,
     Cat
 }
+
+public enum TutorialTriggerType
+{
+    SlotUnlock,
+    DealUnlock
+}
 public enum MoveType
 {
     Select,

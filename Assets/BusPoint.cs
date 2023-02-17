@@ -43,6 +43,8 @@ public class BusPoint : MonoBehaviour
     public void Reset()
     {
         occupiedBy = null;
+        CoinManager.Instance.AddCoins(BusManager.Instance.coinsPerComplete, transform.position);
+        
         UpdateState(BusPointType.Empty);
     }
 
@@ -86,6 +88,10 @@ public class BusPoint : MonoBehaviour
         if (CoinManager.Instance.CheckForCoins(cost))
         {
             ColorIn();
+            if (PlayerPrefs.GetInt("tutorial", 0) == 0 && TutorialManager.Instance.GetMoveType()== MoveType.Unlock)
+            {
+                TutorialManager.Instance.PlayStep(MoveType.Unlock);
+            }
         }
         else
         {
@@ -109,10 +115,13 @@ public class BusPoint : MonoBehaviour
         //Disable Box Collider
         locked.SetActive(false);
         UpdateState(BusPointType.Empty);
-
+        if (PlayerPrefs.GetInt("tutorial", 0) == 0)
+        {
+            TutorialManager.Instance.PlayStep(MoveType.Select);
+        }
         BusManager.Instance.GetComponent<BusProvider>().SendEmptyBus(this);
         BusManager.Instance.level++;
-        GameManager.Instance.AddMove(1, MoveType.Unlock);
+        GameManager.Instance.AddMove(1);
 
         CompleteBus();
     }

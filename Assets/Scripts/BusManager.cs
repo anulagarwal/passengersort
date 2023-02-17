@@ -17,6 +17,8 @@ public class BusManager : MonoBehaviour
     [SerializeField] public float yOffsetCharacter = 0.2f;
     [SerializeField] public float minStopDistance = 0.4f;
     [SerializeField] public int level = 0;
+    [SerializeField] public int coinsPerComplete = 75;
+
     public Bus selectedBus;
     public Bus oldBus;
 
@@ -85,6 +87,14 @@ public class BusManager : MonoBehaviour
         return busPoints.Find(x => x.GetPointType() == BusPointType.Empty);
     }
 
+    public void RemoveCharacterFromBuses(Character c, Bus except)
+    {
+        foreach(Bus b in buses)
+        {
+            if(b!=except)
+            b.RemoveCharacter(c);
+        }
+    }
     #region BusSelections
 
     public void SelectBus(Bus b)

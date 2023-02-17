@@ -9,15 +9,33 @@ public class BonusBusProvider : MonoBehaviour
     [Header("Attributes")]
     [SerializeField] float busSpeed;
     [SerializeField] int currentBusIndex;
+    [SerializeField] float timeDelay = 10f;
+
 
     [Header("Component References")]
     [SerializeField] List<GameObject> buses;
     [SerializeField] Transform spawnPos;
+    [SerializeField] Transform targetPos;
+
+
+
+    public static BonusBusProvider Instance = null;
+
+    private void Awake()
+    {
+        Application.targetFrameRate = 100;
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        Instance = this;
+    }
+
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        StartBusTimer();
     }
 
     // Update is called once per frame
@@ -26,7 +44,16 @@ public class BonusBusProvider : MonoBehaviour
         
     }
 
-    public int GetBusIndex(int index)
+    public void StartBusTimer()
+    {
+        UIManager.Instance.ResetBusTimer(timeDelay);
+    }
+
+    public void StopBusTimer()
+    {
+        UIManager.Instance.StopTimer();
+    }
+        public int GetBusIndex(int index)
     {
 
         if (index >= buses.Count)
@@ -40,8 +67,9 @@ public class BonusBusProvider : MonoBehaviour
     {
         GameObject g = Instantiate(buses[GetBusIndex(currentBusIndex)], spawnPos.position, Quaternion.identity);
         await Task.Delay(500);
-       // g.GetComponent<Bus>().SendToParkingLot(spawnPos, BusManager.Instance.GetBusPoint());
-        BusManager.Instance.AddBus(g.GetComponent<Bus>());
+        // g.GetComponent<Bus>().SendToParkingLot(spawnPos, BusManager.Instance.GetBusPoint());
+        g.GetComponent<BonusBusMovementHandler>().MoveToTarget(targetPos.position);
+        g.GetComponent<BonusBusMovementHandler>().UpdateSpawnPoint(spawnPos);
         Momo.Analytics.Instance.TrackBonusBusNew(currentBusIndex);
         currentBusIndex++;
     }

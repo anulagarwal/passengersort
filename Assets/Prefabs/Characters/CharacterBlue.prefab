@@ -48,6 +48,7 @@ MonoBehaviour:
   agent: {fileID: 1536516637793333284}
   state: 0
   isMoving: 0
+  remainDistance: 0
   moved: 0
   b: {fileID: 0}
   mesh: {fileID: 5651165078928674719}
@@ -113,7 +114,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7140516482911665661, guid: f8e83a8d46aed431fb1bd1bf897e8779, type: 3}
       propertyPath: m_Speed
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7140516482911665661, guid: f8e83a8d46aed431fb1bd1bf897e8779, type: 3}
       propertyPath: m_Height
@@ -121,15 +122,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7140516482911665661, guid: f8e83a8d46aed431fb1bd1bf897e8779, type: 3}
       propertyPath: m_Radius
-      value: 0.14
+      value: 0.11
       objectReference: {fileID: 0}
     - target: {fileID: 7140516482911665661, guid: f8e83a8d46aed431fb1bd1bf897e8779, type: 3}
       propertyPath: m_BaseOffset
-      value: 0.54
+      value: 0.72
       objectReference: {fileID: 0}
     - target: {fileID: 7140516482911665661, guid: f8e83a8d46aed431fb1bd1bf897e8779, type: 3}
       propertyPath: m_Acceleration
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7140516482911665661, guid: f8e83a8d46aed431fb1bd1bf897e8779, type: 3}
       propertyPath: m_AngularSpeed

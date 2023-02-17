@@ -62,6 +62,11 @@ public class GameManager : MonoBehaviour
         numberOfMoves += v;
 
     }
+    public void AddMove(int v)
+    {       
+        numberOfMoves += v;
+
+    }
 
     public void WinLevel()
     {

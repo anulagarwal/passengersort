@@ -61,8 +61,9 @@ public class BusSpawner : MonoBehaviour
              {
                  GameObject g = Instantiate(PassengerManager.Instance.GetPassenger(r.color), GetComponent<Bus>().GetRowPos(rows.Count - 1, rows.IndexOf(r)) + new Vector3(Random.Range(-0.02f, 0.02f), 0, Random.Range(-0.02f, 0.02f)), Quaternion.identity);
                  r.AddCharacter(g.GetComponent<Character>());
-                 g.GetComponent<Character>().UpdateAgent(5, 25);
-                 g.transform.SetParent(transform);
+                g.GetComponent<Character>().EnterBus(GetComponent<Bus>());
+
+                g.transform.SetParent(transform);
              }
              GetComponent<Bus>().AddRow(r);
 
@@ -155,8 +156,7 @@ public class BusSpawner : MonoBehaviour
                 {
                     GameObject g = Instantiate(PassengerManager.Instance.GetPassenger(r.color), GetComponent<Bus>().GetRowPos(rows.Count - 1, rows.IndexOf(r)) + new Vector3(Random.Range(-0.03f, 0.03f), 0, Random.Range(-0.03f, 0.03f)), Quaternion.identity);
                     r.AddCharacter(g.GetComponent<Character>());
-                    g.GetComponent<Character>().UpdateAgent(5, 25);
-
+                    g.GetComponent<Character>().EnterBus(GetComponent<Bus>());
                     g.transform.SetParent(transform);
                 }
                 GetComponent<Bus>().AddRow(r);
@@ -169,9 +169,10 @@ public class BusSpawner : MonoBehaviour
                 }
             }
             //GetComponent<Bus>().rows = rows;
+            GetComponent<Bus>().UnPackBus();
+
             GetComponent<Bus>().ResetRows();
 
-            GetComponent<Bus>().UnPackBus();
 
             
             //First check which level
@@ -211,8 +212,6 @@ public class BusSpawner : MonoBehaviour
                 {
                     GameObject g = Instantiate(PassengerManager.Instance.GetPassenger(r.color), GetComponent<DealBus>().GetRowPos(rows.Count - 1, rows.IndexOf(r)) + new Vector3(Random.Range(-0.015f, 0.015f), 0, Random.Range(-0.015f, 0.015f)), Quaternion.identity);
                     r.AddCharacter(g.GetComponent<Character>());
-                    g.GetComponent<Character>().UpdateAgent(3, 25);
-
                     g.transform.SetParent(transform);
                 }
             }

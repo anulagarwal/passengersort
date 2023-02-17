@@ -13,10 +13,13 @@ public class Bus : MonoBehaviour
     [SerializeField] public int currentIndex;
     [SerializeField] public bool isComplete;
     [SerializeField] public bool isGoingToLot;
+    [SerializeField] public bool isPickedUp;
     [SerializeField] public Vector3 rotation;
     [SerializeField] public BusPoint busPoint;
     [SerializeField] public int characters;
     [SerializeField] public BusType bustype;
+    [SerializeField] public List<CharacterColor> preferredColors;
+
 
 
 
@@ -35,10 +38,14 @@ public class Bus : MonoBehaviour
     [SerializeField] Transform wallRight;
     [SerializeField] Vector3 origPosLeft;
     [SerializeField] Vector3 origPosRight;
+    [SerializeField] Vector3 origDoor;
+
 
 
     [SerializeField] Transform targetLeftWall;
     [SerializeField] Transform targetRightWall;
+    [SerializeField] Transform targetDoor;
+
 
 
     [SerializeField] Transform door;
@@ -68,7 +75,8 @@ public class Bus : MonoBehaviour
         {
 
         }
-
+        if(bustype == BusType.Bus)
+        origDoor = door.transform.position;
     }
 
     // Update is called once per frame
@@ -183,9 +191,30 @@ public class Bus : MonoBehaviour
     {
         if (rows.Count > 0)
         {
-            if (b.rows.Count > 0 && b.rows.Count<BusManager.Instance.GetMaxRows(b.bustype))
+            if (b.rows.Count > 0 && b.rows.Count < BusManager.Instance.GetMaxRows(b.bustype))
             {
-                if(b.rows[b.rows.Count - 1].color == rows[rows.Count - 1].color)
+                if (b.preferredColors.Count == 0 || b.preferredColors.FindAll(x => x == rows[rows.Count - 1].color).Count > 0)
+                {
+                    
+                        CharacterColor c = rows[rows.Count - 1].color;
+                        b.AddRow(rows[rows.Count - 1]);
+
+                        rows[rows.Count - 1].MoveCharactersTo(b.GetTopRowPos(), b.transform);
+                        rows.RemoveAt(rows.Count - 1);
+                        ResetRows();
+                        b.ResetRows();
+
+                        if (rows.Count > 0 && rows[rows.Count - 1].color == c && b.rows.Count < BusManager.Instance.GetMaxRows(b.bustype))
+                        {
+                            MoveRowTo(b);
+                        }                   
+                }
+
+                
+            }
+            else if (b.rows.Count < BusManager.Instance.GetMaxRows(b.bustype))
+            {
+                if (b.preferredColors.Count == 0 || b.preferredColors.FindAll(x => x == rows[rows.Count - 1].color).Count > 0)
                 {
                     CharacterColor c = rows[rows.Count - 1].color;
                     b.AddRow(rows[rows.Count - 1]);
@@ -193,26 +222,11 @@ public class Bus : MonoBehaviour
                     rows[rows.Count - 1].MoveCharactersTo(b.GetTopRowPos(), b.transform);
                     rows.RemoveAt(rows.Count - 1);
                     ResetRows();
-                    b.ResetRows();
 
                     if (rows.Count > 0 && rows[rows.Count - 1].color == c && b.rows.Count < BusManager.Instance.GetMaxRows(b.bustype))
                     {
                         MoveRowTo(b);
                     }
-                }
-            }
-            else if(b.rows.Count < BusManager.Instance.GetMaxRows(b.bustype))
-            {
-                CharacterColor c = rows[rows.Count - 1].color;
-                b.AddRow(rows[rows.Count - 1]);
-
-                rows[rows.Count - 1].MoveCharactersTo(b.GetTopRowPos(), b.transform);
-                rows.RemoveAt(rows.Count - 1);
-                ResetRows();
-
-                if (rows.Count > 0 && rows[rows.Count - 1].color == c && b.rows.Count < BusManager.Instance.GetMaxRows(b.bustype))
-                {
-                    MoveRowTo(b);
                 }
             }
             if (bustype == BusType.Bus)
@@ -247,7 +261,7 @@ public class Bus : MonoBehaviour
     {
         if (!isComplete)
         {
-            
+
             if (CheckAllPassengersIn())
             {
                 //BusManager.Instance.ResetAllDoors();
@@ -255,11 +269,11 @@ public class Bus : MonoBehaviour
                 if(BusManager.Instance.oldBus!=null)
                 BusManager.Instance.oldBus.CloseDoor();
                 //BusManager.Instance.ResetAllDoors();
-                await Task.Delay(2000);
                 if (IsAllRowSimilar() && charactersList.Count == BusManager.Instance.maxCharacterPerRow * BusManager.Instance.maxRows)
                 {
                     isComplete = true;
-                    CoinManager.Instance.AddCoins(50, transform.position);
+                    await Task.Delay(2000);
+
                     busPoint.CompleteBus();                  
                     SendToTravel();                    
                 }
@@ -279,6 +293,8 @@ public class Bus : MonoBehaviour
         {
             o.enabled = false;
         }
+        CloseDoor();
+        if(busPoint!=null)
         busPoint.GetComponent<BusIndicator>().DisableBar();
     }
 
@@ -292,8 +308,10 @@ public class Bus : MonoBehaviour
         {
             o.enabled = true;
         }
-      
-        busPoint.GetComponent<BusIndicator>().ColorBars(this);
+        if(busPoint!=null)
+
+            busPoint.GetComponent<BusIndicator>().ColorBars(this);
+        OpenDoor();
     }
     public void UpdateCharacterSpeed(float speed, float acc)
     {
@@ -383,13 +401,16 @@ public class Bus : MonoBehaviour
         {
             float f = ((float)charactersList.Count - (float)((BusManager.Instance.maxRows * BusManager.Instance.maxCharacterPerRow) / 2)) / (float)(BusManager.Instance.maxRows * BusManager.Instance.maxCharacterPerRow);
             bus.SetBlendShapeWeight(0, f * 250);
+         //   door.transform.position = Vector3.Lerp(door.transform.position, targetDoor.position, 0.2f);
            // wallLeft.position = Vector3.Lerp(origPosLeft, targetLeftWall.position, f * 250);
            // wallRight.position = Vector3.Lerp(origPosLeft, targetLeftWall.position,  f * 250);
         }
         else
         {
-        //    wallRight.DOMove(origPosRight, 0.2f);
-        //    wallLeft.DOMove(origPosLeft, 0.2f);
+            //    wallRight.DOMove(origPosRight, 0.2f);
+            //    wallLeft.DOMove(origPosLeft, 0.2f);
+          //  door.transform.position = origDoor;
+
             bus.SetBlendShapeWeight(0, 0);
         }
     }
@@ -408,7 +429,16 @@ public class Bus : MonoBehaviour
         {
             charactersList.Add(c);
             characters++;
+            if (isPickedUp)
+            {
+                if(charactersList.Count == rows.Count * BusManager.Instance.maxCharacterPerRow)
+                {
+                    GetComponent<BonusBusMovementHandler>().MoveToSpawn();
+                    PackBus();
+                }
+            }
             UpdateBusWall();
+            if(busPoint!=null)
             busPoint.GetComponent<BusIndicator>().ColorBars(this);
         }
     }
@@ -429,7 +459,8 @@ public class Bus : MonoBehaviour
             charactersList.Remove(c);
             characters--;
             UpdateBusWall();
-            busPoint.GetComponent<BusIndicator>().ColorBars(this);
+            if (busPoint != null)
+                busPoint.GetComponent<BusIndicator>().ColorBars(this);
         }
     }
     public Vector3 GetTopRowPos()
@@ -455,7 +486,7 @@ public class Bus : MonoBehaviour
         {
             if (rows.Count > 0)
             {
-                return positions[rows.Count - 1].transform.GetChild(rows.Count - 1 - rows.FindIndex(x => x == r)).GetChild(Mathf.FloorToInt((float)val / (float)2)).position;
+                return positions[rows.Count - 1].transform.GetChild(rows.Count - 1 - rows.FindIndex(x => x == r)).GetChild(Mathf.FloorToInt((float)val / (float)2)).position + new Vector3(Random.Range(-0.1f,0.1f),0,Random.Range(-0.1f,0.1f));
             }
             else
             {
@@ -485,6 +516,7 @@ public class Bus : MonoBehaviour
         int i = rows.Count;
         foreach(Row r in rows)
         {
+            
             r.MoveCharactersTo(positions[i - 1].transform.GetChild((positions[i - 1].childCount-1) - rows.FindIndex(x=>x==r)).position, transform);
         }
     }

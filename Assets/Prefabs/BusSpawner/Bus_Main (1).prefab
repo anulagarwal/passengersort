@@ -317,6 +317,7 @@ MonoBehaviour:
   agent: {fileID: 4825864488531811714}
   state: 0
   isMoving: 0
+  remainDistance: 0
   moved: 0
   b: {fileID: 0}
   mesh: {fileID: 0}
@@ -457,6 +458,7 @@ MonoBehaviour:
   agent: {fileID: 4825864488575799456}
   state: 0
   isMoving: 0
+  remainDistance: 0
   moved: 0
   b: {fileID: 0}
   mesh: {fileID: 0}
@@ -597,6 +599,7 @@ MonoBehaviour:
   agent: {fileID: 4825864488725216919}
   state: 0
   isMoving: 0
+  remainDistance: 0
   moved: 0
   b: {fileID: 0}
   mesh: {fileID: 0}
@@ -851,6 +854,7 @@ MonoBehaviour:
   agent: {fileID: 4825864489088814242}
   state: 0
   isMoving: 0
+  remainDistance: 0
   moved: 0
   b: {fileID: 0}
   mesh: {fileID: 0}
@@ -991,6 +995,7 @@ MonoBehaviour:
   agent: {fileID: 4825864489100632946}
   state: 0
   isMoving: 0
+  remainDistance: 0
   moved: 0
   b: {fileID: 0}
   mesh: {fileID: 0}
@@ -1131,6 +1136,7 @@ MonoBehaviour:
   agent: {fileID: 4825864489156440916}
   state: 0
   isMoving: 0
+  remainDistance: 0
   moved: 0
   b: {fileID: 0}
   mesh: {fileID: 0}
@@ -1271,6 +1277,7 @@ MonoBehaviour:
   agent: {fileID: 4825864489171853466}
   state: 0
   isMoving: 0
+  remainDistance: 0
   moved: 0
   b: {fileID: 0}
   mesh: {fileID: 0}
@@ -1411,6 +1418,7 @@ MonoBehaviour:
   agent: {fileID: 4825864489240576860}
   state: 0
   isMoving: 0
+  remainDistance: 0
   moved: 0
   b: {fileID: 0}
   mesh: {fileID: 0}
@@ -1598,6 +1606,7 @@ MonoBehaviour:
   agent: {fileID: 4825864489388101319}
   state: 0
   isMoving: 0
+  remainDistance: 0
   moved: 0
   b: {fileID: 0}
   mesh: {fileID: 0}
@@ -1777,6 +1786,7 @@ MonoBehaviour:
   agent: {fileID: 4825864489676896153}
   state: 0
   isMoving: 0
+  remainDistance: 0
   moved: 0
   b: {fileID: 0}
   mesh: {fileID: 0}
@@ -1917,6 +1927,7 @@ MonoBehaviour:
   agent: {fileID: 4825864489707265568}
   state: 0
   isMoving: 0
+  remainDistance: 0
   moved: 0
   b: {fileID: 0}
   mesh: {fileID: 0}
@@ -2002,8 +2013,10 @@ MonoBehaviour:
   wallRight: {fileID: 4825864490399655179}
   origPosLeft: {x: 0, y: 0, z: 0}
   origPosRight: {x: 0, y: 0, z: 0}
+  origDoor: {x: 0, y: 0, z: 0}
   targetLeftWall: {fileID: 7570997643608865480}
   targetRightWall: {fileID: 5035734410703722857}
+  targetDoor: {fileID: 2415513466323334171}
   door: {fileID: 5868576063251947907}
   charactersList: []
   bus: {fileID: 8270410830426987256}
@@ -2031,7 +2044,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 1.7
   m_Speed: 8
-  m_Acceleration: 3
+  m_Acceleration: 50
   avoidancePriority: 50
   m_AngularSpeed: 400
   m_StoppingDistance: 0.5
@@ -2237,6 +2250,7 @@ MonoBehaviour:
   agent: {fileID: 4825864489896598577}
   state: 0
   isMoving: 0
+  remainDistance: 0
   moved: 0
   b: {fileID: 0}
   mesh: {fileID: 0}
@@ -2637,6 +2651,7 @@ MonoBehaviour:
   agent: {fileID: 4825864490077115010}
   state: 0
   isMoving: 0
+  remainDistance: 0
   moved: 0
   b: {fileID: 0}
   mesh: {fileID: 0}
@@ -2777,6 +2792,7 @@ MonoBehaviour:
   agent: {fileID: 4825864490094118324}
   state: 0
   isMoving: 0
+  remainDistance: 0
   moved: 0
   b: {fileID: 0}
   mesh: {fileID: 0}
@@ -2808,8 +2824,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4825864490399655178}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.3, y: 0, z: -1.2432}
-  m_LocalScale: {x: 0.23, y: 1, z: 2.651821}
+  m_LocalPosition: {x: 1.3, y: 0, z: -1.3024}
+  m_LocalScale: {x: 0.23, y: 1, z: 2.5332844}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4825864489600305673}
@@ -2922,8 +2938,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6506679792706253051}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.3, y: 0, z: 2.1767}
-  m_LocalScale: {x: 0.23, y: 1, z: 0.60955334}
+  m_LocalPosition: {x: 1.3108, y: 0, z: 2.2156}
+  m_LocalScale: {x: 0.208357, y: 1, z: 0.53165245}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4825864489600305673}
@@ -3326,6 +3342,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ddaab0006f574c3893eea17fbe7a191, type: 3}
+--- !u!4 &2415513466323334171 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8432746512213541548, guid: 5ddaab0006f574c3893eea17fbe7a191, type: 3}
+  m_PrefabInstance: {fileID: 6089573635662083767}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3349235238078004733 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8860934800905915210, guid: 5ddaab0006f574c3893eea17fbe7a191, type: 3}

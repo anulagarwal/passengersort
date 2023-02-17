@@ -25,6 +25,7 @@ public class DealBusMovementHandler : MonoBehaviour
         if (wp.transform.position.x > transform.position.x)
         {
             v = new Vector3(0, 90, 0);
+            print("Asd");
         }
 
         if (wp.transform.position.x < transform.position.x)
@@ -62,6 +63,7 @@ public class DealBusMovementHandler : MonoBehaviour
             }
             else if (index == wps.Count - 1 && !isGoingToDeal)
             {
+                //BonusBusProvider.Instance.StartBusTimer();
                 Destroy(gameObject);
                 //Give coins
             }

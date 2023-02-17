@@ -77,7 +77,7 @@ public class CoinManager : MonoBehaviour
         PlayerPrefs.SetInt("coins", currentCoins);
         UIManager.Instance.UpdateCurrentCoins(currentCoins);
         UIManager.Instance.SendPoolTo(true, worldPos);
-        BusManager.Instance.UpdateBusPoints();
+        UpdateEconomyElements();
 
     }
 
@@ -122,6 +122,10 @@ public class CoinManager : MonoBehaviour
         if (currentCoins >= PowerupManager.Instance.GetPowerupCost(PowerupType.Deal))
         {
             UIManager.Instance.UpdatePowerupButton(true, PowerupManager.Instance.GetPowerupCost(PowerupType.Deal));
+            if ( PlayerPrefs.GetInt("tutorial",0)==0&& TutorialManager.Instance.GetMoveType() == MoveType.Deal)
+            {
+                TutorialManager.Instance.PlayStep(MoveType.Deal);
+            }
         }
         else
         {

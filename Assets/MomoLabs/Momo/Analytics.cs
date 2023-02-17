@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using GameAnalyticsSDK;
+using GameAnalyticsSDK;
+using Facebook.Unity;
 using LionStudios.Suite.Analytics;
 namespace Momo
 {
@@ -55,12 +56,50 @@ namespace Momo
             MaxSdk.SetVerboseLogging(true);
             MaxSdk.InitializeSdk();
             //  GameAnalytics.NewDesignEvent("session", appSessionCount);
-
+            GameAnalytics.Initialize();            
             LionAnalytics.GameStart();
             dayNumber = PlayerPrefs.GetInt("dayNumber", 0);
-        }
-  
 
+            if (!FB.IsInitialized)
+            {
+                // Initialize the Facebook SDK
+                FB.Init(InitCallback, OnHideUnity);
+            }
+            else
+            {
+                // Already initialized, signal an app activation App Event
+                FB.ActivateApp();
+            }
+
+        }
+
+        private void InitCallback()
+        {
+            if (FB.IsInitialized)
+            {
+                // Signal an app activation App Event
+                FB.ActivateApp();
+                // Continue with Facebook SDK
+                // ...
+            }
+            else
+            {
+                Debug.Log("Failed to Initialize the Facebook SDK");
+            }
+        }
+        private void OnHideUnity(bool isGameShown)
+        {
+            if (!isGameShown)
+            {
+                // Pause the game - we will need to hide
+                Time.timeScale = 0;
+            }
+            else
+            {
+                // Resume the game - we're getting focus again
+                Time.timeScale = 1;
+            }
+        }
         // Update is called once per frame
         void Update()
         {

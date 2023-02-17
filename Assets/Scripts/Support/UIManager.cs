@@ -34,6 +34,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Image dealImage;
     [SerializeField] private Text dealCost;
 
+    [Header("Bonus Bus")]
+    [SerializeField] private GameObject busObject;
+    [SerializeField] private Image busTimer;
+
+
 
 
     [Header("Settings")]
@@ -228,6 +233,29 @@ public class UIManager : MonoBehaviour
         GameManager.Instance.WinLevel();
     }
 
+    public void SetBusTimer(float time)
+    {
+        busTimer.DOFillAmount(1, time).OnComplete(() =>
+        {
+            BonusBusProvider.Instance.SendBonusBus();
+            busObject.transform.DOScale(Vector3.zero, 0.5f);
+        });
+    }
+
+    public void ResetBusTimer(float time)
+    {
+        busObject.transform.DOScale(Vector3.one, 0.5f);
+        busTimer.fillAmount = 0;
+        SetBusTimer(time);
+    }
+
+    public void StopTimer()
+    {
+        DOTween.KillAll();
+        busObject.transform.DOScale(Vector3.zero, 0.5f);
+        busTimer.DOFillAmount(0, 0.5f);
+    }
+
     public void UpdatePowerupButton(bool interactable, int cost)
     {
         dealButton.interactable = interactable;
@@ -247,8 +275,12 @@ public class UIManager : MonoBehaviour
     {
         if (CoinManager.Instance.SubtractCoins(PowerupManager.Instance.GetPowerupCost(PowerupType.Deal)))
         {
+            if (PlayerPrefs.GetInt("tutorial", 0) == 0)
+            {
+                TutorialManager.Instance.PlayStep(MoveType.Deal);
+            }
             DealBusProvider.Instance.DealBus();
-
+            //BonusBusProvider.Instance.SendBonusBus();
             foreach (Transform c in coins)
             {
                 c.gameObject.SetActive(true);

@@ -6,7 +6,7 @@ public class TutorialManager : MonoBehaviour
 {
     [Header("Attributes")]
     [SerializeField] int maxSteps;
-    [SerializeField] int currentIndex;
+    [SerializeField] public int currentIndex;
     [SerializeField] string stepBaseName;
     [SerializeField] bool isOver = false;
     [SerializeField] List<MoveType> moves;
@@ -19,6 +19,20 @@ public class TutorialManager : MonoBehaviour
     [Header("Component References")]
     [SerializeField] Animator anim;
     [SerializeField] Transform finger;
+
+    public static TutorialManager Instance = null;
+
+
+    private void Awake()
+    {
+        Application.targetFrameRate = 100;
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        Instance = this;
+    }
+
 
     // Start is called before the first frame update
     void Start()
@@ -46,15 +60,22 @@ public class TutorialManager : MonoBehaviour
 
     public void PlayStep(MoveType m)
     {
+        
+        finger.gameObject.SetActive(false);
+        UIManager.Instance.ActiveMask(false);
         if (m == moves[currentIndex-1])
-        {
-            finger.gameObject.SetActive(false);
+        {            
             Invoke("NextStep", interval[currentIndex-1]);
         }
     }
     public void UpdateText(int index)
     {
         UIManager.Instance.UpdateTutorialText(texts[index-2]);
+    }
+
+    public MoveType GetMoveType()
+    {        
+       return moves[currentIndex-1];        
     }
     public void NextStep()
     {
@@ -66,6 +87,8 @@ public class TutorialManager : MonoBehaviour
             }
             else
             {
+                UIManager.Instance.ActiveMask(true);
+
                 finger.gameObject.SetActive(true);
                 currentIndex++;
                 UpdateText(currentIndex);
@@ -73,7 +96,7 @@ public class TutorialManager : MonoBehaviour
                 anim.Play(stepBaseName + (currentIndex-1));
             }
 
-            if (currentIndex > maxSteps)
+            if (currentIndex >= maxSteps)
             {
                 Invoke("DisableT", interval[currentIndex-1]);
             }
@@ -84,10 +107,10 @@ public class TutorialManager : MonoBehaviour
     {
         isOver = true;
         UIManager.Instance.ActiveMask(false);
-
         PlayerPrefs.SetInt("tutorial", 1);
         anim.StopPlayback();
         anim.gameObject.SetActive(false);
+        BusManager.Instance.GetComponent<BonusBusProvider>().enabled = true;
         Destroy(this, 3);
     }
     

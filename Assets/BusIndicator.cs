@@ -46,7 +46,6 @@ public class BusIndicator : MonoBehaviour
          {
              for (int i = 0; i < b.rows.Count; i++)
              {
-                print(i);
                 barFills[i].color = PassengerManager.Instance.GetColor(b.rows[i].color);
                 float f = ((float)b.charactersList.Count - ((float)(i)* BusManager.Instance.maxCharacterPerRow))/(float)BusManager.Instance.maxCharacterPerRow;
                 if (f > 0.9f)

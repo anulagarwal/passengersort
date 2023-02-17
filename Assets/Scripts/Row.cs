@@ -31,24 +31,13 @@ public class Row
         foreach(Character c in characters)
         {
             int i = characters.FindIndex(x => x == c);
-            Vector3 v = pos;
-            if (i <= characters.Count / 2)
-            {
+            Vector3 v = pos;           
                 //  v = new Vector3(pos.x - BusManager.Instance.xOffsetCharacter, pos.y, pos.z);
                 //  v = new Vector3(pos.x, pos.y, pos.z);
                v = b.GetComponent<Bus>().GetTopwRowCharacterPos(characters.FindIndex(x => x == c), this);
                 //;
                 // v = new Vector3(b.GetComponent<Bus>().GetTopRow().TransformPoint(pos).x - BusManager.Instance.xOffsetCharacter, pos.y, pos.z);
-            }
-            else
-            {
-                //  v = new Vector3(pos.x + BusManager.Instance.xOffsetCharacter, pos.y, pos.z);
-                //  v = new Vector3(pos.x, pos.y, pos.z);
-                v = b.GetComponent<Bus>().GetTopwRowCharacterPos(characters.FindIndex(x => x == c), this);
-
-                //  v = new Vector3(b.GetComponent<Bus>().GetTopRow().TransformPoint(pos).x + BusManager.Instance.xOffsetCharacter, pos.y, pos.z);
-
-            }
+          
             c.MoveTo(v, b);
         }
     }
