@@ -293,6 +293,7 @@ public class Bus : MonoBehaviour
         {
             o.enabled = false;
         }
+        state = BusState.Moving;
         CloseDoor();
         if(busPoint!=null)
         busPoint.GetComponent<BusIndicator>().DisableBar();
@@ -308,10 +309,13 @@ public class Bus : MonoBehaviour
         {
             o.enabled = true;
         }
-        if(busPoint!=null)
+        state = BusState.Idle;
+
+        if (busPoint!=null)
 
             busPoint.GetComponent<BusIndicator>().ColorBars(this);
         OpenDoor();
+
     }
     public void UpdateCharacterSpeed(float speed, float acc)
     {
@@ -337,7 +341,7 @@ public class Bus : MonoBehaviour
         // GetComponent<BusMovementHandler>().UpdateWayPoints(w, busPoint);
         // GetComponent<BusMovementHandler>().MoveToWaypoint();
         GetComponent<BusMovementHandler>().isGoingToLot = false;
-        GetComponent<BusMovementHandler>().MoveToTarget(w[w.Count - 1].transform.position);
+        GetComponent<BusMovementHandler>().MoveToTarget(BusManager.Instance.busStartPoint.position);
         busPoint.Reset();
 
         UpdateState(BusState.Moving);

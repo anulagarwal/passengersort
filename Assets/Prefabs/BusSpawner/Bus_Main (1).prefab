@@ -1996,10 +1996,12 @@ MonoBehaviour:
   currentIndex: 0
   isComplete: 0
   isGoingToLot: 0
+  isPickedUp: 0
   rotation: {x: 0, y: 0, z: 0}
   busPoint: {fileID: 0}
   characters: 0
   bustype: 0
+  preferredColors: 
   state: 0
   confetti: {fileID: 7952667326087476425}
   busAgent: {fileID: 4825864489840618046}
@@ -2042,7 +2044,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 4825864489840618018}
   m_Enabled: 0
   m_AgentTypeID: 0
-  m_Radius: 1.7
+  m_Radius: 2.5
   m_Speed: 8
   m_Acceleration: 50
   avoidancePriority: 50
@@ -2051,7 +2053,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2
+  m_Height: 4
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4

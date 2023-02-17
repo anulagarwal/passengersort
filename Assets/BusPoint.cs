@@ -100,8 +100,8 @@ public class BusPoint : MonoBehaviour
     }
     public void GreyOut()
     {
-        spriteBase.color = new Color(spriteBase.color.r, spriteBase.color.g, spriteBase.color.b, spriteBase.color.a / 2);
-        buttonBase.color = new Color(buttonBase.color.r, buttonBase.color.g, buttonBase.color.b, buttonBase.color.a / 2);
+        spriteBase.color = Color.gray;
+        buttonBase.color = Color.gray;
     }
 
     public void ColorIn()

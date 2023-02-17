@@ -37,6 +37,8 @@ public class BusMovementHandler : MonoBehaviour
             if (n.remainingDistance <= 0.7f)
             {
                 n.enabled = false;
+                print("yes");
+
                 BusManager.Instance.RemoveBus(GetComponent<Bus>());
                 BusManager.Instance.GetComponent<BusProvider>().SendBusTo(transform.position);
                 Destroy(gameObject);

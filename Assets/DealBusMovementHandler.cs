@@ -63,7 +63,7 @@ public class DealBusMovementHandler : MonoBehaviour
             }
             else if (index == wps.Count - 1 && !isGoingToDeal)
             {
-                //BonusBusProvider.Instance.StartBusTimer();
+                BonusBusProvider.Instance.StartBusTimer();
                 Destroy(gameObject);
                 //Give coins
             }

@@ -10,6 +10,8 @@ public class BonusBusProvider : MonoBehaviour
     [SerializeField] float busSpeed;
     [SerializeField] int currentBusIndex;
     [SerializeField] float timeDelay = 10f;
+    [SerializeField] public bool isTimeActive = false;
+
 
 
     [Header("Component References")]
@@ -46,12 +48,20 @@ public class BonusBusProvider : MonoBehaviour
 
     public void StartBusTimer()
     {
-        UIManager.Instance.ResetBusTimer(timeDelay);
+        if (!isTimeActive)
+        {
+            UIManager.Instance.ResetBusTimer(timeDelay);
+            isTimeActive = true;
+        }
     }
 
     public void StopBusTimer()
     {
-        UIManager.Instance.StopTimer();
+        if (isTimeActive)
+        {
+            UIManager.Instance.StopTimer();
+            isTimeActive = false;
+        }
     }
         public int GetBusIndex(int index)
     {
