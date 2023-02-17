@@ -6,7 +6,7 @@ public class CoinManager : MonoBehaviour
 {
     [Header("Attributes")]
     [SerializeField] int startCoins;
-    [SerializeField] int currentCoins;
+    [SerializeField] public int currentCoins;
 
     [Header("Rewards")]
     [SerializeField] int levelReward;
@@ -119,6 +119,7 @@ public class CoinManager : MonoBehaviour
     {
         UIManager.Instance.UpdateCurrentCoins(currentCoins);
         BusManager.Instance.UpdateBusPoints();
+
         if (currentCoins >= PowerupManager.Instance.GetPowerupCost(PowerupType.Deal))
         {
             UIManager.Instance.UpdatePowerupButton(true, PowerupManager.Instance.GetPowerupCost(PowerupType.Deal));

@@ -8,6 +8,8 @@ public class BusPoint : MonoBehaviour
     [SerializeField] Bus occupiedBy;
     [SerializeField] BusPointType type;
     [SerializeField] int cost = 50;
+    [SerializeField] Color origColor;
+    [SerializeField] Color origColorButton;
 
     [SerializeField] public Vector3 rotation;
 
@@ -25,6 +27,9 @@ public class BusPoint : MonoBehaviour
 
     private void Start()
     {
+
+        
+
         UpdateState(type);
     }
 
@@ -87,11 +92,13 @@ public class BusPoint : MonoBehaviour
     {
         if (CoinManager.Instance.CheckForCoins(cost))
         {
+
             ColorIn();
             if (PlayerPrefs.GetInt("tutorial", 0) == 0 && TutorialManager.Instance.GetMoveType()== MoveType.Unlock)
             {
                 TutorialManager.Instance.PlayStep(MoveType.Unlock);
             }
+
         }
         else
         {
@@ -106,8 +113,8 @@ public class BusPoint : MonoBehaviour
 
     public void ColorIn()
     {
-        spriteBase.color = new Color(spriteBase.color.r, spriteBase.color.g, spriteBase.color.b, 255);
-        buttonBase.color = new Color(buttonBase.color.r, buttonBase.color.g, buttonBase.color.b, 255);
+        spriteBase.color = origColor;
+        buttonBase.color = origColorButton;
     }
 
     public void Unlock()

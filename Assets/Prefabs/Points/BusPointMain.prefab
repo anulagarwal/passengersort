@@ -821,6 +821,8 @@ MonoBehaviour:
   occupiedBy: {fileID: 0}
   type: 2
   cost: 999
+  origColor: {r: 0.8117647, g: 0.44705883, b: 1, a: 1}
+  origColorButton: {r: 1, g: 1, b: 1, a: 1}
   rotation: {x: 0, y: 0, z: 0}
   waypointStart: {fileID: 0}
   lockImg: {fileID: 0}

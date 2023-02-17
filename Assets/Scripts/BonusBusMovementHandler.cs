@@ -54,6 +54,7 @@ public class BonusBusMovementHandler : MonoBehaviour
                 n.enabled = false;
                 CoinManager.Instance.AddCoins(GetComponent<Bus>().charactersList.Count * 2, transform.position);
                 UIManager.Instance.UpdatePowerupButton(true, PowerupManager.Instance.GetPowerupCost(PowerupType.Deal));
+                BonusBusProvider.Instance.isTimeActive= false;
                 BonusBusProvider.Instance.StartBusTimer();
                 //Track bus complete
                 Destroy(gameObject);
