@@ -170,6 +170,8 @@ public class Bus : MonoBehaviour
     {
         if (bustype == BusType.Bus)
         {
+
+
             door.transform.DOLocalRotate(new Vector3(0, 0, 120f), 0.5f, RotateMode.Fast);
             door.gameObject.isStatic = true;
         }
@@ -178,7 +180,11 @@ public class Bus : MonoBehaviour
     {
         if (bustype == BusType.Bus)
         {
-            door.transform.DOLocalRotate(new Vector3(0,0, 0), 0.5f, RotateMode.Fast);
+           
+            door.transform.DOLocalRotate(new Vector3(0,0, 0), 0.5f, RotateMode.Fast).OnComplete(()=> {
+
+
+            });
             door.gameObject.isStatic = false;
         }
     }
@@ -266,20 +272,24 @@ public class Bus : MonoBehaviour
             {
                 //BusManager.Instance.ResetAllDoors();
                 CloseDoor();
-                if(BusManager.Instance.oldBus!=null)
-                BusManager.Instance.oldBus.CloseDoor();
+                if (BusManager.Instance.oldBus != null)
+                    BusManager.Instance.oldBus.CloseDoor();
                 //BusManager.Instance.ResetAllDoors();
                 if (IsAllRowSimilar() && charactersList.Count == BusManager.Instance.maxCharacterPerRow * BusManager.Instance.maxRows)
                 {
                     isComplete = true;
+                    await Task.Delay(500);
+                    PackBus();
+
                     await Task.Delay(2000);
 
-                    busPoint.CompleteBus();                  
-                    SendToTravel();                    
+                    busPoint.CompleteBus();
+                    SendToTravel();
                 }
             }
         }
     }
+
     #endregion
 
     #region Bus movement
@@ -327,7 +337,6 @@ public class Bus : MonoBehaviour
     public void SendToTravel()
     {
         isGoingToLot = false;
-        PackBus();
         List<Waypoint> w = new List<Waypoint>();
 
         Waypoint wp = busPoint.waypointStart.GetComponent<Waypoint>();
@@ -405,7 +414,7 @@ public class Bus : MonoBehaviour
         {
             float f = ((float)charactersList.Count - (float)((BusManager.Instance.maxRows * BusManager.Instance.maxCharacterPerRow) / 2)) / (float)(BusManager.Instance.maxRows * BusManager.Instance.maxCharacterPerRow);
             bus.SetBlendShapeWeight(0, f * 250);
-         //   door.transform.position = Vector3.Lerp(door.transform.position, targetDoor.position, 0.2f);
+         //   door.transform.position = new Vector3(origDoor.x, origDoor.y, origDoor.z);
            // wallLeft.position = Vector3.Lerp(origPosLeft, targetLeftWall.position, f * 250);
            // wallRight.position = Vector3.Lerp(origPosLeft, targetLeftWall.position,  f * 250);
         }

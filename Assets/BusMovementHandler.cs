@@ -49,9 +49,11 @@ public class BusMovementHandler : MonoBehaviour
         {
             if (n.remainingDistance <= 0.5f)
             {
+                // n.Stop();
                 n.Stop();
-                MoveToBusPoint();
                 n.enabled = false;
+                MoveToBusPoint();
+               // n.enabled = false;
             }
         }
     }
@@ -90,14 +92,14 @@ public class BusMovementHandler : MonoBehaviour
         {
             v = new Vector3(0, 180, 0);
         }
+        transform.DORotate(b.rotation, 3f).OnComplete(() =>
+        {           
+            GetComponent<Bus>().state = BusState.Idle;
+            GetComponent<Bus>().UnPackBus();
+        });
 
-
-        transform.DOMove(b.transform.position, speed).SetSpeedBased(true).OnComplete(() => {
-            transform.DORotate(b.rotation, 0.5f).OnComplete(()=>
-            {
-                GetComponent<Bus>().state = BusState.Idle;
-                GetComponent<Bus>().UnPackBus();
-            });
+        transform.DOMove(b.transform.position, 3f).OnComplete(() => {
+          
 
         });
     }

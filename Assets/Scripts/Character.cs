@@ -28,7 +28,6 @@ public class Character : MonoBehaviour
     {
         //agent = GetComponent<NavMeshAgent>();
         UpdateState(CharacterState.Idle);
-       
 
     }
 
@@ -49,6 +48,7 @@ public class Character : MonoBehaviour
     public void UpdateRadius(float f)
     {
         agent.radius = f;
+
     }
 
 
@@ -66,7 +66,7 @@ public class Character : MonoBehaviour
 
             if (b.bustype == BusType.Bus)
             {
-                if (agent.remainingDistance< BusManager.Instance.minStopDistance && !isMoving)
+                if ( !isMoving)
                 {
                     UpdateState(CharacterState.Idle);
                     BusManager.Instance.RemoveCharacterFromBuses(this, b);

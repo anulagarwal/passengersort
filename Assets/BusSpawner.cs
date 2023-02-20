@@ -52,37 +52,40 @@ public class BusSpawner : MonoBehaviour
     }
 
 
-      public void Spawn(BusPoint bp)
-        {
-         GetComponent<Bus>().busPoint = bp;
+    public void Spawn(BusPoint bp)
+    {
+        GetComponent<Bus>().busPoint = bp;
         foreach (Row r in rows)
-         {
-             for (int i = 0; i < BusManager.Instance.maxCharacterPerRow; i++)
-             {
-                 GameObject g = Instantiate(PassengerManager.Instance.GetPassenger(r.color), GetComponent<Bus>().GetRowPos(rows.Count - 1, rows.IndexOf(r)) + new Vector3(Random.Range(-0.02f, 0.02f), 0, Random.Range(-0.02f, 0.02f)), Quaternion.identity);
-                 r.AddCharacter(g.GetComponent<Character>());
+        {
+            for (int i = 0; i < BusManager.Instance.maxCharacterPerRow; i++)
+            {
+                GameObject g = Instantiate(PassengerManager.Instance.GetPassenger(r.color), GetComponent<Bus>().GetRowPos(rows.Count - 1, rows.IndexOf(r)) + new Vector3(Random.Range(-0.05f, 0.05f), 0, Random.Range(-0.05f, 0.05f)), Quaternion.identity);
+                r.AddCharacter(g.GetComponent<Character>());
                 g.GetComponent<Character>().EnterBus(GetComponent<Bus>());
 
                 g.transform.SetParent(transform);
-             }
-             GetComponent<Bus>().AddRow(r);
+            }
+            GetComponent<Bus>().AddRow(r);
 
 
-         }
-         foreach (Row ro in GetComponent<Bus>().rows)
-         {
-             foreach (Character c in ro.characters)
-             {
-                 GetComponent<Bus>().AddCharacter(c);
+        }
+        foreach (Row ro in GetComponent<Bus>().rows)
+        {
+            foreach (Character c in ro.characters)
+            {
+                GetComponent<Bus>().AddCharacter(c);
                 bp.GetComponent<BusIndicator>().DisableBar();
 
             }
         }
+        GetComponent<Bus>().UnPackBus();
+
         //GetComponent<Bus>().rows = rows;
-        GetComponent<Bus>().PackBus();
-        //GetComponent<Bus>().ResetRows();
+        GetComponent<Bus>().ResetRows();
+
         Destroy(this);
 
+        { 
         /*  List<int> colorRows = new List<int>();
           colorRows.Add(0);
           colorRows.Add(0);
@@ -143,13 +146,13 @@ public class BusSpawner : MonoBehaviour
           GetComponent<Bus>().ResetRows();
         */
     }
+    }
 
 
     void Spawn()
     {
         if (!IsDealBus)
         {
-            List<GameObject> addedChar = new List<GameObject>();
             foreach (Row r in rows)
             {
                 for (int i = 0; i < BusManager.Instance.maxCharacterPerRow; i++)

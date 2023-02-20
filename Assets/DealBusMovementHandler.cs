@@ -25,7 +25,6 @@ public class DealBusMovementHandler : MonoBehaviour
         if (wp.transform.position.x > transform.position.x)
         {
             v = new Vector3(0, 90, 0);
-            print("Asd");
         }
 
         if (wp.transform.position.x < transform.position.x)
