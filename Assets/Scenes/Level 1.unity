@@ -4264,6 +4264,10 @@ PrefabInstance:
       propertyPath: m_Acceleration
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 5331772524853209718, guid: cf206b68ad5e047a1abbdff994e3bfa6, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: cf206b68ad5e047a1abbdff994e3bfa6, type: 3}
@@ -5649,6 +5653,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6835481057151134924, guid: c75d6dc7a5ed745d487f217cc836309c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.03
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: c75d6dc7a5ed745d487f217cc836309c, type: 3}
@@ -5899,6 +5907,7 @@ MonoBehaviour:
   origPosLeft: {x: 0, y: 0, z: 0}
   origPosRight: {x: 0, y: 0, z: 0}
   origDoor: {x: 0, y: 0, z: 0}
+  doorWall: {fileID: 0}
   targetLeftWall: {fileID: 0}
   targetRightWall: {fileID: 0}
   targetDoor: {fileID: 0}
@@ -7162,7 +7171,7 @@ MonoBehaviour:
   maxCharacterPerRow: 30
   xOffsetCharacter: 0.7
   yOffsetCharacter: 0.2
-  minStopDistance: 0.25
+  minStopDistance: 0.5
   level: 0
   coinsPerComplete: 75
   selectedBus: {fileID: 0}
@@ -8419,7 +8428,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1099310338458712370, guid: c75d6dc7a5ed745d487f217cc836309c, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1139779897263711214, guid: c75d6dc7a5ed745d487f217cc836309c, type: 3}
       propertyPath: type
@@ -9757,6 +9766,7 @@ MonoBehaviour:
   origPosLeft: {x: 0, y: 0, z: 0}
   origPosRight: {x: 0, y: 0, z: 0}
   origDoor: {x: 0, y: 0, z: 0}
+  doorWall: {fileID: 0}
   targetLeftWall: {fileID: 0}
   targetRightWall: {fileID: 0}
   targetDoor: {fileID: 0}
@@ -10348,6 +10358,7 @@ MonoBehaviour:
   origPosLeft: {x: 0, y: 0, z: 0}
   origPosRight: {x: 0, y: 0, z: 0}
   origDoor: {x: 0, y: 0, z: 0}
+  doorWall: {fileID: 0}
   targetLeftWall: {fileID: 0}
   targetRightWall: {fileID: 0}
   targetDoor: {fileID: 0}

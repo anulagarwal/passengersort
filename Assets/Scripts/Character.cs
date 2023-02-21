@@ -57,23 +57,18 @@ public class Character : MonoBehaviour
        
         if (state == CharacterState.Moving && agent.enabled)
         {
-            if (agent.remainingDistance <= BusManager.Instance.minStopDistance && !isMoving)
-            {
-                //isMoving = false;
-               // UpdateState(CharacterState.Idle);
-              //  b.CheckForPassengers();
-            }
-
+           
             if (b.bustype == BusType.Bus || b.bustype == BusType.Bonus)
             {
-                if ( !isMoving)
+                if (!isMoving)
                 {
-                    UpdateState(CharacterState.Idle);
-                    BusManager.Instance.RemoveCharacterFromBuses(this, b);
-                    b.AddCharacter(this);
-                   // agent.isStopped = true;
-                    UpdateAgent(5, 25);
-                    b.CheckForPassengers();
+                    
+                        UpdateState(CharacterState.Idle);
+                        BusManager.Instance.RemoveCharacterFromBuses(this, b);
+                        b.AddCharacter(this);
+                        UpdateAgent(5, 25);
+                        b.CheckForPassengers();
+                    
                 }
             }
             else

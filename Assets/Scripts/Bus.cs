@@ -37,6 +37,8 @@ public class Bus : MonoBehaviour
     [SerializeField] Vector3 origPosLeft;
     [SerializeField] Vector3 origPosRight;
     [SerializeField] Vector3 origDoor;
+    [SerializeField] GameObject doorWall;
+
 
 
 
@@ -75,6 +77,9 @@ public class Bus : MonoBehaviour
         }
         if(bustype == BusType.Bus || bustype == BusType.Bonus)
         origDoor = door.transform.position;
+
+        doorWall.GetComponent<NavMeshObstacle>().enabled = false;
+        doorWall.SetActive(false);
     }
 
     // Update is called once per frame
@@ -168,22 +173,24 @@ public class Bus : MonoBehaviour
     {
         if (bustype == BusType.Bus || bustype == BusType.Bonus)
         {
+            doorWall.SetActive(false);
+            doorWall.GetComponent<NavMeshObstacle>().enabled = false;
 
-
-            door.transform.DOLocalRotate(new Vector3(0, 0, 120f), 0.5f, RotateMode.Fast);
-            door.gameObject.isStatic = true;
+            door.transform.DOLocalRotate(new Vector3(0, 0, 120f), 0.5f, RotateMode.Fast).OnComplete(() => {
+                
+            });
         }
     }
     public void CloseDoor()
     {
         if (bustype == BusType.Bus || bustype == BusType.Bonus)
         {
-           
+            doorWall.SetActive(true);
+            doorWall.GetComponent<NavMeshObstacle>().enabled = true;
             door.transform.DOLocalRotate(new Vector3(0,0, 0), 0.5f, RotateMode.Fast).OnComplete(()=> {
-
+             
 
             });
-            door.gameObject.isStatic = false;
         }
     }
 
@@ -242,23 +249,14 @@ public class Bus : MonoBehaviour
     }
     public bool CheckAllPassengersIn()
     {
-        bool stop = false;
 
-        foreach (Row r in rows)
-        {
-            //If all characters in
-            if (r.IsStopped())
-            {
-                stop = true;
-            }
-            else
-            {
-                stop = false;
-            }
-        }
+        if (charactersList.Count == BusManager.Instance.maxCharacterPerRow * rows.Count)
 
-        return stop;
+            return true;
 
+        else
+
+            return false;
     }
 
     public async void CheckForPassengers()
@@ -269,9 +267,9 @@ public class Bus : MonoBehaviour
             if (CheckAllPassengersIn())
             {
                 //BusManager.Instance.ResetAllDoors();
+                await Task.Delay(750);
                 CloseDoor();
-                if (BusManager.Instance.oldBus != null)
-                    BusManager.Instance.oldBus.CloseDoor();
+               
                 //BusManager.Instance.ResetAllDoors();
                 if (IsAllRowSimilar() && charactersList.Count == BusManager.Instance.maxCharacterPerRow * BusManager.Instance.maxRows)
                 {
@@ -301,8 +299,13 @@ public class Bus : MonoBehaviour
         {
             o.enabled = false;
         }
-        state = BusState.Moving;
         CloseDoor();
+        if (bustype == BusType.Bus)
+        {
+            doorWall.SetActive(false);
+            doorWall.GetComponent<NavMeshObstacle>().enabled = false;
+        }
+        state = BusState.Moving;
         if(busPoint!=null)
         busPoint.GetComponent<BusIndicator>().DisableBar();
     }

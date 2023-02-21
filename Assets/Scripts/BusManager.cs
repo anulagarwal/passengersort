@@ -99,7 +99,6 @@ public class BusManager : MonoBehaviour
 
     public void SelectBus(Bus b)
     {
-        ResetAllDoors();
         b.UpdateCharacterSpeed(BusManager.Instance.characterSpeedHigh, BusManager.Instance.characterAccelerationHigh);
         selectedBus = b;
         oldBus = b;
