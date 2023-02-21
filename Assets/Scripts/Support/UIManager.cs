@@ -346,7 +346,7 @@ public class UIManager : MonoBehaviour
 
     public void SpawnAwesomeText(Vector3 point, string s)
     {
-        GameObject g = Instantiate(AwesomeText, new Vector3(point.x, 2, point.z), Quaternion.identity);
+        GameObject g = Instantiate(AwesomeText, new Vector3(point.x + Random.Range(-0.2f, 0.2f), 2 + Random.Range(-0.2f, 0.2f), point.z + Random.Range(-0.2f, 0.2f)), Quaternion.identity);
         g.GetComponentInChildren<TextMeshPro>().text = s;
     }
 

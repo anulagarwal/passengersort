@@ -23,6 +23,10 @@ public class BusPoint : MonoBehaviour
     [SerializeField] public Color lockedExpensiveColor;
     [SerializeField] public SpriteRenderer spriteBase;
     [SerializeField] public SpriteRenderer buttonBase;
+    [SerializeField] public GameObject slotLeft;
+    [SerializeField] public GameObject slotTop;
+
+
 
 
     private void Start()
@@ -73,16 +77,19 @@ public class BusPoint : MonoBehaviour
                 GetComponent<BoxCollider>().enabled = true;
                 lockText.text = "" + cost;
                 CheckForExpensive();
+                ActiveSlots(true);
                 break;
 
             case BusPointType.Empty:
                 GetComponent<BoxCollider>().enabled = false;
                 locked.SetActive(false);
+                ActiveSlots(false);
                 break;
 
             case BusPointType.Occupied:
                 locked.SetActive(false);
                 GetComponent<BoxCollider>().enabled = false;
+                ActiveSlots(false);
 
                 break;
         }
@@ -117,6 +124,11 @@ public class BusPoint : MonoBehaviour
         buttonBase.color = origColorButton;
     }
 
+    public void ActiveSlots(bool active)
+    {
+        slotLeft.SetActive(active);
+        slotTop.SetActive(active);
+    }
     public void Unlock()
     {
         //Disable Box Collider

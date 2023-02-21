@@ -78,9 +78,14 @@ public class CoinManager : MonoBehaviour
         UIManager.Instance.UpdateCurrentCoins(currentCoins);
         UIManager.Instance.SendPoolTo(true, worldPos);
         UpdateEconomyElements();
-
     }
-
+    public void AddCoins(int v)
+    {
+        currentCoins += v;
+        PlayerPrefs.SetInt("coins", currentCoins);
+        UIManager.Instance.UpdateCurrentCoins(currentCoins);
+        UpdateEconomyElements();
+    }
 
     public bool SubtractCoins(int v, Vector3 worldPos)
     {

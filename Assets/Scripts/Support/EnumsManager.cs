@@ -97,7 +97,8 @@ public enum BusState
 public enum BusType
 {
     Bus,
-    Spot
+    Spot,
+    Bonus
 }
 
 

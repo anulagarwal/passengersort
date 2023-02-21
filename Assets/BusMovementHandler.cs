@@ -92,16 +92,13 @@ public class BusMovementHandler : MonoBehaviour
         {
             v = new Vector3(0, 180, 0);
         }
-        transform.DORotate(b.rotation, 3f).OnComplete(() =>
+        transform.DORotate(b.rotation, 1f).OnComplete(() =>
         {           
             GetComponent<Bus>().state = BusState.Idle;
             GetComponent<Bus>().UnPackBus();
         });
 
-        transform.DOMove(b.transform.position, 3f).OnComplete(() => {
-          
-
-        });
+        transform.DOMove(b.transform.position, 1f);
     }
 
     public void UpdateWayPoints(List<Waypoint> w, BusPoint bp)

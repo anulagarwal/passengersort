@@ -5,6 +5,7 @@ using UnityEngine.AI;
 using DG.Tweening;
 using System.Threading.Tasks;
 using UnityEngine.UI;
+
 public class BonusBusMovementHandler : MonoBehaviour
 {
     [Header("Attributes")]
@@ -20,7 +21,7 @@ public class BonusBusMovementHandler : MonoBehaviour
     [Header("Component References")]
     [SerializeField] Transform spawnPoint;
     [SerializeField] Bus bus;
-
+    [SerializeField] GameObject arrow;
     [SerializeField] BusPoint b;
     [SerializeField] NavMeshAgent n;
     [SerializeField] GameObject timerObj;
@@ -35,11 +36,12 @@ public class BonusBusMovementHandler : MonoBehaviour
     {
         bus = GetComponent<Bus>();
         timerObj.SetActive(false);
+        arrow.SetActive(false);
 
-        for(int i=0;i< bus.preferredColors.Count; i++)
+        for (int i=0;i< bus.preferredColors.Count; i++)
         {
             characterImages[i].gameObject.SetActive(true);
-            characterImages[i].sprite = PassengerManager.Instance.GetIcon(bus.preferredColors[i]);
+            characterImages[i].transform.GetChild(0).GetComponent<Image>().sprite = PassengerManager.Instance.GetIcon(bus.preferredColors[i]);
         }
         UIManager.Instance.UpdatePowerupButton(false, PowerupManager.Instance.GetPowerupCost(PowerupType.Deal));
     }
@@ -49,10 +51,10 @@ public class BonusBusMovementHandler : MonoBehaviour
     {
         if (n.enabled && !isGoingToPickup)
         {
-            if (n.remainingDistance <= 0.7f)
+            if (n.remainingDistance <= 0.4f)
             {
-                n.enabled = false;
-                CoinManager.Instance.AddCoins(GetComponent<Bus>().charactersList.Count * 2, transform.position);
+                n.enabled = false;                
+              //  CoinManager.Instance.AddCoins(GetComponent<Bus>().charactersList.Count * 2, transform.position);
                 UIManager.Instance.UpdatePowerupButton(true, PowerupManager.Instance.GetPowerupCost(PowerupType.Deal));
                 BonusBusProvider.Instance.isTimeActive= false;
                 BonusBusProvider.Instance.StartBusTimer();
@@ -63,31 +65,49 @@ public class BonusBusMovementHandler : MonoBehaviour
 
         if (n.enabled && isGoingToPickup)
         {
-            if (n.remainingDistance <= 0.5f)
+            if (n.remainingDistance <= 0.2f)
             {
                 n.Stop();
                 n.enabled = false;
-                GetComponent<Bus>().state = BusState.Idle;
-                GetComponent<Bus>().UnPackBus();
-                timerObj.SetActive(true);
-                timer.DOFillAmount(1, waitTime).OnComplete(() => {
-
-                    if (GetComponent<Bus>().rows.Count * BusManager.Instance.maxCharacterPerRow == GetComponent<Bus>().charactersList.Count)
-                    {
-                        GetComponent<Bus>().PackBus();
-                        MoveToSpawn();
-                    }
-                    else
-                    {
-                        GetComponent<Bus>().isPickedUp = true;
-                    }
-
-                }); 
+                MoveToBusPoint();
                 //Wait x seconds
                 //Unpack and wait to fill
                 //After x seconds, packup and go back to spawn point
             }
         }
+    }
+
+    public void MoveToBusPoint()
+    {
+
+        Vector3 v = Vector3.zero;        
+            v = new Vector3(0, 90, 0);
+        
+
+        transform.DORotate(v, 0.4f).OnComplete(() =>
+        {
+            GetComponent<Bus>().state = BusState.Idle;
+            GetComponent<Bus>().UnPackBus();
+            timerObj.SetActive(true);
+            arrow.SetActive(true);
+            timer.DOFillAmount(1, waitTime).OnComplete(() => {
+
+                if (GetComponent<Bus>().rows.Count * BusManager.Instance.maxCharacterPerRow == GetComponent<Bus>().charactersList.Count)
+                {
+                    arrow.SetActive(false);
+
+                    GetComponent<Bus>().PackBus();
+                    MoveToSpawn();
+                }
+                else
+                {
+                    GetComponent<Bus>().isPickedUp = true;
+                }
+
+            });
+        });
+
+       
     }
     public void MoveToTarget(Vector3 p)
     {
@@ -98,7 +118,7 @@ public class BonusBusMovementHandler : MonoBehaviour
 
     public async void MoveToSpawn()
     {
-        await Task.Delay(2500);
+        await Task.Delay(1500);
         isGoingToPickup = false;
         timerObj.SetActive(false);
         n.enabled = true;

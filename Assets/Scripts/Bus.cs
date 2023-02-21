@@ -22,8 +22,6 @@ public class Bus : MonoBehaviour
 
 
 
-
-
     [SerializeField] public BusState state;
 
 
@@ -75,7 +73,7 @@ public class Bus : MonoBehaviour
         {
 
         }
-        if(bustype == BusType.Bus)
+        if(bustype == BusType.Bus || bustype == BusType.Bonus)
         origDoor = door.transform.position;
     }
 
@@ -94,7 +92,7 @@ public class Bus : MonoBehaviour
     {
         if (state != BusState.Moving)
         {
-            if (BusManager.Instance.selectedBus == null)
+            if (BusManager.Instance.selectedBus == null && bustype != BusType.Bonus)
             {
                 BusManager.Instance.SelectBus(this);
                 rowsCount = rows.Count;
@@ -168,7 +166,7 @@ public class Bus : MonoBehaviour
 
     public void OpenDoor()
     {
-        if (bustype == BusType.Bus)
+        if (bustype == BusType.Bus || bustype == BusType.Bonus)
         {
 
 
@@ -178,7 +176,7 @@ public class Bus : MonoBehaviour
     }
     public void CloseDoor()
     {
-        if (bustype == BusType.Bus)
+        if (bustype == BusType.Bus || bustype == BusType.Bonus)
         {
            
             door.transform.DOLocalRotate(new Vector3(0,0, 0), 0.5f, RotateMode.Fast).OnComplete(()=> {
@@ -441,6 +439,11 @@ public class Bus : MonoBehaviour
         if (isInBus && charactersList.Find(x=>x==c) == null)
         {
             charactersList.Add(c);
+            if(bustype == BusType.Bonus)
+            {
+                UIManager.Instance.SpawnAwesomeText(c.GetComponentInChildren<NavMeshAgent>().transform.position, "$1");
+                CoinManager.Instance.AddCoins(1);
+            }
             characters++;
             if (isPickedUp)
             {

@@ -64,7 +64,7 @@ public class Character : MonoBehaviour
               //  b.CheckForPassengers();
             }
 
-            if (b.bustype == BusType.Bus)
+            if (b.bustype == BusType.Bus || b.bustype == BusType.Bonus)
             {
                 if ( !isMoving)
                 {

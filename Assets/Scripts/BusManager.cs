@@ -148,6 +148,9 @@ public class BusManager : MonoBehaviour
 
                 i = maxRows;
                 break;
+            case BusType.Bonus:
+                i = maxRows;
+                break;
             case BusType.Spot:
                 i =  maxRowsPerFreeSpot;
                 break;
