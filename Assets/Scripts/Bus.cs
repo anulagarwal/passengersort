@@ -37,6 +37,8 @@ public class Bus : MonoBehaviour
     [SerializeField] Vector3 origPosLeft;
     [SerializeField] Vector3 origPosRight;
     [SerializeField] Vector3 origDoor;
+    [SerializeField] float maxXDoor =2;
+
     [SerializeField] GameObject doorWall;
 
 
@@ -63,8 +65,13 @@ public class Bus : MonoBehaviour
 
     private void Awake()
     {
-//        origPosRight = targetRightWall.position;
-//        origPosLeft = targetLeftWall.position;
+        //        origPosRight = targetRightWall.position;
+        //        origPosLeft = targetLeftWall.position;
+        if (bustype == BusType.Bus || bustype == BusType.Bonus)
+        {
+            origDoor = door.transform.position;
+            print(origDoor);
+        }
     }
     // Start is called before the first frame update
     void Start()
@@ -75,11 +82,15 @@ public class Bus : MonoBehaviour
         {
 
         }
-        if(bustype == BusType.Bus || bustype == BusType.Bonus)
-        origDoor = door.transform.position;
+        if (bustype == BusType.Bus || bustype == BusType.Bonus)
+        {
+           
+            doorWall.GetComponent<NavMeshObstacle>().enabled = false;
+            doorWall.SetActive(false);
+        }
 
-        doorWall.GetComponent<NavMeshObstacle>().enabled = false;
-        doorWall.SetActive(false);
+        maxXDoor = BusManager.Instance.xMaxDoor;
+
     }
 
     // Update is called once per frame
@@ -176,7 +187,7 @@ public class Bus : MonoBehaviour
             doorWall.SetActive(false);
             doorWall.GetComponent<NavMeshObstacle>().enabled = false;
 
-            door.transform.DOLocalRotate(new Vector3(0, 0, 120f), 0.5f, RotateMode.Fast).OnComplete(() => {
+            door.transform.DOLocalRotate(new Vector3(door.transform.localRotation.eulerAngles.x, door.transform.localRotation.eulerAngles.y, 120f), 0.5f, RotateMode.Fast).OnComplete(() => {
                 
             });
         }
@@ -187,7 +198,7 @@ public class Bus : MonoBehaviour
         {
             doorWall.SetActive(true);
             doorWall.GetComponent<NavMeshObstacle>().enabled = true;
-            door.transform.DOLocalRotate(new Vector3(0,0, 0), 0.5f, RotateMode.Fast).OnComplete(()=> {
+            door.transform.DOLocalRotate(new Vector3(door.transform.localRotation.eulerAngles.x, door.transform.localRotation.eulerAngles.y, 0), 0.5f, RotateMode.Fast).OnComplete(()=> {
              
 
             });
@@ -415,7 +426,8 @@ public class Bus : MonoBehaviour
         {
             float f = ((float)charactersList.Count - (float)((BusManager.Instance.maxRows * BusManager.Instance.maxCharacterPerRow) / 2)) / (float)(BusManager.Instance.maxRows * BusManager.Instance.maxCharacterPerRow);
             bus.SetBlendShapeWeight(0, f * 250);
-         //   door.transform.position = new Vector3(origDoor.x, origDoor.y, origDoor.z);
+            door.transform.position = new Vector3(origDoor.x + (maxXDoor * ((float)charactersList.Count/(float)((float)BusManager.Instance.maxCharacterPerRow * (float)BusManager.Instance.maxRows))), origDoor.y, origDoor.z);
+            door.transform.localRotation = Quaternion.Euler(new Vector3(door.transform.localRotation.eulerAngles.x, BusManager.Instance.xMaxAngle * ((float)charactersList.Count / (float)((float)BusManager.Instance.maxCharacterPerRow * (float)BusManager.Instance.maxRows)), door.transform.localRotation.eulerAngles.z));
            // wallLeft.position = Vector3.Lerp(origPosLeft, targetLeftWall.position, f * 250);
            // wallRight.position = Vector3.Lerp(origPosLeft, targetLeftWall.position,  f * 250);
         }
@@ -423,7 +435,8 @@ public class Bus : MonoBehaviour
         {
             //    wallRight.DOMove(origPosRight, 0.2f);
             //    wallLeft.DOMove(origPosLeft, 0.2f);
-          //  door.transform.position = origDoor;
+           // door.transform.rotation = Quaternion.Euler(Vector3.zero);
+            door.transform.position = origDoor;
 
             bus.SetBlendShapeWeight(0, 0);
         }

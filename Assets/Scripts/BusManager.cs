@@ -15,6 +15,10 @@ public class BusManager : MonoBehaviour
     [SerializeField] public int maxCharacterPerRow = 10;
     [SerializeField] public float xOffsetCharacter = 0.2f;
     [SerializeField] public float yOffsetCharacter = 0.2f;
+    [SerializeField] public float xMaxDoor = 0.2f;
+    [SerializeField] public float xMaxAngle = -15f;
+
+
     [SerializeField] public float minStopDistance = 0.4f;
     [SerializeField] public int level = 0;
     [SerializeField] public int coinsPerComplete = 75;
