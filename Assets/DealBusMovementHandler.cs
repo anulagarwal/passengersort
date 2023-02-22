@@ -58,6 +58,7 @@ public class DealBusMovementHandler : MonoBehaviour
             else if (index == wps.Count - 1 && isGoingToDeal)
             {
                 //Deal from here then wait
+                BusManager.Instance.OpenAllDoors();
                 GetComponent<DealBus>().Deal();
             }
             else if (index == wps.Count - 1 && !isGoingToDeal)

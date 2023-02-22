@@ -70,7 +70,6 @@ public class Bus : MonoBehaviour
         if (bustype == BusType.Bus || bustype == BusType.Bonus)
         {
             origDoor = door.transform.position;
-            print(origDoor);
         }
     }
     // Start is called before the first frame update
@@ -82,9 +81,8 @@ public class Bus : MonoBehaviour
         {
 
         }
-        if (bustype == BusType.Bus || bustype == BusType.Bonus)
-        {
-           
+        if (bustype == BusType.Bus)
+        {           
             doorWall.GetComponent<NavMeshObstacle>().enabled = false;
             doorWall.SetActive(false);
         }
@@ -117,7 +115,6 @@ public class Bus : MonoBehaviour
             else if (BusManager.Instance.selectedBus == this)
             {
                 BusManager.Instance.ResetSelections();
-                CloseDoor();
             }
             else if (BusManager.Instance.selectedBus != null && BusManager.Instance.enteredBus == null && BusManager.Instance.selectedBus != this)
             {
@@ -182,7 +179,7 @@ public class Bus : MonoBehaviour
 
     public void OpenDoor()
     {
-        if (bustype == BusType.Bus || bustype == BusType.Bonus)
+        if (bustype == BusType.Bus)
         {
             doorWall.SetActive(false);
             doorWall.GetComponent<NavMeshObstacle>().enabled = false;
@@ -191,15 +188,30 @@ public class Bus : MonoBehaviour
                 
             });
         }
+
+        if(bustype == BusType.Bonus)
+        {
+            door.transform.DOLocalRotate(new Vector3(door.transform.localRotation.eulerAngles.x, door.transform.localRotation.eulerAngles.y, 120f), 0.5f, RotateMode.Fast).OnComplete(() => {
+
+            });
+        }
     }
     public void CloseDoor()
     {
-        if (bustype == BusType.Bus || bustype == BusType.Bonus)
+        if (bustype == BusType.Bus )
         {
             doorWall.SetActive(true);
             doorWall.GetComponent<NavMeshObstacle>().enabled = true;
             door.transform.DOLocalRotate(new Vector3(door.transform.localRotation.eulerAngles.x, door.transform.localRotation.eulerAngles.y, 0), 0.5f, RotateMode.Fast).OnComplete(()=> {
              
+
+            });
+        }
+
+        if(bustype == BusType.Bonus)
+        {
+            door.transform.DOLocalRotate(new Vector3(door.transform.localRotation.eulerAngles.x, door.transform.localRotation.eulerAngles.y, 0), 0.5f, RotateMode.Fast).OnComplete(() => {
+
 
             });
         }
@@ -278,17 +290,15 @@ public class Bus : MonoBehaviour
             if (CheckAllPassengersIn())
             {
                 //BusManager.Instance.ResetAllDoors();
-                await Task.Delay(750);
-                CloseDoor();
                
                 //BusManager.Instance.ResetAllDoors();
                 if (IsAllRowSimilar() && charactersList.Count == BusManager.Instance.maxCharacterPerRow * BusManager.Instance.maxRows)
                 {
                     isComplete = true;
-                    await Task.Delay(500);
+                    await Task.Delay(3500);
                     PackBus();
 
-                    await Task.Delay(2000);
+                    await Task.Delay(1500);
 
                     busPoint.CompleteBus();
                     SendToTravel();
@@ -300,7 +310,7 @@ public class Bus : MonoBehaviour
     #endregion
 
     #region Bus movement
-    public void PackBus()
+    public async void PackBus()
     {
         foreach (Row r in rows)
         {
@@ -310,6 +320,7 @@ public class Bus : MonoBehaviour
         {
             o.enabled = false;
         }
+        await Task.Delay(500);
         CloseDoor();
         if (bustype == BusType.Bus)
         {
@@ -323,6 +334,7 @@ public class Bus : MonoBehaviour
 
     public void UnPackBus()
     {
+        origDoor = door.transform.position;
         foreach (Row r in rows)
         {
             r.EnableAgents();
@@ -332,9 +344,8 @@ public class Bus : MonoBehaviour
             o.enabled = true;
         }
         state = BusState.Idle;
-
+        
         if (busPoint!=null)
-
             busPoint.GetComponent<BusIndicator>().ColorBars(this);
         OpenDoor();
 
@@ -351,14 +362,7 @@ public class Bus : MonoBehaviour
         isGoingToLot = false;
         List<Waypoint> w = new List<Waypoint>();
 
-        Waypoint wp = busPoint.waypointStart.GetComponent<Waypoint>();
-        w.Add(wp);
-
-        while (!wp.isEnd)
-        {
-            wp = wp.nextPoint.GetComponent<Waypoint>();
-            w.Add(wp);
-        }
+      
         // GetComponent<BusMovementHandler>().UpdateWayPoints(w, busPoint);
         // GetComponent<BusMovementHandler>().MoveToWaypoint();
         GetComponent<BusMovementHandler>().isGoingToLot = false;
@@ -378,14 +382,6 @@ public class Bus : MonoBehaviour
         PackBus();
         List<Waypoint> w = new List<Waypoint>();
 
-        Waypoint wp = bp.waypointStart.GetComponent<Waypoint>();
-        w.Add(wp);
-
-        while (!wp.isEnd)
-        {
-            wp = wp.nextPoint.GetComponent<Waypoint>();
-            w.Add(wp);
-        }
         //  busAgent.enabled = true;
         //  busAgent.SetDestination(bp.transform.position);
 
@@ -455,6 +451,7 @@ public class Bus : MonoBehaviour
         if (isInBus && charactersList.Find(x=>x==c) == null)
         {
             charactersList.Add(c);
+            c.UpdateAgent(5, 10);
             if(bustype == BusType.Bonus)
             {
                 UIManager.Instance.SpawnAwesomeText(c.GetComponentInChildren<NavMeshAgent>().transform.position, "$1");

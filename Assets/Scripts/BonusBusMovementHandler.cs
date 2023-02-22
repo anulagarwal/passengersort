@@ -82,12 +82,14 @@ public class BonusBusMovementHandler : MonoBehaviour
 
         Vector3 v = Vector3.zero;        
             v = new Vector3(0, 90, 0);
-        
 
-        transform.DORotate(v, 0.4f).OnComplete(() =>
+        transform.DORotate(v, 0.3f).OnComplete(() =>
         {
             GetComponent<Bus>().state = BusState.Idle;
+            print("sadf");
+
             GetComponent<Bus>().UnPackBus();
+
             timerObj.SetActive(true);
             arrow.SetActive(true);
             timer.DOFillAmount(1, waitTime).OnComplete(() => {

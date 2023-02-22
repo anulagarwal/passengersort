@@ -137,7 +137,8 @@ namespace Momo
 
         public void StartLevel(int levelNumber)
         {
-         //   TinySauce.OnGameStarted(levelNumber + "");
+            //   TinySauce.OnGameStarted(levelNumber + "");
+            LionAnalytics.LevelStart(0);
             level = levelNumber;
         }
 
@@ -154,8 +155,7 @@ namespace Momo
         public void TrackBusComplete(int id)
         {
 
-
-
+            LionAnalytics.LevelStep(0, id, "bus", "complete", "completion", "buscomplete");
         }
 
         public void TrackBonusBusNew(int id)
@@ -165,16 +165,17 @@ namespace Momo
 
         public void TrackBonusBusComplete(int id)
         {
-
+            LionAnalytics.SkillUsed("" + id, "bonus", true, "none");
         }
 
         public void TrackUnlockSpace(int id)
         {
-
+            LionAnalytics.FeatureUnlocked(""+id, "unlock");
         }
 
         public void TrackDeal(int id)
         {
+            LionAnalytics.SkillUsed(""+id,"deal",true,"none");
 
         }
         public void TrackSession(SessionData sd)
@@ -205,9 +206,6 @@ namespace Momo
             d.Add("dayNumber", dd.DayNumber);
             d.Add("numberOfSessions", dd.numberOfSessions);
            // TinySauce.TrackCustomEvent("level", d);
-
-         
-
          //   TinySauce.TrackCustomEvent("level", d);
         }
         #endregion

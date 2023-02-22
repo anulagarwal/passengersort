@@ -59,7 +59,7 @@ public class BusManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        OpenAllDoors();
     }
 
     // Update is called once per frame
@@ -86,6 +86,15 @@ public class BusManager : MonoBehaviour
         }
 
     }
+
+    public void OpenAllDoors()
+    {
+        foreach (Bus b in buses)
+        {
+            if(b.bustype == BusType.Bus)
+          b.OpenDoor();
+        }
+    }
     public BusPoint GetBusPoint()
     {
         return busPoints.Find(x => x.GetPointType() == BusPointType.Empty);
@@ -107,7 +116,6 @@ public class BusManager : MonoBehaviour
         selectedBus = b;
         oldBus = b;
         GameManager.Instance.AddMove(1, MoveType.Select);
-        b.OpenDoor();
        
     }
 
@@ -136,11 +144,7 @@ public class BusManager : MonoBehaviour
     public void EnterBus(Bus b)
     {
         enteredBus = b;
-        b.UpdateCharacterSpeed(BusManager.Instance.characterSpeedHigh, BusManager.Instance.characterAccelerationHigh);
-
-        b.OpenDoor();
-
-
+      //  b.UpdateCharacterSpeed(BusManager.Instance.characterSpeedHigh, BusManager.Instance.characterAccelerationHigh);
     }
     public int GetMaxRows(BusType bt)
     {

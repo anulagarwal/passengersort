@@ -11,11 +11,13 @@ public class BonusBusProvider : MonoBehaviour
     [SerializeField] int currentBusIndex;
     [SerializeField] float timeDelay = 10f;
     [SerializeField] public bool isTimeActive = false;
+    [SerializeField] List<PreferredColors> preferredColors;
+
 
 
 
     [Header("Component References")]
-    [SerializeField] List<GameObject> buses;
+    [SerializeField] GameObject bus;
     [SerializeField] Transform spawnPos;
     [SerializeField] Transform targetPos;
 
@@ -38,6 +40,7 @@ public class BonusBusProvider : MonoBehaviour
     void Start()
     {
         StartBusTimer();
+        UIManager.Instance.UpdatePowerupButton(true, PowerupManager.Instance.GetPowerupCost(PowerupType.Deal));
     }
 
     // Update is called once per frame
@@ -53,6 +56,8 @@ public class BonusBusProvider : MonoBehaviour
             UIManager.Instance.ResetBusTimer(timeDelay);
             isTimeActive = true;
         }
+        UIManager.Instance.UpdatePowerupButton(true, PowerupManager.Instance.GetPowerupCost(PowerupType.Deal)) ;
+
     }
 
     public void StopBusTimer()
@@ -62,26 +67,26 @@ public class BonusBusProvider : MonoBehaviour
             UIManager.Instance.StopTimer();
             isTimeActive = false;
         }
-    }
-        public int GetBusIndex(int index)
-    {
+        UIManager.Instance.UpdatePowerupButton(false, PowerupManager.Instance.GetPowerupCost(PowerupType.Deal));
 
-        if (index >= buses.Count)
-        {
-            index = 0;
-        }
-        return index;
     }
+
 
     public async void SendBonusBus()
     {
-        GameObject g = Instantiate(buses[GetBusIndex(currentBusIndex)], spawnPos.position, Quaternion.identity);
+        GameObject g = Instantiate(bus, spawnPos.position, Quaternion.identity);
+        g.GetComponent<Bus>().preferredColors = preferredColors[currentBusIndex].colors;
         await Task.Delay(500);
         // g.GetComponent<Bus>().SendToParkingLot(spawnPos, BusManager.Instance.GetBusPoint());
         g.GetComponent<BonusBusMovementHandler>().MoveToTarget(targetPos.position);
         g.GetComponent<BonusBusMovementHandler>().UpdateSpawnPoint(spawnPos);
-        Momo.Analytics.Instance.TrackBonusBusNew(currentBusIndex);
         currentBusIndex++;
+        if(currentBusIndex>= preferredColors.Count)
+        {
+            currentBusIndex = 0;
+        }
+        Momo.Analytics.Instance.TrackBonusBusNew(currentBusIndex);
+
     }
 
     public void BonusBusComplete()

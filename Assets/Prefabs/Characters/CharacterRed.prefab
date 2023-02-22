@@ -201,6 +201,10 @@ PrefabInstance:
       value: 0.72
       objectReference: {fileID: 0}
     - target: {fileID: 7140516482911665661, guid: f8e83a8d46aed431fb1bd1bf897e8779, type: 3}
+      propertyPath: m_AutoBraking
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7140516482911665661, guid: f8e83a8d46aed431fb1bd1bf897e8779, type: 3}
       propertyPath: m_Acceleration
       value: 0
       objectReference: {fileID: 0}
@@ -210,7 +214,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7140516482911665661, guid: f8e83a8d46aed431fb1bd1bf897e8779, type: 3}
       propertyPath: m_StoppingDistance
-      value: 0.75
+      value: 0.65
       objectReference: {fileID: 0}
     - target: {fileID: 7140516482911665661, guid: f8e83a8d46aed431fb1bd1bf897e8779, type: 3}
       propertyPath: m_ObstacleAvoidanceType

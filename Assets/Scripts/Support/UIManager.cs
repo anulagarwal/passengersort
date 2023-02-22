@@ -258,6 +258,10 @@ public class UIManager : MonoBehaviour
 
     public void UpdatePowerupButton(bool interactable, int cost)
     {
+        if (!CoinManager.Instance.CheckForCoins(PowerupManager.Instance.GetPowerupCost(PowerupType.Deal)))
+        {
+            interactable = false;
+        }
         dealButton.interactable = interactable;
         dealCost.text = cost + "";
         Color c = dealImage.color;

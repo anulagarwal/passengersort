@@ -61,14 +61,13 @@ public class Character : MonoBehaviour
             if (b.bustype == BusType.Bus || b.bustype == BusType.Bonus)
             {
                 if (!isMoving)
-                {
-                    
+                {                    
                         UpdateState(CharacterState.Idle);
                         BusManager.Instance.RemoveCharacterFromBuses(this, b);
                         b.AddCharacter(this);
-                        UpdateAgent(5, 25);
-                        b.CheckForPassengers();
-                    
+                    UpdateAgent(5, 10);
+
+                    b.CheckForPassengers();                   
                 }
             }
             else

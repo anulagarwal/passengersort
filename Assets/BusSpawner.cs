@@ -21,6 +21,16 @@ public class BusSpawner : MonoBehaviour
         }
     }
 
+    public void UpdateRows(BusRow br)
+    {
+        rows.Clear();
+        foreach(Row r in br.rows)
+        {
+            Row x = new Row();
+            x.color = r.color;
+            rows.Add(x);
+        }
+    }
     // Update is called once per frame
     void Update()
     {

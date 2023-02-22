@@ -2016,6 +2016,8 @@ MonoBehaviour:
   origPosLeft: {x: 0, y: 0, z: 0}
   origPosRight: {x: 0, y: 0, z: 0}
   origDoor: {x: 0, y: 0, z: 0}
+  maxXDoor: 0
+  doorWall: {fileID: 0}
   targetLeftWall: {fileID: 7570997643608865480}
   targetRightWall: {fileID: 5035734410703722857}
   targetDoor: {fileID: 2415513466323334171}
@@ -2101,7 +2103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsDealBus: 0
-  IsSpawnBus: 0
+  IsSpawnBus: 1
   rows:
   - characters: []
     color: 1
