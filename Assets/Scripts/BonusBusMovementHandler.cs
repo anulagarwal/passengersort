@@ -86,7 +86,6 @@ public class BonusBusMovementHandler : MonoBehaviour
         transform.DORotate(v, 0.3f).OnComplete(() =>
         {
             GetComponent<Bus>().state = BusState.Idle;
-            print("sadf");
 
             GetComponent<Bus>().UnPackBus();
 

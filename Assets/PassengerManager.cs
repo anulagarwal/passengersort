@@ -103,16 +103,17 @@ public class PassengerManager : MonoBehaviour
                 }
                 if (col == CharacterColor.Red)
                 {
-                    c = CharacterColor.Green;
+                    c = CharacterColor.Yellow;
                 }
                 if(col == CharacterColor.Yellow)
                 {
-                    c = CharacterColor.Blue;
+                    c = CharacterColor.Green;
                 }
                 if (col == CharacterColor.Green)
                 {
-                    c = CharacterColor.Yellow;
+                    c = CharacterColor.Blue;
                 }
+                
             }
             else if (level >= 1)
             {
@@ -137,7 +138,12 @@ public class PassengerManager : MonoBehaviour
 
         return c;
     }
+    public CharacterColor GetRandomColor()
+    {
 
+        int i = Random.Range(0, passengers.Count);
+        return passengers[i].color;
+    }
     public CharacterColor GetRandomColorBasedOnLevel()
     {
         int level = BusManager.Instance.level;
@@ -158,7 +164,7 @@ public class PassengerManager : MonoBehaviour
         }
         else if (level >= 1)
         {
-            random = Random.Range(0, 3);
+            random = Random.Range(0, 4);
             if (random == 0)
             {
                 c = CharacterColor.Red;
@@ -170,6 +176,10 @@ public class PassengerManager : MonoBehaviour
             if (random == 2)
             {
                 c = CharacterColor.Yellow;
+            }
+            if (random == 3)
+            {
+                c = CharacterColor.Green;
             }
         }
 

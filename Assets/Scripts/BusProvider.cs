@@ -38,8 +38,45 @@ public class BusProvider : MonoBehaviour
     {
         //Spawn a bus and send it to target location
         //After bus reaches target location, it will be activated
+
+        int x = BusManager.Instance.GetBusesNoMax().Count;
         GameObject g = Instantiate(bus, busStartPoint.position, Quaternion.identity);
-        g.GetComponent<BusSpawner>().UpdateRows(busRows[currentBusIndex]);
+
+        if (currentBusIndex>= busRows.Count)
+        {
+            int max = 0;
+            if (x == 0)
+            {
+                max = 1;
+            }
+
+            if (x == 1 || x==2)
+            {
+                max = 2;
+            }
+
+            if (x == 3)
+            {
+                max = 3;
+            }
+            if (x == 4)
+            {
+                max = 4;
+            }
+            BusRow br = new BusRow();
+
+            for (int i =0; i<max; i++)
+            {
+                Row r = new Row();
+                r.color = PassengerManager.Instance.GetRandomColor();
+                br.rows.Add(r);
+            }
+            g.GetComponent<BusSpawner>().UpdateRows(br);
+        }
+        else
+        {
+            g.GetComponent<BusSpawner>().UpdateRows(busRows[currentBusIndex]);
+        }
         g.GetComponent<BusSpawner>().Spawn(BusManager.Instance.GetBusPoint());
         await Task.Delay(500);
         g.GetComponent<Bus>().SendToParkingLot(pos, BusManager.Instance.GetBusPoint());

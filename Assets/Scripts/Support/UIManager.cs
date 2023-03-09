@@ -258,7 +258,7 @@ public class UIManager : MonoBehaviour
 
     public void UpdatePowerupButton(bool interactable, int cost)
     {
-        if (!CoinManager.Instance.CheckForCoins(PowerupManager.Instance.GetPowerupCost(PowerupType.Deal)))
+        if (!CoinManager.Instance.CheckForCoins(PowerupManager.Instance.GetPowerupCost(PowerupType.Deal)) && BonusBusProvider.Instance.isTimeActive)
         {
             interactable = false;
         }

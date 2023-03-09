@@ -14,13 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rows:
   - characters: []
-    color: 0
+    color: 1
     maxCharacters: 0
     position: {x: 0, y: 0, z: 0}
     isToSpawn: 0
     bus: {fileID: 0}
   - characters: []
-    color: 1
+    color: 3
+    maxCharacters: 0
+    position: {x: 0, y: 0, z: 0}
+    isToSpawn: 0
+    bus: {fileID: 0}
+  - characters: []
+    color: 2
     maxCharacters: 0
     position: {x: 0, y: 0, z: 0}
     isToSpawn: 0

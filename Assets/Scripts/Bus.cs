@@ -200,20 +200,12 @@ public class Bus : MonoBehaviour
     {
         if (bustype == BusType.Bus )
         {
-            doorWall.SetActive(true);
-            doorWall.GetComponent<NavMeshObstacle>().enabled = true;
-            door.transform.DOLocalRotate(new Vector3(door.transform.localRotation.eulerAngles.x, door.transform.localRotation.eulerAngles.y, 0), 0.5f, RotateMode.Fast).OnComplete(()=> {
-             
-
-            });
+            door.transform.DOLocalRotate(new Vector3(door.transform.localRotation.eulerAngles.x, door.transform.localRotation.eulerAngles.y, 0), 0.5f, RotateMode.Fast);
         }
 
         if(bustype == BusType.Bonus)
         {
-            door.transform.DOLocalRotate(new Vector3(door.transform.localRotation.eulerAngles.x, door.transform.localRotation.eulerAngles.y, 0), 0.5f, RotateMode.Fast).OnComplete(() => {
-
-
-            });
+            door.transform.DOLocalRotate(new Vector3(door.transform.localRotation.eulerAngles.x, door.transform.localRotation.eulerAngles.y, 0), 0.5f, RotateMode.Fast);
         }
     }
 
@@ -295,6 +287,11 @@ public class Bus : MonoBehaviour
                 if (IsAllRowSimilar() && charactersList.Count == BusManager.Instance.maxCharacterPerRow * BusManager.Instance.maxRows)
                 {
                     isComplete = true;
+                    if (bustype == BusType.Bus)
+                    {
+                        doorWall.SetActive(true);
+                        doorWall.GetComponent<NavMeshObstacle>().enabled = true;
+                    }
                     await Task.Delay(3500);
                     PackBus();
 
@@ -327,6 +324,8 @@ public class Bus : MonoBehaviour
             doorWall.SetActive(false);
             doorWall.GetComponent<NavMeshObstacle>().enabled = false;
         }
+
+
         state = BusState.Moving;
         if(busPoint!=null)
         busPoint.GetComponent<BusIndicator>().DisableBar();
@@ -347,6 +346,14 @@ public class Bus : MonoBehaviour
         
         if (busPoint!=null)
             busPoint.GetComponent<BusIndicator>().ColorBars(this);
+
+        if (bustype == BusType.Bus)
+        {
+            doorWall.SetActive(false);
+            doorWall.GetComponent<NavMeshObstacle>().enabled = false;
+        }
+
+
         OpenDoor();
 
     }
